@@ -64,9 +64,18 @@
 
 <main>
 
+<!--
+  One continuous pattern layer runs behind everything from here through
+  "Echipa noastră" — Figma treats it as a single unbroken idea, not one
+  instance per section. A separate instance per section (the previous
+  approach) rescales the same artwork to each section's own height, so the
+  wedge scale visibly resets at every boundary.
+-->
+<div class="pattern-run">
+  <div class="pattern pattern-run__bg" aria-hidden="true"></div>
+
 <!-- ========================================================== PILLARS -->
 <section class="section pillars" aria-label="De ce Istorii cu Cașcaval">
-  <div class="pattern" aria-hidden="true"></div>
   <div class="container">
     <ul class="pillars__grid">
       <li class="pillar" data-reveal-item="media">
@@ -113,13 +122,12 @@
 -->
 <div class="why-pin" data-why-pin>
 <section class="why" id="why" aria-label="De ce investitorii aleg Istorii cu Cașcaval">
-  <div class="pattern" aria-hidden="true"></div>
 
   <div class="why__inner">
     <div class="why__col">
       <div class="why__head">
         <p class="eyebrow eyebrow--start">Business</p>
-        <h2 class="section-title why__title">De ce investitorii aleg Istorii cu Cașcaval</h2>
+        <h2 class="section-title why__title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">De</span> <span class="stagger__word" style="--i:1">ce</span> <span class="stagger__word" style="--i:2">investitorii</span> <span class="stagger__word" style="--i:3">aleg</span> <span class="stagger__word" style="--i:4">Istorii</span> <span class="stagger__word" style="--i:5">cu</span> <span class="stagger__word" style="--i:6">Cașcaval</span></h2>
       </div>
 
       <div class="why__steps" data-why-steps>
@@ -194,7 +202,7 @@
   <div class="container numbers__inner">
     <div class="section-head">
       <p class="eyebrow">Oportunitate</p>
-      <h2 class="section-title">Cifrele care contează</h2>
+      <h2 class="section-title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Cifrele</span> <span class="stagger__word" style="--i:1">care</span> <span class="stagger__word" style="--i:2">contează</span></h2>
     </div>
 
     <div class="numbers__grid" data-reveal="stagger">
@@ -249,9 +257,8 @@
 
 <!-- ======================================================== DIFFERENT -->
 <section class="different" aria-label="Ce face acest concept diferit">
-  <div class="pattern" aria-hidden="true"></div>
   <div class="container different__inner">
-    <h2 class="section-title different__title">Ce face acest concept diferit?</h2>
+    <h2 class="section-title different__title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Ce</span> <span class="stagger__word" style="--i:1">face</span> <span class="stagger__word" style="--i:2">acest</span> <span class="stagger__word" style="--i:3">concept</span> <span class="stagger__word" style="--i:4">diferit?</span></h2>
 
     <div class="different__claim">
       <p class="different__kicker">Nu vindem doar brânzeturi</p>
@@ -277,7 +284,6 @@
 
 <!-- ========================================================= BENEFITS -->
 <section class="benefits" id="ce-primesti" aria-label="Ce primești ca partener">
-  <div class="pattern" aria-hidden="true"></div>
   <div class="benefits__inner">
     <div class="container section-head benefits__head">
       <p class="eyebrow">Beneficiile brandului</p>
@@ -318,7 +324,7 @@
   <div class="container fit__inner">
     <div class="section-head">
       <p class="eyebrow">Oportunitate</p>
-      <h2 class="section-title">Este această franciză potrivită pentru tine?</h2>
+      <h2 class="section-title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Este</span> <span class="stagger__word" style="--i:1">această</span> <span class="stagger__word" style="--i:2">franciză</span> <span class="stagger__word" style="--i:3">potrivită</span> <span class="stagger__word" style="--i:4">pentru</span> <span class="stagger__word" style="--i:5">tine?</span></h2>
     </div>
 
     <div class="fit__grid" data-reveal="sides">
@@ -368,12 +374,11 @@
 
 <!-- ============================================================= TEAM -->
 <section class="team" id="echipa" aria-label="Echipa noastră">
-  <div class="pattern" aria-hidden="true"></div>
   <div class="container team__inner">
     <div class="team__head">
       <div class="team__headings">
         <p class="eyebrow eyebrow--start">Echipa noastră</p>
-        <h2 class="section-title">Echipa care dezvoltă fiecare nouă istorie</h2>
+        <h2 class="section-title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Echipa</span> <span class="stagger__word" style="--i:1">care</span> <span class="stagger__word" style="--i:2">dezvoltă</span> <span class="stagger__word" style="--i:3">fiecare</span> <span class="stagger__word" style="--i:4">nouă</span> <span class="stagger__word" style="--i:5">istorie</span></h2>
       </div>
       <p class="team__intro">În spatele fiecărui magazin de succes se află o echipă dedicată, care crede în puterea unui parteneriat construit pe încredere, profesionalism și obiective comune. La Istorii cu Cașcaval, nu oferim doar un model de afacere, ci și experiența, cunoștințele și sprijinul unei echipe care îți este alături la fiecare etapă. De la primele planuri și până la dezvoltarea continuă a afacerii, lucrăm împreună pentru ca fiecare francizat să scrie propria poveste de succes.</p>
     </div>
@@ -418,14 +423,15 @@
     </ul>
   </div>
 </section>
+</div> <!-- /.pattern-run -->
 
 <!-- ======================================================== LOCATIONS -->
+<!-- No pattern here by design — Figma's frame for this section is plain. -->
 <section class="locations" id="locatii" aria-label="Locațiile noastre">
-  <div class="pattern" aria-hidden="true"></div>
   <div class="container locations__inner">
     <div class="locations__head">
       <p class="eyebrow">Locațiile noastre</p>
-      <h2 class="section-title">Următoarea locație poate fi în orașul tău</h2>
+      <h2 class="section-title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Următoarea</span> <span class="stagger__word" style="--i:1">locație</span> <span class="stagger__word" style="--i:2">poate</span> <span class="stagger__word" style="--i:3">fi</span> <span class="stagger__word" style="--i:4">în</span> <span class="stagger__word" style="--i:5">orașul</span> <span class="stagger__word" style="--i:6">tău</span></h2>
       <p class="locations__lead">Astăzi suntem prezenți în Chișinău, Ungheni și Iași.<br>Mâine putem deschide împreună în București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.</p>
     </div>
 

@@ -366,9 +366,16 @@ window.ICC_MOTION = (function (defaults, overrides) {
    * property, so all this does is flip the switch on the next frame — late
    * enough that the transition actually runs rather than being skipped as an
    * initial style.
+   *
+   * Section titles use the same word-span markup but carry
+   * `data-stagger="scroll"` instead, so they're excluded here and handled by
+   * initSectionTitleStagger below — the visitor hasn't scrolled to them yet
+   * at load time, so firing them immediately would waste the effect.
    */
   function initTitleStagger() {
-    var titles = all('[data-stagger]');
+    var titles = all('[data-stagger]').filter(function (t) {
+      return t.getAttribute('data-stagger') !== 'scroll';
+    });
     if (!titles.length) return;
 
     function go() {
@@ -396,6 +403,35 @@ window.ICC_MOTION = (function (defaults, overrides) {
     } else {
       start();
     }
+  }
+
+  /*
+   * Each section's own heading — "Cifrele care contează" and the like —
+   * staggers in the first time the visitor scrolls to it. Same markup and
+   * CSS as the page title; only the trigger differs.
+   */
+  function initSectionTitleStagger() {
+    var titles = all('[data-stagger="scroll"]');
+    if (!titles.length) return;
+
+    if (reduced || !('IntersectionObserver' in window)) {
+      titles.forEach(function (t) {
+        t.setAttribute('data-stagger', 'ready');
+      });
+      return;
+    }
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.setAttribute('data-stagger', 'ready');
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
+
+    titles.forEach(function (t) {
+      io.observe(t);
+    });
   }
 
   /* ================================================ 5/6/7. REVEALS */
@@ -697,6 +733,7 @@ window.ICC_MOTION = (function (defaults, overrides) {
 
   onReady(function () {
     initTitleStagger();
+    initSectionTitleStagger();
     initScrollModal();
     initWhyPin();
     initWordReel();

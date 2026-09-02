@@ -198,6 +198,42 @@ html {
   --pattern-color: #c3b6a2;
 }
 
+/*
+ * The shared instance spanning pillars → team (see .pattern-run below).
+ * `cover`-scaling one copy across a region this tall would zoom in on a
+ * couple of wedges until they're just large flat fields — checked, and that
+ * is exactly what happens. So this layer tiles instead, at a fixed pixel
+ * size, which holds the scale steady across every section boundary. Tiling
+ * the source panel directly showed a jump at the seam (it was never authored
+ * to repeat); `pattern-seamless.svg` is a 2×2 mirrored supertile built from
+ * it, so every edge meets its own reflection and the repeat is invisible.
+ *
+ * A second mask layer — a gradient fixed to the last ~900px — fades it to
+ * nothing before "Locațiile noastre", which has no pattern in the design.
+ * Composited with the wedge shape via `intersect`, the same technique the
+ * notched cards use for their punched-circle corners.
+ */
+.pattern-run {
+  position: relative;
+}
+
+.pattern-run__bg {
+  -webkit-mask-image:
+    url('../svg/pattern-seamless.svg'),
+    linear-gradient(to top, transparent 0, #000 900px, #000 100%);
+  -webkit-mask-size: 1200px 971px, 100% 100%;
+  -webkit-mask-repeat: repeat, no-repeat;
+  -webkit-mask-position: top center, center;
+  -webkit-mask-composite: source-in;
+  mask-image:
+    url('../svg/pattern-seamless.svg'),
+    linear-gradient(to top, transparent 0, #000 900px, #000 100%);
+  mask-size: 1200px 971px, 100% 100%;
+  mask-repeat: repeat, no-repeat;
+  mask-position: top center, center;
+  mask-composite: intersect;
+}
+
 /* --------------------------------------------------------- Typography */
 
 .eyebrow {
