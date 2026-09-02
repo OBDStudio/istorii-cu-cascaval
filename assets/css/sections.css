@@ -231,6 +231,18 @@
   color: var(--c-white);
 }
 
+/*
+ * Berkshire Swash (--font-deco) ships no Cyrillic glyphs whatsoever, so on the
+ * Russian pages these four titles would drop to whatever serif the OS happens
+ * to supply — a different face on every visitor's machine. Kurale is the
+ * display serif already carrying every other heading on the site and it does
+ * have Cyrillic, so it takes over here. Slightly less decorative, but it stays
+ * inside the type system instead of leaving it.
+ */
+:lang(ru) .pillar__title {
+  font-family: var(--font-display);
+}
+
 .pillar__flourish {
   margin-top: 11px;
   color: var(--c-white);

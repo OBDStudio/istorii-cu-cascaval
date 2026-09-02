@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Istorii cu Cașcaval — стать франчайзи</title>
+<meta name="description" content="Istorii cu Cașcaval — одна из немногих франшиз в регионе, которая сочетает премиальный сегмент, низкую конкуренцию и покупательский опыт, который трудно повторить.">
+
+<script>document.documentElement.classList.add('has-motion');</script>
+<link rel="alternate" hreflang="ro" href="../index.html">
+<link rel="alternate" hreflang="ru" href="index.html">
+<link rel="alternate" hreflang="en" href="../en/index.html">
+<link rel="alternate" hreflang="x-default" href="../index.html">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/img/favicon-180.png">
+<link rel="preload" href="../assets/fonts/kurale-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/onest-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="../assets/css/fonts.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/sections.css">
+<link rel="stylesheet" href="../assets/css/motion.css">
+</head>
+<body>
+
+<!-- ============================================================== HERO -->
+<header class="hero">
+  <img class="hero__bg" src="../assets/img/hero-bg.png" alt="" width="1234" height="720" fetchpriority="high">
+
+  <div class="hero__bar">
+    <a href="index.html" aria-label="Istorii cu Cașcaval — главная страница">
+      <img class="hero__logo" src="../assets/svg/logo.svg" alt="Istorii cu Cașcaval" width="132" height="167">
+    </a>
+
+    <!-- Language switcher: currently Romanian only. Extra locales get added
+         here once the translations exist. -->
+    <div class="hero__lang">
+      <button type="button" class="lang" data-lang-toggle aria-expanded="false" aria-haspopup="listbox">
+        <span>Ru</span>
+        <span class="lang__caret" aria-hidden="true"></span>
+      </button>
+      <div class="lang__menu" data-lang-menu role="listbox" aria-label="Выберите язык">
+        <a class="lang__option" role="option" hreflang="ro" href="../index.html">Română</a>
+        <a class="lang__option" role="option" hreflang="ru" aria-current="true" href="index.html">Русский</a>
+        <a class="lang__option" role="option" hreflang="en" href="../en/index.html">English</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__content">
+    <h1 class="hero__title stagger" data-stagger><span class="stagger__word" style="--i:0">Инвестируйте</span> <span class="stagger__word" style="--i:1">в</span> <span class="stagger__word" style="--i:2">премиальный</span> <span class="stagger__word" style="--i:3">концепт,</span> <span class="stagger__word" style="--i:4">который</span> <span class="stagger__word" style="--i:5">уже</span> <span class="stagger__word" style="--i:6">работает</span></h1>
+    <p class="hero__lead">Istorii cu Cașcaval — одна из немногих франшиз в регионе, которая сочетает премиальный сегмент, низкую конкуренцию и покупательский опыт, который трудно повторить.</p>
+    <button type="button" class="btn" data-open-modal>Стать франчайзи</button>
+  </div>
+
+  <!--
+    The hero now fills the viewport, so nothing peeks from below to signal
+    there is more page. This restores that cue, reusing the arrow motif the
+    "why" section already uses.
+  -->
+  <a class="hero__scroll" href="#why" aria-label="Прокрутите вниз">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M18.07 14.43L12 20.5L5.93 14.43" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3.5V20.33" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</header>
+
+<main>
+
+<!--
+  One continuous pattern layer runs behind everything from here through
+  "Echipa noastră" — Figma treats it as a single unbroken idea, not one
+  instance per section. A separate instance per section (the previous
+  approach) rescales the same artwork to each section's own height, so the
+  wedge scale visibly resets at every boundary.
+-->
+<div class="pattern-run">
+  <div class="pattern pattern-run__bg" aria-hidden="true"></div>
+
+<!-- ========================================================== PILLARS -->
+<section class="section pillars" aria-label="Почему Istorii cu Cașcaval">
+  <div class="container">
+    <ul class="pillars__grid">
+      <li class="pillar" data-reveal-item="media">
+        <div class="pillar__media notched notched--pillar">
+          <img src="../assets/img/pillar-business.jpg" alt="Сотрудница нарезает кашкавал в магазине" width="700" height="1050" loading="lazy">
+        </div>
+          <h2 class="pillar__title">Бизнес</h2>
+        <span class="pillar__flourish flourish" aria-hidden="true"></span>
+        <p class="pillar__text">Проверенная операционная модель</p>
+      </li>
+      <li class="pillar" data-reveal-item="media">
+        <div class="pillar__media notched notched--pillar">
+          <img src="../assets/img/pillar-oportunitate.jpg" alt="Гости чокаются бокалами на дегустации" width="700" height="467" loading="lazy">
+        </div>
+          <h2 class="pillar__title">Возможность</h2>
+        <span class="pillar__flourish flourish" aria-hidden="true"></span>
+        <p class="pillar__text">Растущий рынок</p>
+      </li>
+      <li class="pillar" data-reveal-item="media">
+        <div class="pillar__media notched notched--pillar">
+          <img src="../assets/img/pillar-roi.jpg" alt="Продавец обслуживает клиента в магазине" width="700" height="467" loading="lazy">
+        </div>
+          <h2 class="pillar__title">ROI</h2>
+        <span class="pillar__flourish flourish" aria-hidden="true"></span>
+        <p class="pillar__text">Окупаемость примерно за 14 месяцев</p>
+      </li>
+      <li class="pillar" data-reveal-item="media">
+        <div class="pillar__media notched notched--pillar">
+          <img src="../assets/img/pillar-suport.jpg" alt="Сотрудница раскладывает продукты на полке" width="700" height="467" loading="lazy">
+        </div>
+          <h2 class="pillar__title">Поддержка</h2>
+        <span class="pillar__flourish flourish" aria-hidden="true"></span>
+        <p class="pillar__text">Полное сопровождение от открытия до масштабирования</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================== WHY -->
+<!--
+  The wrapper provides the scroll distance; the section inside sticks to the
+  viewport while the three steps advance. Without JS (or on mobile) the wrapper
+  collapses and the steps simply stack.
+-->
+<div class="why-pin" data-why-pin>
+<section class="why" id="why" aria-label="Почему инвесторы выбирают Istorii cu Cașcaval">
+
+  <div class="why__inner">
+    <div class="why__col">
+      <div class="why__head">
+        <p class="eyebrow eyebrow--start">Бизнес</p>
+        <h2 class="section-title why__title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Почему</span> <span class="stagger__word" style="--i:1">инвесторы</span> <span class="stagger__word" style="--i:2">выбирают</span> <span class="stagger__word" style="--i:3">Istorii</span> <span class="stagger__word" style="--i:4">cu</span> <span class="stagger__word" style="--i:5">Cașcaval</span></h2>
+      </div>
+
+      <div class="why__steps" data-why-steps>
+        <!-- Step 1 -->
+        <div class="why__step" data-why-step="1">
+          <h3 class="why__step-title">Вы продаёте продукт, который люди уже ищут</h3>
+          <ul class="why__list">
+            <li class="why__item"><span class="why__num">01</span><p>Премиальные сыры — не мода.</p></li>
+            <li class="why__item"><span class="why__num">02</span><p>Это часть потребительского тренда на качество, впечатления и аутентичные продукты.</p></li>
+            <li class="why__item"><span class="why__num">03</span><p>Клиенты покупают для повседневного потребления, подарков, мероприятий и гастрономических впечатлений.</p></li>
+            <li class="why__item"><span class="why__num">04</span><p>Это означает постоянный трафик и множество возможностей для продаж.</p></li>
+          </ul>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="why__step" data-why-step="2">
+          <h3 class="why__step-title">Вы входите в категорию с ограниченной конкуренцией</h3>
+          <ul class="why__list">
+            <li class="why__item"><span class="why__num">01</span><p>Все открывают кофейни</p></li>
+            <li class="why__item"><span class="why__num">02</span><p>Все открывают рестораны</p></li>
+            <li class="why__item"><span class="why__num">03</span><p><strong>Здесь и появляется преимущество.</strong> Вы не боретесь за внимание на переполненном рынке.</p></li>
+            <li class="why__item"><span class="why__num">04</span><p>Вы создаёте место притяжения.</p></li>
+          </ul>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="why__step" data-why-step="3">
+          <h3 class="why__step-title">Вы получаете уже оптимизированную модель</h3>
+          <p class="why__step-intro">Мы уже прошли самые затратные этапы…</p>
+          <ul class="why__list">
+            <li class="why__item"><span class="why__num">01</span><p>Подбор ассортимента</p></li>
+            <li class="why__item"><span class="why__num">02</span><p>Тестирование локаций</p></li>
+            <li class="why__item"><span class="why__num">03</span><p>Оптимизация маржи</p></li>
+            <li class="why__item"><span class="why__num">04</span><p>Переговоры с поставщиками</p></li>
+            <li class="why__item"><span class="why__num">05</span><p>Построение операционных процессов</p></li>
+          </ul>
+          <p class="why__outro">Вы начинаете с накопленным опытом, а не методом проб и ошибок</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="why__media notched notched--why" data-reveal-item="media">
+      <img src="../assets/img/why-1.jpg" alt="Сотрудница готовит кашкавал в магазине" data-why-image="1" data-active="true" width="1100" height="1650" loading="lazy">
+      <img src="../assets/img/why-2.jpg" alt="Гости на дегустации под открытым небом" data-why-image="2" width="1100" height="734" loading="lazy">
+    </div>
+  </div>
+
+  <div class="why__rail" aria-hidden="true">
+    <div class="why__rail-nums" data-why-nums>
+      <span data-active="true">1</span>
+      <span>2</span>
+      <span>3</span>
+    </div>
+    <div class="why__rail-track">
+      <span class="why__rail-thumb" data-why-thumb></span>
+    </div>
+  </div>
+
+  <div class="why__scroll-hint" data-scroll-hint>
+    <p>Продолжайте прокручивать</p>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M18.07 14.43L12 20.5L5.93 14.43" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3.5V20.33" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+</div>
+
+<!-- ========================================================== NUMBERS -->
+<section class="section section--light numbers" id="oportunitate" aria-label="Цифры, которые имеют значение">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="container numbers__inner">
+    <div class="section-head">
+      <p class="eyebrow">Возможность</p>
+      <h2 class="section-title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Цифры,</span> <span class="stagger__word" style="--i:1">которые</span> <span class="stagger__word" style="--i:2">имеют</span> <span class="stagger__word" style="--i:3">значение</span></h2>
+    </div>
+
+    <div class="numbers__grid" data-reveal="stagger">
+      <article class="stat notched notched--stat-a" data-reveal-item>
+        <h3 class="stat__title">Первоначальные инвестиции</h3>
+        <div class="stat__list">
+          <div>
+            <p class="stat__value">43.400€</p>
+            <p class="stat__label">Оценочная сумма инвестиций</p>
+          </div>
+          <div>
+            <p class="stat__value">1–2 месяца</p>
+            <p class="stat__label">Точка безубыточности</p>
+            <p class="stat__hint">break-even</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="stat notched notched--stat-b" data-reveal-item>
+        <h3 class="stat__title">Окупаемость инвестиций</h3>
+        <div class="stat__list">
+          <div>
+            <p class="stat__value">~14 месяцев</p>
+            <p class="stat__label">Окупаемость инвестиций</p>
+            <p class="stat__hint">ROI</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="stat stat--dark notched notched--stat-c" data-reveal-item>
+        <h3 class="stat__title">Ожидаемая прибыль в месяц</h3>
+        <div class="stat__list">
+          <div>
+            <p class="stat__value">2.600€</p>
+            <p class="stat__label">В месяц в первый год</p>
+          </div>
+          <div>
+            <p class="stat__value">3.700€</p>
+            <p class="stat__label">В месяц со второго года</p>
+          </div>
+          <div>
+            <p class="stat__value">4.300€</p>
+            <p class="stat__label">В месяц с третьего года</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <button type="button" class="btn" data-open-modal>Стать франчайзи</button>
+  </div>
+</section>
+
+<!-- ======================================================== DIFFERENT -->
+<section class="different" aria-label="Что делает этот концепт особенным">
+  <div class="container different__inner">
+    <h2 class="section-title different__title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Что</span> <span class="stagger__word" style="--i:1">делает</span> <span class="stagger__word" style="--i:2">этот</span> <span class="stagger__word" style="--i:3">концепт</span> <span class="stagger__word" style="--i:4">особенным?</span></h2>
+
+    <div class="different__claim">
+      <p class="different__kicker">Мы продаём не только сыры</p>
+      <p class="different__line">
+        <span>Мы продаём</span>
+        <!-- The gold word cycles as the section scrolls past -->
+        <span class="different__slot" data-word-slot>
+          <span data-active="true">открытия</span>
+          <span>рекомендации</span>
+          <span>впечатления</span>
+          <span>подарки</span>
+          <span>истории</span>
+        </span>
+      </p>
+    </div>
+
+    <p class="different__note">
+      Это <strong>формирует лояльность</strong> и повышает <strong>ценность</strong> каждого клиента.<br>
+      Поэтому модель способна давать более высокую маржу, чем обычный продуктовый магазин.
+    </p>
+  </div>
+</section>
+
+<!-- ========================================================= BENEFITS -->
+<section class="benefits" id="ce-primesti" aria-label="Что вы получаете как партнёр">
+  <div class="benefits__inner">
+    <div class="container section-head benefits__head">
+      <p class="eyebrow">Преимущества бренда</p>
+      <h2 class="section-title">Что вы получаете как партнёр</h2>
+    </div>
+
+    <div class="benefits__viewport" data-carousel>
+      <ul class="benefits__track" data-carousel-track>
+        <li class="benefit"><img src="../assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Готовый бренд</p></li>
+        <li class="benefit"><img src="../assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Проверенные поставщики</p></li>
+        <li class="benefit"><img src="../assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Эксклюзивные продукты</p></li>
+        <li class="benefit"><img src="../assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Полный дизайн локации</p></li>
+        <li class="benefit"><img src="../assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Обучение команды</p></li>
+        <li class="benefit"><img src="../assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Маркетинговая стратегия</p></li>
+        <li class="benefit"><img src="../assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Постоянная операционная поддержка</p></li>
+        <li class="benefit"><img src="../assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Поддержка развития и расширения</p></li>
+      </ul>
+    </div>
+
+    <div class="benefits__nav">
+      <button type="button" class="benefits__btn benefits__btn--prev" data-carousel-prev aria-label="Предыдущее преимущество">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M11.25 14.167 7.083 10l4.167-4.167" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button type="button" class="benefits__btn benefits__btn--next" data-carousel-next aria-label="Следующее преимущество">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M11.25 14.167 7.083 10l4.167-4.167" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================== FIT -->
+<section class="section section--light fit" aria-label="Подходит ли вам эта франшиза">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="container fit__inner">
+    <div class="section-head">
+      <p class="eyebrow">Возможность</p>
+      <h2 class="section-title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Подходит</span> <span class="stagger__word" style="--i:1">ли</span> <span class="stagger__word" style="--i:2">вам</span> <span class="stagger__word" style="--i:3">эта</span> <span class="stagger__word" style="--i:4">франшиза?</span></h2>
+    </div>
+
+    <div class="fit__grid" data-reveal="sides">
+      <article class="fit__card fit__card--no notched notched--fit" data-reveal-item>
+        <h3 class="fit__card-title">Нет, если</h3>
+        <ul class="fit__list">
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m7.64 12.36 4.72-4.72M12.36 12.36 7.64 7.64" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Вы ищете пассивный доход без вовлечённости</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m7.64 12.36 4.72-4.72M12.36 12.36 7.64 7.64" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Вы хотите окупить инвестиции за несколько месяцев</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m7.64 12.36 4.72-4.72M12.36 12.36 7.64 7.64" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Вы не готовы соблюдать стандарты бренда</span>
+          </li>
+        </ul>
+      </article>
+
+      <article class="fit__card fit__card--yes notched notched--fit" data-reveal-item>
+        <h3 class="fit__card-title">Да, если</h3>
+        <ul class="fit__list">
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m6.46 10 2.36 2.36 4.72-4.72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Вы хотите офлайн-бизнес с премиальным продуктом</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m6.46 10 2.36 2.36 4.72-4.72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>У вас есть инвестиционный капитал от 45 000 EUR</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m6.46 10 2.36 2.36 4.72-4.72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Вы готовы управлять лично или координировать управляющего</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m6.46 10 2.36 2.36 4.72-4.72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Вы ищете бизнес на долгий срок</span>
+          </li>
+        </ul>
+        <button type="button" class="btn fit__cta" data-open-modal>Стать франчайзи</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= TEAM -->
+<section class="team" id="echipa" aria-label="Наша команда">
+  <div class="container team__inner">
+    <div class="team__head">
+      <div class="team__headings">
+        <p class="eyebrow eyebrow--start">Наша команда</p>
+        <h2 class="section-title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Команда,</span> <span class="stagger__word" style="--i:1">которая</span> <span class="stagger__word" style="--i:2">развивает</span> <span class="stagger__word" style="--i:3">каждую</span> <span class="stagger__word" style="--i:4">новую</span> <span class="stagger__word" style="--i:5">историю</span></h2>
+      </div>
+      <p class="team__intro">За каждым успешным магазином стоит преданная команда, которая верит в силу партнёрства, построенного на доверии, профессионализме и общих целях. В Istorii cu Cașcaval мы предлагаем не только бизнес-модель, но и опыт, знания и поддержку команды, которая рядом с вами на каждом этапе. От первых планов до постоянного развития бизнеса мы работаем вместе, чтобы каждый франчайзи написал свою собственную историю успеха.</p>
+    </div>
+
+    <ul class="team__grid" data-team-grid data-reveal="stagger">
+      <li class="member" data-reveal-item="media">
+        <img src="../assets/img/team-cristina-rusu.jpg" alt="Cristina Rusu" width="800" height="1200" loading="lazy">
+        <div class="member__meta"><p class="member__name">Cristina Rusu</p><p class="member__role">Менеджер по развитию франшизы</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="../assets/img/team-andrei-munteanu.jpg" alt="Andrei Munteanu" width="800" height="534" loading="lazy">
+        <div class="member__meta"><p class="member__name">Andrei Munteanu</p><p class="member__role">Операционный директор</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="../assets/img/team-sergiu-cebotari.jpg" alt="Sergiu Cebotari" width="800" height="1062" loading="lazy">
+        <div class="member__meta"><p class="member__name">Sergiu Cebotari</p><p class="member__role">Основатель и CEO</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="../assets/img/team-mihai-vieru.jpg" alt="Mihai Vieru" width="800" height="800" loading="lazy">
+        <div class="member__meta"><p class="member__name">Mihai Vieru</p><p class="member__role">Коммерческий директор</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="../assets/img/team-ana-bejan.jpg" alt="Ana Bejan" width="800" height="800" loading="lazy">
+        <div class="member__meta"><p class="member__name">Ana Bejan</p><p class="member__role">Менеджер по маркетингу</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="../assets/img/team-victoria-cojocaru.jpg" alt="Victoria Cojocaru" width="800" height="1200" loading="lazy">
+        <div class="member__meta"><p class="member__name">Victoria Cojocaru</p><p class="member__role">Менеджер по работе с партнёрами</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="../assets/img/team-elena-ceban.jpg" alt="Elena Ceban" width="800" height="1200" loading="lazy">
+        <div class="member__meta"><p class="member__name">Elena Ceban</p><p class="member__role">Специалист поддержки франчайзи</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="../assets/img/team-ion-turcanu.jpg" alt="Ion Țurcanu" width="800" height="533" loading="lazy">
+        <div class="member__meta"><p class="member__name">Ion Țurcanu</p><p class="member__role">Финансовый директор</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="../assets/img/team-alexandru-lungu.jpg" alt="Alexandru Lungu" width="800" height="534" loading="lazy">
+        <div class="member__meta"><p class="member__name">Alexandru Lungu</p><p class="member__role">Менеджер по расширению</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
+</div> <!-- /.pattern-run -->
+
+<!-- ======================================================== LOCATIONS -->
+<!-- No pattern here by design — Figma's frame for this section is plain. -->
+<section class="locations" id="locatii" aria-label="Наши локации">
+  <div class="container locations__inner">
+    <div class="locations__head">
+      <p class="eyebrow">Наши локации</p>
+      <h2 class="section-title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">Следующая</span> <span class="stagger__word" style="--i:1">локация</span> <span class="stagger__word" style="--i:2">может</span> <span class="stagger__word" style="--i:3">открыться</span> <span class="stagger__word" style="--i:4">в</span> <span class="stagger__word" style="--i:5">вашем</span> <span class="stagger__word" style="--i:6">городе</span></h2>
+      <p class="locations__lead">Сегодня мы представлены в Кишинёве, Унгенах и Яссах.<br>Завтра мы можем вместе открыться в Бухаресте, Клуж-Напоке, Тимишоаре, Брашове, Констанце или в других городах с высоким потенциалом.</p>
+    </div>
+
+    <div class="locations__layout">
+      <ul class="locations__col locations__col--left">
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Alexandru+cel+Bun+83,+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+          <p class="location__city">Кишинёв, сект. Центру</p><p class="location__street">ул. Александру чел Бун 83</p><p class="location__hours">Пн – Вс 09:00 – 21:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Port+Mall,+str.+Mihail+Sadoveanu+42/6,+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+          <p class="location__city">Кишинёв, Port Mall</p><p class="location__street">ул. Михаил Садовяну 42/6</p><p class="location__hours">Пн – Вс 10:00 – 22:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Mateevici+2/1,+St%C4%83uceni" target="_blank" rel="noopener">
+          <p class="location__city">Стэучень</p><p class="location__street">ул. Матеевич 2/1</p><p class="location__hours">Пн – Вс 10:00 – 22:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Palas+Mall,+str.+Palas+7A,+Ia%C8%99i" target="_blank" rel="noopener">
+          <p class="location__city">Румыния, Яссы, Palas Mall</p><p class="location__street">ул. Палас 7A</p><p class="location__hours">Пн – Вс 10:00 – 22:00</p></a></li>
+      </ul>
+
+      <div class="locations__map">
+        <img src="../assets/svg/map.svg" alt="Карта локаций Istorii cu Cașcaval в Молдове и Румынии" width="648" height="466" loading="lazy">
+        <!--
+          Each pin is a real link out to Google Maps for that city's stores.
+          The plain dots stay decorative.
+        -->
+        <div class="map__pins">
+          <span class="map__dot" aria-hidden="true" style="left:44.9%;top:43.6%"></span>
+          <span class="map__dot" aria-hidden="true" style="left:50.0%;top:34.3%"></span>
+          <span class="map__dot" aria-hidden="true" style="left:73.1%;top:49.6%"></span>
+
+          <a class="map__pin" style="left:45.4%;top:27.0%"
+             href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Ungheni"
+             target="_blank" rel="noopener"
+             aria-label="Унгень — 1 магазин. Посмотреть на Google Maps">
+            <span class="map__badge">1</span>
+            <span class="map__label">Унгень</span>
+          </a>
+
+          <a class="map__pin map__pin--below" style="left:42.4%;top:46.4%"
+             href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Ia%C8%99i"
+             target="_blank" rel="noopener"
+             aria-label="Яссы — 1 магазин. Посмотреть на Google Maps">
+            <span class="map__badge">1</span>
+            <span class="map__label">Яссы</span>
+          </a>
+
+          <a class="map__pin" style="left:67.0%;top:41.0%"
+             href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Chi%C8%99in%C4%83u"
+             target="_blank" rel="noopener"
+             aria-label="Кишинёв — 6 магазинов. Посмотреть на Google Maps">
+            <span class="map__badge">6</span>
+            <span class="map__label">Кишинёв</span>
+          </a>
+        </div>
+      </div>
+
+      <ul class="locations__col locations__col--right">
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Oasis+Mall,+str.+Bogdan+Voievod+1,+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+          <p class="location__city">Кишинёв, Oasis Mall</p><p class="location__street">ул. Богдан Воевод 1</p><p class="location__hours">Пн – Вс 10:00 – 21:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Shopping+MallDova,+str.+Arborilor+21,+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+          <p class="location__city">Кишинёв, Shopping MallDova</p><p class="location__street">ул. Арборилор 21</p><p class="location__hours">Пн – Вс 10:00 – 22:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Vasile+Lupu+3,+Ungheni" target="_blank" rel="noopener">
+          <p class="location__city">Унгень</p><p class="location__street">ул. Василе Лупу 3</p><p class="location__hours">Пн – Вс 09:00 – 20:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Grenoble+120/10,+St%C4%83uceni" target="_blank" rel="noopener">
+          <p class="location__city">Стэучень</p><p class="location__street">ул. Гренобль 120/10</p><p class="location__hours">Пн – Вс 10:00 – 22:00</p></a></li>
+      </ul>
+    </div>
+
+    <!-- Mobile: same locations as an auto-scrolling, draggable ticker -->
+    <div class="locations__ticker" data-ticker>
+      <div class="locations__ticker-track" data-ticker-track></div>
+    </div>
+
+    <div class="locations__outro">
+      <p class="locations__outro-title">Вы покупаете не просто франшизу.</p>
+      <p class="locations__outro-text">Вы получаете построенную, протестированную и оптимизированную бизнес-модель, чтобы начать с большей ясностью, меньшими рисками и реальными шансами на рост.</p>
+      <button type="button" class="btn" data-open-modal>Стать франчайзи</button>
+      <p class="locations__outro-note">Заполните форму, и мы обсудим доступные возможности.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- =========================================================== FOOTER -->
+<footer class="site-footer notched notched--footer">
+  <div class="container">
+    <div class="site-footer__card">
+      <div class="site-footer__top">
+        <img class="site-footer__logo" src="../assets/svg/logo-dark.svg" alt="Istorii cu Cașcaval" width="105" height="146">
+
+        <div class="site-footer__contact">
+          <div class="site-footer__col">
+            <p class="site-footer__label">Юридический адрес</p>
+            <p class="site-footer__text">мун. Кишинёв<br>улица Мелестиу, 26/9</p>
+          </div>
+          <div>
+            <p class="site-footer__text"><a href="tel:+37378013333">+373 7801 3333</a></p>
+            <p class="site-footer__text"><a href="mailto:business@cheesefranchise.com">business@cheesefranchise.com</a></p>
+          </div>
+        </div>
+
+        <div class="site-footer__cols">
+          <div class="site-footer__col">
+            <p class="site-footer__label">Социальные сети</p>
+            <div class="site-footer__group">
+              <a class="site-footer__ext" href="https://www.facebook.com/cascaval" target="_blank" rel="noopener">Facebook<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="site-footer__ext" href="https://www.instagram.com/istorii_cu_cascaval/" target="_blank" rel="noopener">Instagram<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="site-footer__ext" href="https://www.tiktok.com/@istorii_cu_cascaval" target="_blank" rel="noopener">TikTok<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="site-footer__ext" href="https://wa.me/37378013333" target="_blank" rel="noopener">WhatsApp<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
+          <div class="site-footer__col">
+            <p class="site-footer__label">Программы и курсы</p>
+            <div class="site-footer__group">
+              <a href="terms.html">Условия использования</a>
+              <a href="terms.html">Политика конфиденциальности</a>
+              <a href="terms.html">Политика использования cookie</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <p class="site-footer__legal">2026 © Все права защищены компанией ISTORII CU CASCAVAL SRL</p>
+        <a class="site-footer__credit" href="https://nightstar.ro" target="_blank" rel="noopener">
+          <span>Дизайн разработан</span>
+          <img src="../assets/svg/nightstar.svg" alt="Nightstar" width="63" height="25">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================= MODAL -->
+<div class="modal" id="franchise-modal" data-modal role="dialog" aria-modal="true" aria-labelledby="franchise-modal-title" aria-hidden="true">
+  <div class="modal__dialog" data-modal-dialog>
+    <button type="button" class="modal__close" data-close-modal aria-label="Закрыть форму">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <h2 class="modal__title" id="franchise-modal-title">Стать франчайзи</h2>
+
+    <form data-franchise-form novalidate>
+      <div class="modal__fields">
+        <div>
+          <label class="sr-only" for="ff-name">Имя и фамилия</label>
+          <input class="field" id="ff-name" name="name" type="text" placeholder="Имя и фамилия" autocomplete="name" required>
+          <p class="field-error" data-error-for="name">Пожалуйста, укажите ваше имя.</p>
+        </div>
+        <div>
+          <label class="sr-only" for="ff-email">Электронная почта</label>
+          <input class="field" id="ff-email" name="email" type="email" placeholder="Электронная почта" autocomplete="email" required>
+          <p class="field-error" data-error-for="email">Пожалуйста, введите корректный адрес электронной почты.</p>
+        </div>
+        <div>
+          <label class="sr-only" for="ff-phone">Номер телефона</label>
+          <input class="field" id="ff-phone" name="phone" type="tel" placeholder="Номер телефона" autocomplete="tel" required>
+          <p class="field-error" data-error-for="phone">Пожалуйста, введите номер телефона.</p>
+        </div>
+        <div>
+          <label class="sr-only" for="ff-city">Город</label>
+          <input class="field" id="ff-city" name="city" type="text" placeholder="Город" autocomplete="address-level2" required>
+          <p class="field-error" data-error-for="city">Пожалуйста, укажите город.</p>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn--block">Отправить заявку</button>
+
+      <p class="modal__note">Нажимая кнопку «Стать франчайзи», вы соглашаетесь с <a href="terms.html">Условиями использования</a></p>
+    </form>
+  </div>
+</div>
+
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/animations.js" defer></script>
+</body>
+</html>
