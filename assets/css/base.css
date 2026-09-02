@@ -29,8 +29,20 @@ body {
   overflow-x: hidden;
 }
 
-/* Locks scrolling while the franchise modal is open */
+/*
+ * Locks scrolling while the franchise modal is open.
+ *
+ * Taken out of flow rather than given `overflow: hidden` — body overflow
+ * propagates to the viewport, and the browser clamps the scroll position to 0
+ * the moment the viewport stops being scrollable, which rewound the page to
+ * the top behind the open form. `top` is set inline by the script to the
+ * visitor's scroll position, so the page does not appear to move at all.
+ */
 body.is-locked {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
   overflow: hidden;
 }
 

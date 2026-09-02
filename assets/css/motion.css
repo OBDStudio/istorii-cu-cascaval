@@ -46,7 +46,7 @@
 
 /* The incoming stage settles in rather than cutting */
 .why-pin.is-pinned .why__step[data-active='true'] {
-  animation: icc-step-in var(--dur-slow) var(--ease-out) both;
+  animation: icc-step-in var(--dur-slow) var(--ease-entrance) both;
 }
 
 @keyframes icc-step-in {
@@ -168,9 +168,9 @@
   filter: blur(6px);
   transform: translateY(5px);
   transition:
-    opacity var(--dur-base) var(--ease-out),
-    filter var(--dur-base) var(--ease-out),
-    transform var(--dur-base) var(--ease-out);
+    opacity var(--dur-word) var(--ease-entrance),
+    filter var(--dur-word) var(--ease-entrance),
+    transform var(--dur-word) var(--ease-entrance);
 }
 
 .has-motion .different__slot span[data-active='true'] {
@@ -184,9 +184,9 @@
   opacity: 0;
   transform: translateY(34px);
   transition:
-    opacity var(--dur-reveal) var(--ease-out),
-    transform var(--dur-reveal) var(--ease-out),
-    filter var(--dur-reveal) var(--ease-out);
+    opacity var(--dur-reveal) var(--ease-entrance),
+    transform var(--dur-reveal) var(--ease-entrance),
+    filter var(--dur-reveal) var(--ease-entrance);
 }
 
 .has-motion [data-reveal-item][data-revealed='true'] {
@@ -215,7 +215,7 @@
  */
 @media (min-width: 1024px) {
   .has-motion .member[data-reveal-item] {
-    transition-duration: 1250ms;
+    transition-duration: 1600ms;
   }
 }
 
@@ -252,10 +252,10 @@
   opacity: 1;
   transform: none;
   transition:
-    opacity var(--dur-slow) var(--ease-out),
-    transform var(--dur-slow) var(--ease-out);
+    opacity var(--dur-slow) var(--ease-entrance),
+    transform var(--dur-slow) var(--ease-entrance);
   /* --i is the word's index, set in the markup */
-  transition-delay: calc(var(--i) * 70ms);
+  transition-delay: calc(var(--i) * 90ms);
 }
 
 /* ------------------------------------------------ Reduced motion */

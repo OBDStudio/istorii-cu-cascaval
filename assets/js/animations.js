@@ -13,16 +13,20 @@ var ICC_MOTION_DEFAULTS = {
   modal: {
     enabled: true,
     // Fraction of the hero that must have scrolled past before it triggers.
-    // 0.35 ≈ "the visitor has committed to leaving the hero".
-    afterHero: 0.35,
+    // 0.2 ≈ "the visitor has started leaving the hero" — the glide below is
+    // what makes the arrival feel considered, so the trigger itself no longer
+    // has to wait to avoid seeming abrupt.
+    afterHero: 0.2,
     // 'session' shows it once per browser session, 'always' every page load.
     frequency: 'session',
     // Rather than cutting in mid-scroll, the page glides to a resting point
     // first and the form opens once it settles. Where it rests: the top of the
     // section after the hero.
     settleTo: '.pillars',
-    // Safety net for browsers without `scrollend`.
-    settleTimeoutMs: 1100,
+    // How long that glide takes, whatever the distance. Driven here rather
+    // than by `behavior: 'smooth'` so the pacing is ours and identical in
+    // every browser — see initScrollModal for why the native one was dropped.
+    glideMs: 820,
   },
 
   // 2 — pinned "why" section with three stages
@@ -30,7 +34,7 @@ var ICC_MOTION_DEFAULTS = {
     enabled: true,
     // Scroll distance per stage, in viewport heights. Above 1 so each stage
     // has time to be read before the next one takes over.
-    stepScroll: 1.4,
+    stepScroll: 1.75,
     // Desktop always pins.
     minWidth: 1024,
     // Narrower than that, it only pins when the phone is tall enough for a
@@ -43,19 +47,21 @@ var ICC_MOTION_DEFAULTS = {
     enabled: true,
     // 'timer' cycles on an interval, 'scroll' advances with scroll position.
     mode: 'timer',
-    intervalMs: 2600,
+    intervalMs: 3600,
   },
 
   // 5, 6, 7 — reveal on enter
   reveal: {
     enabled: true,
     // Delay between siblings that come into view together.
-    stagger: 110,
+    stagger: 150,
     // Fires once this much of the item is showing.
-    threshold: 0.18,
-    // Starts slightly before the item's edge clears, so the move is finished
-    // by the time it's properly in frame rather than trailing the scroll.
-    rootMargin: '0px 0px -8% 0px',
+    threshold: 0.1,
+    // Reveals now run nearly a second, so they have to *start* earlier or the
+    // item is still fading while it sits in the middle of the screen — which
+    // is the "rushed" feeling from the other direction. Firing close to the
+    // viewport edge gives the animation room to finish on arrival.
+    rootMargin: '0px 0px -2% 0px',
   },
 
   // 9 — locations ticker (mobile) and the benefits conveyor (all sizes)
@@ -154,34 +160,53 @@ window.ICC_MOTION = (function (defaults, overrides) {
         return;
       }
 
-      var destination = Math.round(target.getBoundingClientRect().top + window.scrollY);
+      var startY = window.scrollY;
+      var destination = Math.round(target.getBoundingClientRect().top + startY);
       // Already there (or past it) — nothing to glide through.
-      if (Math.abs(destination - window.scrollY) < 4) {
+      if (Math.abs(destination - startY) < 4) {
         api.open();
         return;
       }
 
-      var settled = false;
-      function settle() {
-        if (settled) return;
-        settled = true;
-        window.removeEventListener('scrollend', settle);
-        window.clearTimeout(fallback);
-        api.open();
+      /*
+       * This used to hand the glide to `behavior: 'smooth'` and wait for
+       * `scrollend`. It never once worked: `fire()` runs *from inside* a
+       * scroll event, so the visitor's own wheel gesture ends a frame later
+       * and fires the very first `scrollend` — which settled the glide before
+       * it had moved a pixel. The form opened halfway up the hero instead of
+       * at the section below it, and the smooth scroll was then killed
+       * outright by the scroll lock. Traced, not guessed: scrollTo at 297ms,
+       * scrollend at 297ms, modal open at 298ms, still at the trigger point.
+       *
+       * So the glide is driven here instead. No dependency on `scrollend`,
+       * the same duration on every browser, and the form opens when the page
+       * has genuinely arrived, because we are the ones moving it.
+       */
+      var root = document.documentElement;
+      // CSS sets `scroll-behavior: smooth` globally, which would make every
+      // frame of this loop its own animation. Suspend it for the duration.
+      var prevBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+
+      var delta = destination - startY;
+      var t0 = null;
+
+      function frame(now) {
+        if (t0 === null) t0 = now;
+        var p = clamp((now - t0) / cfg.glideMs, 0, 1);
+        // easeInOutCubic: picks up from the visitor's own momentum rather
+        // than snatching the page, and eases to a genuine stop.
+        var e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+        window.scrollTo(0, startY + delta * e);
+        if (p < 1) {
+          window.requestAnimationFrame(frame);
+        } else {
+          root.style.scrollBehavior = prevBehavior;
+          api.open();
+        }
       }
 
-      // `scrollend` is the precise signal; the timeout covers browsers that
-      // don't fire it yet, and the case where the scroll is interrupted.
-      var fallback = window.setTimeout(settle, cfg.settleTimeoutMs);
-      window.addEventListener('scrollend', settle);
-
-      try {
-        window.scrollTo({ top: destination, behavior: 'smooth' });
-      } catch (e) {
-        // Older signature — jump, then open.
-        window.scrollTo(0, destination);
-        settle();
-      }
+      window.requestAnimationFrame(frame);
     }
 
     // Tied to the hero rather than a share of total page height, so it lands

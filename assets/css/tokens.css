@@ -50,12 +50,31 @@
   --section-pt-lead: clamp(72px, 7.5vw, 112px);  /* opening a new movement */
   --section-gap-tight: clamp(32px, 3.5vw, 52px); /* mid-thought continuation */
 
-  /* Motion — one language, so nothing feels borrowed from elsewhere */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  /*
+   * Motion — one language, so nothing feels borrowed from elsewhere.
+   *
+   * Two easings, because they do different jobs:
+   *
+   * --ease-out is a near-expo curve: it puts 83% of the movement into the
+   * first quarter of the duration and reaches 90% at a third of it. That snap
+   * is exactly right for a control answering a pointer — a hover, a button —
+   * where any delay reads as lag.
+   *
+   * It is wrong for something arriving on screen. Used there, a "720ms" fade
+   * is perceptually a ~240ms fade followed by half a second of invisible
+   * tail, which is why the reveals read as rushed no matter how far the
+   * duration was pushed. --ease-entrance (easeOutCubic) spends the time it is
+   * given: 90% of the movement at 54% of the duration, so raising the number
+   * actually slows what the eye sees.
+   */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);       /* controls answering input */
+  --ease-entrance: cubic-bezier(0.33, 1, 0.68, 1); /* things arriving on screen */
+
   --dur-fast: 180ms;
   --dur-base: 320ms;
-  --dur-slow: 520ms;
-  --dur-reveal: 720ms;
+  --dur-slow: 720ms;
+  --dur-reveal: 980ms;
+  --dur-word: 620ms;   /* gold word cross-fade */
 }
 
 @media (max-width: 767px) {

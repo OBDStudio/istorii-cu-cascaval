@@ -51,14 +51,57 @@
       );
     }
 
+    /*
+     * Locking the page is not as simple as `overflow: hidden` on the body.
+     * The body's overflow propagates to the viewport, so hiding it makes the
+     * viewport unscrollable — and the browser clamps the scroll position to 0
+     * on the spot. The visitor was reading the hero, the form opened, and the
+     * page silently rewound to the very top behind it; on close they were
+     * returned to the top of the page instead of where they had got to.
+     *
+     * So: remember where they were, take the body out of flow at a matching
+     * negative offset (which looks identical), and put it back on close.
+     */
+    var lockedY = 0;
+
+    function lockScroll() {
+      lockedY = window.scrollY || document.documentElement.scrollTop || 0;
+      // Removing the scrollbar would otherwise shift the whole page sideways.
+      var gutter = window.innerWidth - document.documentElement.clientWidth;
+      if (gutter > 0) document.body.style.paddingRight = gutter + 'px';
+      document.body.style.top = -lockedY + 'px';
+      document.body.classList.add('is-locked');
+    }
+
+    function unlockScroll() {
+      document.body.classList.remove('is-locked');
+      document.body.style.top = '';
+      document.body.style.paddingRight = '';
+      // Restore instantly: the global `scroll-behavior: smooth` would
+      // otherwise animate the page back, which looks like it fell.
+      var root = document.documentElement;
+      var prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, lockedY);
+      root.style.scrollBehavior = prev;
+    }
+
     function open() {
       if (isOpen()) return;
       lastFocused = document.activeElement;
       modal.setAttribute('data-open', 'true');
       modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('is-locked');
+      lockScroll();
       var first = focusables()[0];
-      if (first) first.focus();
+      // `preventScroll` matters here — without it the browser scrolls the
+      // fixed body to bring the focused field into view and undoes the lock.
+      if (first) {
+        try {
+          first.focus({ preventScroll: true });
+        } catch (e) {
+          first.focus();
+        }
+      }
       document.dispatchEvent(new CustomEvent('modal:open'));
     }
 
@@ -66,8 +109,14 @@
       if (!isOpen()) return;
       modal.setAttribute('data-open', 'false');
       modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('is-locked');
-      if (lastFocused && lastFocused.focus) lastFocused.focus();
+      unlockScroll();
+      if (lastFocused && lastFocused.focus) {
+        try {
+          lastFocused.focus({ preventScroll: true });
+        } catch (e) {
+          lastFocused.focus();
+        }
+      }
       document.dispatchEvent(new CustomEvent('modal:close'));
     }
 
