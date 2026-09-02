@@ -1213,11 +1213,18 @@
   align-items: start;
 }
 
+/*
+ * The map dissolves into the section instead of ending on a hard rectangle.
+ * Figma vignettes it inside its frame; the exported SVG carries no such fade,
+ * so without this the landmass reads as a flat grey plate cut to a box.
+ */
 .locations__map {
   position: relative;
   align-self: center;
   margin-left: -18px;
   margin-right: -24px;
+  -webkit-mask: radial-gradient(ellipse 58% 56% at 48% 46%, #000 42%, transparent 100%);
+  mask: radial-gradient(ellipse 58% 56% at 48% 46%, #000 42%, transparent 100%);
 }
 
 .locations__map img {

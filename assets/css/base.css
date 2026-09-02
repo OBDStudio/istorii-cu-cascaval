@@ -178,6 +178,11 @@ html {
 /*
  * The wedge pattern sits behind most sections at 10% opacity. It is applied as
  * a mask so each section can tint it: warm tan on light sheets, grey on dark.
+ *
+ * Deliberately NOT tiled. The artwork came out of Figma as a one-off panel,
+ * not a pattern authored to repeat, so any section taller than 1164px or wider
+ * than 1437px used to show the join where the tile wrapped. Scaling a single
+ * copy to cover instead means there is no seam to see, at any section size.
  */
 .pattern {
   position: absolute;
@@ -185,8 +190,8 @@ html {
   background-color: var(--pattern-color, #494949);
   opacity: 0.1;
   pointer-events: none;
-  -webkit-mask: url('../svg/pattern.svg') repeat top left / 1437px 1164px;
-  mask: url('../svg/pattern.svg') repeat top left / 1437px 1164px;
+  -webkit-mask: url('../svg/pattern.svg') no-repeat center / cover;
+  mask: url('../svg/pattern.svg') no-repeat center / cover;
 }
 
 .section--light {

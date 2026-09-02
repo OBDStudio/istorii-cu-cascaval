@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/motion.css">
 <link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
@@ -24,7 +25,7 @@
   <div class="pattern" aria-hidden="true"></div>
 
   <header class="page__bar">
-    <a href="index.html" aria-label="Istorii cu Caşcaval — pagina principală">
+    <a href="index.html" aria-label="Istorii cu Cașcaval — pagina principală">
       <img class="page__logo" src="assets/svg/logo.svg" alt="Istorii cu Cașcaval" width="132" height="167">
     </a>
     <div class="page__lang">
@@ -40,7 +41,7 @@
 
   <main class="page__body">
     <div class="container notice">
-      <p class="notice__title">Datele Dvs. au fost recepționate.</p>
+      <p class="notice__title stagger" data-stagger><span class="stagger__word" style="--i:0">Datele</span> <span class="stagger__word" style="--i:1">Dvs.</span> <span class="stagger__word" style="--i:2">au</span> <span class="stagger__word" style="--i:3">fost</span> <span class="stagger__word" style="--i:4">recepționate.</span></p>
       <p class="notice__text">În curând veți fi contactat pentru o discuție despre oportunitatea de a deveni partenerul Istorii cu cașcaval.</p>
       <a class="btn" href="index.html">Pagina principală</a>
     </div>
@@ -68,9 +69,9 @@
           <div class="site-footer__col">
             <p class="site-footer__label">Rețele de socializare</p>
             <div class="site-footer__group">
-              <a class="site-footer__ext" href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-              <a class="site-footer__ext" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-              <a class="site-footer__ext" href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="site-footer__ext" href="https://www.facebook.com/cascaval" target="_blank" rel="noopener">Facebook<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="site-footer__ext" href="https://www.instagram.com/istorii_cu_cascaval/" target="_blank" rel="noopener">Instagram<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="site-footer__ext" href="https://www.tiktok.com/@istorii_cu_cascaval" target="_blank" rel="noopener">TikTok<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
               <a class="site-footer__ext" href="https://wa.me/37378013333" target="_blank" rel="noopener">WhatsApp<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             </div>
           </div>
@@ -79,8 +80,8 @@
             <p class="site-footer__label">Programe și Cursuri</p>
             <div class="site-footer__group">
               <a href="termeni-si-conditii.html">Termeni și condiții</a>
-              <a href="politica-de-confidentialitate.html">Politica de confidențialitate</a>
-              <a href="politica-de-cookie.html">Politica de cookie</a>
+              <a href="termeni-si-conditii.html">Politica de confidențialitate</a>
+              <a href="termeni-si-conditii.html">Politica de cookie</a>
             </div>
           </div>
         </div>
@@ -141,5 +142,6 @@
 </div>
 
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/animations.js" defer></script>
 </body>
 </html>

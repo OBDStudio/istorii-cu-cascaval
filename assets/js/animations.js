@@ -358,6 +358,46 @@ window.ICC_MOTION = (function (defaults, overrides) {
     onScroll();
   }
 
+  /* ================================================== PAGE TITLE */
+
+  /*
+   * The page's own title comes in a word at a time on load. The words are
+   * already split in the markup and the per-word delay is a CSS custom
+   * property, so all this does is flip the switch on the next frame — late
+   * enough that the transition actually runs rather than being skipped as an
+   * initial style.
+   */
+  function initTitleStagger() {
+    var titles = all('[data-stagger]');
+    if (!titles.length) return;
+
+    function go() {
+      titles.forEach(function (t) {
+        t.setAttribute('data-stagger', 'ready');
+      });
+    }
+
+    if (reduced) {
+      go();
+      return;
+    }
+
+    // Wait for the webfont so words don't reflow mid-animation.
+    var start = function () {
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(go);
+      });
+    };
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(start);
+      // Never let a stalled font load leave the title invisible.
+      window.setTimeout(go, 1200);
+    } else {
+      start();
+    }
+  }
+
   /* ================================================ 5/6/7. REVEALS */
 
   function initReveals() {
@@ -656,6 +696,7 @@ window.ICC_MOTION = (function (defaults, overrides) {
   /* ==================================================== Bootstrap */
 
   onReady(function () {
+    initTitleStagger();
     initScrollModal();
     initWhyPin();
     initWordReel();
