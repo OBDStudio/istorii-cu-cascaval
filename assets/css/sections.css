@@ -1,0 +1,1611 @@
+/* Per-section layout */
+
+/* ============================================================== HERO */
+
+/*
+ * The hero owns the first screen outright: it fills the viewport so nothing
+ * from the section below is in frame before the visitor scrolls. Capped so it
+ * doesn't stretch absurdly tall on a portrait monitor, and svh so a phone's
+ * address bar sliding away doesn't leave a gap.
+ */
+.hero {
+  position: relative;
+  min-height: 656px;
+  height: clamp(656px, 100svh, 1000px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background: #1b1613;
+}
+
+/*
+ * The photo is framed off its top edge — that's where the dark surround and
+ * the warm centre glow sit in the Figma plate.
+ */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 32%;
+  z-index: 0;
+}
+
+/* Fades the photo into the dark canvas below */
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(35, 35, 35, 0) 0%, rgba(35, 35, 35, 0.75) 55%, var(--c-dark) 100%);
+}
+
+.hero__bar {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: 14px var(--gutter) 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.hero__logo {
+  width: 132px;
+  height: auto;
+}
+
+.hero__lang {
+  position: absolute;
+  top: 44px;
+  right: var(--gutter);
+}
+
+/*
+ * Centred in whatever height is left under the bar, biased slightly high —
+ * optical centre, not mathematical, so the block doesn't read as sinking.
+ */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 3vh, 40px);
+  width: min(1000px, 100% - (var(--gutter) * 2));
+  margin-block: auto;
+  padding-block: 24px clamp(48px, 9vh, 104px);
+  text-align: center;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 64px;
+  color: var(--c-white);
+}
+
+.hero__lead {
+  max-width: 533px;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--c-white);
+}
+
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(20px, 3vh, 36px);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -22px;
+  color: var(--c-white);
+  opacity: 0.5;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.hero__scroll:hover {
+  opacity: 1;
+}
+
+.hero__scroll svg {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 1023px) {
+  .hero__title {
+    font-size: 48px;
+    line-height: 52px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    min-height: 560px;
+    height: clamp(560px, 100svh, 900px);
+  }
+
+  .hero__bar {
+    padding-top: 24px;
+  }
+
+  .hero__logo {
+    width: 96px;
+  }
+
+  .hero__lang {
+    top: 24px;
+  }
+
+  .hero__title {
+    font-size: clamp(30px, 8.6vw, 38px);
+    line-height: 1.16;
+  }
+
+  .hero__lead {
+    font-size: 14px;
+  }
+}
+
+/* ========================================================== PILLARS */
+
+.pillars {
+  position: relative;
+  padding-bottom: var(--section-pb);
+}
+
+.pillars__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+
+.pillar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pillar__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 270 / 331;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+.pillar__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Darkens the lower half so the title reads over the photo */
+.pillar__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(35, 35, 35, 0) 38.52%, rgba(35, 35, 35, 0.9) 100%);
+}
+
+/*
+ * The title straddles the photo's bottom edge in the design — it starts 21px
+ * above the card bottom and runs past it onto the dark canvas.
+ */
+.pillar__title {
+  position: relative;
+  z-index: 2;
+  margin-top: -21px;
+  font-family: var(--font-deco);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--c-white);
+}
+
+.pillar__flourish {
+  margin-top: 11px;
+  color: var(--c-white);
+}
+
+.pillar__text {
+  margin-top: 10px;
+  max-width: 234px;
+  font-size: 17px;
+  line-height: 20px;
+  text-align: center;
+  color: var(--c-white);
+}
+
+@media (max-width: 1023px) {
+  .pillars__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pillars {
+    padding-bottom: 64px;
+  }
+
+  .pillars__grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .pillar__title {
+    font-size: 28px;
+  }
+}
+
+/* ============================================================== WHY */
+/*
+ * Desktop: the section pins while three content steps advance in place.
+ * The pin wrapper is sized by JS to 3 viewport-heights of scroll distance.
+ */
+
+.why {
+  position: relative;
+  padding-block: var(--section-pt-lead);
+  overflow: hidden;
+}
+
+.why__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 56px;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.why__col {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  width: 628px;
+  flex: none;
+}
+
+.why__head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.why__title {
+  max-width: 450px;
+}
+
+.why__steps {
+  position: relative;
+}
+
+.why__step {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 600px;
+}
+
+/* Unpinned (mobile, or no JS) the steps simply follow one another */
+.why__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* `display: flex` above would otherwise beat the UA rule for [hidden] */
+.why__step[hidden] {
+  display: none;
+}
+
+.why__step-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 32px;
+  color: #ffb000;
+}
+
+.why__step-intro {
+  font-size: 17px;
+  line-height: 28px;
+  color: var(--c-white);
+}
+
+.why__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.why__item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  color: var(--c-white);
+}
+
+.why__num {
+  flex: none;
+  font-weight: 500;
+  font-size: 16px;
+  opacity: 0.6;
+}
+
+.why__item p {
+  font-size: 17px;
+  line-height: 28px;
+}
+
+.why__item strong {
+  font-weight: 700;
+}
+
+.why__outro {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 36px;
+  color: var(--c-white);
+}
+
+.why__media {
+  position: relative;
+  width: 540px;
+  height: 560px;
+  flex: none;
+  border-radius: 32px;
+}
+
+.why__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 32px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.why__media img[data-active='true'] {
+  opacity: 1;
+}
+
+.why__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  background: linear-gradient(to bottom, rgba(35, 35, 35, 0) 38.52%, rgba(35, 35, 35, 0.9) 100%);
+  pointer-events: none;
+}
+
+/* Notch silhouette for the 540 x 560 media panel */
+.notched--why {
+  -webkit-mask-image:
+    radial-gradient(circle 31.5px at -2.31% 20.63%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 101.76% 21.88%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 13.8% -2.41%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 66.76% 101.16%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 82.69% 100.09%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 51.76% -0.09%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -1.2% 38.48%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 10.09% 100.09%, #0000 98%, #000 100%);
+  mask-image:
+    radial-gradient(circle 31.5px at -2.31% 20.63%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 101.76% 21.88%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 13.8% -2.41%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 66.76% 101.16%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 82.69% 100.09%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 51.76% -0.09%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -1.2% 38.48%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 10.09% 100.09%, #0000 98%, #000 100%);
+}
+
+/* Step indicator on the right rail */
+.why__rail {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.why__rail-nums {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 17px;
+  line-height: 28px;
+  color: var(--c-white);
+}
+
+.why__rail-nums span {
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.why__rail-nums span[data-active='true'] {
+  opacity: 1;
+}
+
+.why__rail-track {
+  position: relative;
+  width: 1px;
+  background: #535353;
+}
+
+.why__rail-thumb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 50px;
+  background: #e1e1e1;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.why__scroll-hint {
+  position: absolute;
+  bottom: 31px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--c-white);
+}
+
+.why__scroll-hint p {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.why__scroll-hint svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 1279px) {
+  .why__inner {
+    gap: 40px;
+  }
+
+  .why__col {
+    width: auto;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .why__media {
+    width: 420px;
+    height: 480px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .why {
+    padding-block: 80px;
+  }
+
+  .why__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .why__col {
+    width: 100%;
+    gap: 32px;
+  }
+
+  .why__media {
+    width: 100%;
+    height: 380px;
+    order: 2;
+  }
+
+  .why__rail {
+    position: static;
+    transform: none;
+    align-self: flex-start;
+    order: 3;
+  }
+}
+
+@media (max-width: 767px) {
+  .why__step-title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .why__item p,
+  .why__step-intro {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .why__outro {
+    font-size: 20px;
+    line-height: 28px;
+  }
+
+  .why__media {
+    height: 300px;
+  }
+}
+
+/* ========================================================== NUMBERS */
+
+.numbers {
+  padding-block: var(--section-pt) var(--section-pb);
+}
+
+.numbers__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+.numbers__grid {
+  display: grid;
+  grid-template-columns: 362fr 356fr 450fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 307px;
+  padding: 40px;
+  border-radius: var(--radius-card);
+  background: var(--c-cream);
+  color: var(--c-ink);
+}
+
+.stat--dark {
+  background: var(--c-ink);
+  color: var(--c-white);
+}
+
+.stat__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 32px;
+}
+
+.stat__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stat--dark .stat__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.stat__value {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.stat__label {
+  margin-top: 4px;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.stat__hint {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--c-ink-60);
+}
+
+.stat--dark .stat__hint {
+  color: var(--c-white-60);
+}
+
+@media (max-width: 1023px) {
+  .numbers__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .numbers__grid > :last-child {
+    grid-column: span 2;
+  }
+
+  .stat--dark .stat__list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .numbers {
+    padding-block: 64px 48px;
+  }
+
+  .numbers__inner {
+    gap: 40px;
+  }
+
+  .numbers__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .numbers__grid > :last-child {
+    grid-column: auto;
+  }
+
+  .stat {
+    min-height: 0;
+    padding: 28px 24px;
+  }
+
+  .stat--dark .stat__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ======================================================== DIFFERENT */
+
+.different {
+  position: relative;
+  overflow: hidden;
+}
+
+.different__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 120px;
+  padding-block: var(--section-pt) var(--section-pt-lead);
+  text-align: center;
+}
+
+.different__title {
+  max-width: 532px;
+}
+
+.different__claim {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.different__kicker {
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--c-white);
+}
+
+/*
+ * `items-start` matches the Figma frame, where this is simply two in-flow text
+ * nodes at the same size. Baseline alignment cannot be used here: the slot
+ * beside "Vindem" stacks its words in a grid, and a box whose only content is
+ * stacked has no text baseline of its own to align against.
+ */
+.different__line {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  font-size: 60px;
+  line-height: 1.15;
+}
+
+.different__line > span:first-child {
+  font-weight: 500;
+  color: var(--c-white);
+}
+
+/*
+ * The gold word cycles through a list on its own timer. The words share one
+ * grid cell so only the active one is seen, and the slot is locked to the
+ * width of the longest so the line never re-flows as they swap.
+ *
+ * Grid stacking (not absolute positioning) is what keeps the word sitting on
+ * the same line as "Vindem": grid items stay in flow and inherit the line box,
+ * whereas absolutely-positioned words are taken out of it and end up riding
+ * high above the text they are supposed to sit beside.
+ */
+.different__slot {
+  display: grid;
+  align-items: start;
+  justify-items: start;
+  font-weight: 700;
+  color: var(--c-gold);
+  text-align: left;
+}
+
+/*
+ * Every word starts on the same left edge, so each begins exactly where the
+ * last one ended and the gap after "Vindem" never changes. The slack from
+ * shorter words is absorbed invisibly on the right.
+ */
+.different__slot span {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+/* Without JS exactly one word is marked active in the markup, so it shows */
+.different__slot span[data-active='true'] {
+  opacity: 1;
+}
+
+.different__note {
+  max-width: 720px;
+  font-size: 17px;
+  line-height: 28px;
+  color: var(--c-white-60);
+}
+
+.different__note strong {
+  font-weight: 700;
+  color: var(--c-white);
+}
+
+@media (max-width: 767px) {
+  .different__inner {
+    gap: 64px;
+    padding-block: 64px 96px;
+  }
+
+  .different__kicker {
+    font-size: 18px;
+  }
+
+  .different__line {
+    font-size: 34px;
+    gap: 8px;
+  }
+
+  .different__note {
+    font-size: 15px;
+    line-height: 24px;
+  }
+}
+
+/* ========================================================= BENEFITS */
+
+.benefits {
+  position: relative;
+  padding-block: var(--section-pt) var(--section-pb);
+  overflow: hidden;
+}
+
+.benefits__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+}
+
+/* Sits inside .container, so the cap has to include the gutters */
+.benefits__head {
+  max-width: calc(600px + var(--gutter) * 2);
+}
+
+/*
+ * Full-bleed conveyor: the cards run continuously past both viewport edges.
+ * No padding on the track and no transition on the transform — the belt is
+ * driven frame by frame, and a transition would smear every step of it.
+ */
+.benefits__viewport {
+  width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  /* Edges dissolve instead of cutting, so the loop has no hard seam */
+  -webkit-mask: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+.benefits__viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.benefits__track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  will-change: transform;
+}
+
+.benefit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: none;
+  width: clamp(240px, 22vw, 324px);
+  aspect-ratio: 324 / 370;
+  padding: 0 20px 20px;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+.benefit img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.benefit::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(35, 35, 35, 0) 0%, rgba(35, 35, 35, 0.9) 80%);
+}
+
+.benefit p {
+  position: relative;
+  z-index: 1;
+  font-size: 17px;
+  line-height: 20px;
+  text-align: center;
+  color: var(--c-white);
+}
+
+.benefits__nav {
+  display: flex;
+  gap: 16px;
+}
+
+.benefits__btn {
+  display: grid;
+  place-items: center;
+  padding: 8px 12px;
+  border: 2px solid var(--c-white-60);
+  border-radius: var(--radius-btn);
+  color: var(--c-white);
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.benefits__btn:hover:not(:disabled) {
+  border-color: var(--c-white);
+}
+
+.benefits__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.benefits__btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.benefits__btn--next svg {
+  transform: scaleX(-1);
+}
+
+@media (max-width: 767px) {
+  .benefits {
+    padding-block: 64px;
+  }
+
+  .benefit {
+    width: 244px;
+  }
+}
+
+/* ============================================================== FIT */
+
+.fit {
+  padding-block: var(--section-pt) var(--section-pb);
+}
+
+.fit__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.fit__grid {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.fit__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 64px 40px 80px;
+  border-radius: var(--radius-card);
+  background: var(--c-cream);
+  color: var(--c-ink);
+}
+
+.fit__card--yes {
+  padding-block: 64px;
+  background: var(--c-dark);
+  color: var(--c-white);
+}
+
+.fit__card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.fit__list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.fit__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.fit__list svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  margin-top: 1px;
+}
+
+.fit__card--no svg {
+  color: var(--c-error);
+}
+
+.fit__card--yes svg {
+  color: var(--c-success);
+}
+
+/*
+ * Notch silhouette shared by both comparison cards. Their height depends on
+ * content, so the bottom bites are anchored with calc() rather than a ratio.
+ */
+.notched--fit {
+  -webkit-mask-image:
+    radial-gradient(circle 31.5px at 86.5px -9.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at calc(100% + 9.5px) 122.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 360.5px calc(100% - 0.5px), #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 279.5px -0.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -6.5px 145.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 54.5px calc(100% + 0.5px), #0000 98%, #000 100%);
+  mask-image:
+    radial-gradient(circle 31.5px at 86.5px -9.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at calc(100% + 9.5px) 122.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 360.5px calc(100% - 0.5px), #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 279.5px -0.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -6.5px 145.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 54.5px calc(100% + 0.5px), #0000 98%, #000 100%);
+}
+
+.fit__cta {
+  margin-top: auto;
+}
+
+@media (max-width: 767px) {
+  .fit {
+    padding: 64px 0;
+  }
+
+  .fit__grid {
+    flex-direction: column;
+  }
+
+  .fit__card {
+    padding: 40px 24px 56px;
+    gap: 32px;
+  }
+
+  .fit__card--yes {
+    padding-block: 40px;
+  }
+}
+
+/* ============================================================= TEAM */
+
+.team {
+  position: relative;
+  padding-block: var(--section-pt-lead) var(--section-pb);
+  overflow: hidden;
+}
+
+.team__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.team__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 100px;
+  margin-bottom: 56px;
+}
+
+.team__headings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 550px;
+  flex: none;
+}
+
+.team__intro {
+  width: 550px;
+  flex: none;
+  padding-top: 13px;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--c-white-70);
+}
+
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.member {
+  position: relative;
+  aspect-ratio: 392 / 315;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.member img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+}
+
+.member::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(35, 35, 35, 0) 40%, rgba(35, 35, 35, 0.85) 100%);
+}
+
+.member__meta {
+  position: absolute;
+  left: 32px;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1;
+}
+
+.member__name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--c-white);
+}
+
+.member__role {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--c-white-70);
+}
+
+@media (max-width: 1023px) {
+  .team__head {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .team__headings,
+  .team__intro {
+    width: auto;
+  }
+
+  .team__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .team {
+    padding-block: 64px;
+  }
+
+  .team__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .member__meta {
+    left: 20px;
+    right: 20px;
+  }
+}
+
+/* ======================================================== LOCATIONS */
+
+.locations {
+  position: relative;
+  padding-block: var(--section-pt) var(--section-pb);
+  overflow: hidden;
+}
+
+.locations__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.locations__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+.locations__lead {
+  max-width: 533px;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--c-white-70);
+}
+
+/* Desktop: two card columns flanking the map. The map tucks slightly under
+   both columns, as it does in the design. */
+.locations__layout {
+  display: grid;
+  grid-template-columns: 294px 1fr 294px;
+  align-items: start;
+}
+
+.locations__map {
+  position: relative;
+  align-self: center;
+  margin-left: -18px;
+  margin-right: -24px;
+}
+
+.locations__map img {
+  width: 100%;
+  height: auto;
+}
+
+/* Pins are overlaid in HTML (not baked into the SVG) so they stay editable */
+.map__pins {
+  position: absolute;
+  inset: 0;
+}
+
+.map__pins > * {
+  position: absolute;
+}
+
+/* Decorative markers only — the labelled pins carry the links */
+.map__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-white);
+  pointer-events: none;
+}
+
+/*
+ * A pin is one target: the count badge tucked onto the corner of the city
+ * label, so the whole thing is a single comfortable click/tap.
+ */
+.map__pin {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px 4px 4px;
+  border-radius: 8px;
+  background: var(--c-gold);
+  color: var(--c-ink);
+  transform-origin: left center;
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+
+.map__pin:hover,
+.map__pin:focus-visible {
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.map__label {
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.map__badge {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--c-error);
+  color: var(--c-white);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Iași sits below its dot in the design, so its label hangs downward */
+.map__pin--below {
+  transform-origin: left top;
+}
+
+.locations__col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.location {
+  display: block;
+  padding: 20px 24px;
+  border-radius: 20px;
+  background: #2b2b2b;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.location:hover {
+  background: #343434;
+  transform: translateY(-2px);
+}
+
+.location__city {
+  font-family: var(--font-display);
+  font-size: 19px;
+  line-height: 1.3;
+  color: var(--c-white);
+}
+
+.location__street {
+  margin-top: 2px;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--c-white-70);
+}
+
+.location__hours {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--c-white-60);
+}
+
+.locations__outro {
+  max-width: 533px;
+  margin: 72px auto 0;
+  text-align: center;
+}
+
+.locations__outro-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  color: var(--c-white);
+}
+
+.locations__outro-text {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--c-white-70);
+}
+
+.locations__outro .btn {
+  margin-top: 40px;
+}
+
+.locations__outro-note {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--c-white-60);
+}
+
+/* Mobile: the cards become a draggable, auto-scrolling ticker */
+.locations__ticker {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .locations__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .locations__map {
+    margin-inline: 0;
+  }
+
+  .locations__col {
+    display: none;
+  }
+
+  .locations__ticker {
+    display: block;
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 24px;
+    overflow: hidden;
+    cursor: grab;
+  }
+
+  .locations__ticker.is-dragging {
+    cursor: grabbing;
+  }
+
+  .locations__ticker-track {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .locations__ticker .location {
+    width: 260px;
+    flex: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .locations {
+    padding-block: 64px;
+  }
+
+  .locations__outro {
+    margin-top: 48px;
+  }
+
+  .locations__outro-title {
+    font-size: 22px;
+    line-height: 30px;
+  }
+}
+
+/* =========================================================== FOOTER */
+
+/*
+ * The footer runs edge to edge and closes the page, rather than floating as an
+ * inset card. The sheet is painted on the <footer> itself — no 100vw trick, so
+ * a desktop scrollbar can't push the page sideways — while the container
+ * inside keeps the text on the same grid line as every other section.
+ */
+.site-footer {
+  position: relative;
+  margin-top: var(--section-pt);
+  background: var(--c-white);
+  color: var(--c-ink);
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  font-family: var(--font-body);
+}
+
+.site-footer__card {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 5vw, 72px);
+  padding-block: clamp(40px, 4vw, 56px) clamp(24px, 2.5vw, 32px);
+}
+
+/*
+ * Only the top edge keeps the puzzle bite — that is the edge still meeting the
+ * dark canvas. Positions are percentages so they stay distributed at any width.
+ */
+.notched--footer {
+  -webkit-mask-image:
+    radial-gradient(circle 31.5px at 7.2% -9.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 23.3% -0.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 76.4% -0.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 58.5% -6px, #0000 98%, #000 100%);
+  mask-image:
+    radial-gradient(circle 31.5px at 7.2% -9.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 23.3% -0.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 76.4% -0.5px, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 58.5% -6px, #0000 98%, #000 100%);
+}
+
+.site-footer__top {
+  display: flex;
+  align-items: flex-start;
+  gap: 46px;
+}
+
+.site-footer__logo {
+  width: 105px;
+  height: auto;
+  flex: none;
+}
+
+.site-footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 251px;
+  flex: 1 1 auto;
+}
+
+.site-footer__cols {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  width: 428px;
+  flex: none;
+}
+
+.site-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.site-footer__label {
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--c-dark);
+  opacity: 0.4;
+}
+
+.site-footer__group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.site-footer__text,
+.site-footer a {
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--c-ink);
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.site-footer__ext {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.site-footer__ext svg {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+.site-footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.site-footer__legal {
+  max-width: 295px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--c-dark);
+  opacity: 0.6;
+}
+
+.site-footer__credit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.site-footer__credit span {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--c-dark);
+  opacity: 0.6;
+}
+
+.site-footer__credit img {
+  width: 63px;
+  height: auto;
+}
+
+@media (max-width: 1023px) {
+  .site-footer__top {
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .site-footer__cols {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 64px;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-footer {
+    padding-bottom: 64px;
+  }
+
+  .site-footer__card {
+    gap: 40px;
+    padding: 28px 24px 20px;
+  }
+
+  .site-footer__contact {
+    width: auto;
+  }
+
+  .site-footer__cols {
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .site-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .site-footer__credit {
+    align-items: flex-start;
+  }
+}

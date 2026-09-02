@@ -1,0 +1,245 @@
+/*
+ * Motion layer.
+ *
+ * Everything here is gated on `.has-motion`, set by a one-line inline script in
+ * <head>. Without JavaScript the class never lands, so the page renders fully
+ * visible rather than trusting a script to un-hide it — which is exactly how
+ * the team photos ended up invisible before.
+ */
+
+/* ------------------------------------------- Pinned "why" section (2) */
+
+/* Only becomes sticky once the script has measured and enabled it */
+.why-pin.is-pinned > .why {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 0;
+}
+
+.why-pin.is-pinned .why__inner {
+  width: 100%;
+}
+
+/*
+ * Pinned, all three stages share one grid cell so the box is always as tall as
+ * the tallest — nothing below it shifts or gets overlapped as they swap.
+ */
+.why-pin.is-pinned .why__steps {
+  display: grid;
+  gap: 0;
+}
+
+.why-pin.is-pinned .why__step {
+  grid-area: 1 / 1;
+}
+
+.why-pin.is-pinned .why__step[data-active='false'] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* The incoming stage settles in rather than cutting */
+.why-pin.is-pinned .why__step[data-active='true'] {
+  animation: icc-step-in var(--dur-slow) var(--ease-out) both;
+}
+
+@keyframes icc-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Short desktop viewports: shrink the media so a pinned stage still fits */
+@media (min-width: 1024px) and (max-height: 820px) {
+  .why-pin.is-pinned .why__media {
+    height: 440px;
+  }
+
+  .why-pin.is-pinned .why__col {
+    gap: 32px;
+  }
+}
+
+/*
+ * Phones tall enough to pin (see ICC_MOTION.why.minHeight) get a compressed
+ * version: a shorter photo, tighter rhythm, and the stage counter moved to a
+ * horizontal row so it stops fighting the content for width.
+ *
+ * Height is svh — the *small* viewport height, measured with the browser
+ * toolbar showing — so the pinned stage never overflows when the toolbar
+ * slides back in mid-scroll.
+ */
+@media (max-width: 1023px) {
+  .why-pin.is-pinned > .why {
+    padding-block: 0;
+  }
+
+  .why-pin.is-pinned .why__col {
+    gap: 24px;
+  }
+
+  .why-pin.is-pinned .why__media {
+    height: 190px;
+    order: 2;
+  }
+
+  .why-pin.is-pinned .why__list,
+  .why-pin.is-pinned .why__step {
+    gap: 14px;
+  }
+
+  .why-pin.is-pinned .why__outro {
+    font-size: 17px;
+    line-height: 24px;
+  }
+
+  /* Counter becomes a horizontal row above the scroll hint */
+  .why-pin.is-pinned .why__rail {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    bottom: 78px;
+    top: auto;
+    transform: translateX(-50%);
+    align-self: auto;
+  }
+
+  .why-pin.is-pinned .why__rail-nums {
+    flex-direction: row;
+    gap: 14px;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .why-pin.is-pinned .why__rail-track {
+    display: none;
+  }
+
+  .why-pin.is-pinned .why__scroll-hint {
+    bottom: 20px;
+  }
+
+  /* Stacked (short phones): the counter has nothing to count */
+  .why-pin:not(.is-pinned) .why__rail {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------- Bouncing arrow (3) */
+
+.why__scroll-hint svg,
+.hero__scroll svg {
+  animation: icc-bounce 2.4s var(--ease-out) infinite;
+}
+
+@keyframes icc-bounce {
+  0%,
+  55%,
+  100% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(7px);
+  }
+  85% {
+    transform: translateY(2px);
+  }
+}
+
+/* ---------------------------------------------------- Word reel (4) */
+
+/*
+ * The words cross-fade in place on a timer. A short blur on the outgoing and
+ * incoming word reads as a focus pull rather than a slide, which is what keeps
+ * it from looking scroll-linked now that it runs on its own clock.
+ */
+.has-motion .different__slot span {
+  filter: blur(6px);
+  transform: translateY(5px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    filter var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.has-motion .different__slot span[data-active='true'] {
+  filter: none;
+  transform: none;
+}
+
+/* --------------------------------------- Reveal on enter (5, 6, 7) */
+
+.has-motion [data-reveal-item] {
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out),
+    filter var(--dur-reveal) var(--ease-out);
+}
+
+.has-motion [data-reveal-item][data-revealed='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/*
+ * Photographs additionally rack into focus. On a brand built out of food
+ * photography this reads as the image arriving, not as a generic card fade —
+ * and it is what makes the effect legible at all on a slow scroll.
+ */
+.has-motion [data-reveal-item='media'] {
+  filter: blur(10px);
+}
+
+.has-motion [data-reveal-item='media'][data-revealed='true'] {
+  filter: blur(0);
+}
+
+/* The comparison cards enter from opposite sides, together */
+.has-motion [data-reveal='sides'] > [data-reveal-item]:nth-child(odd) {
+  transform: translateX(-64px);
+}
+
+.has-motion [data-reveal='sides'] > [data-reveal-item]:nth-child(even) {
+  transform: translateX(64px);
+}
+
+.has-motion [data-reveal='sides'] > [data-reveal-item][data-revealed='true'] {
+  transform: none;
+}
+
+/* ------------------------------------------------ Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .why-pin.is-pinned .why__step[data-active='true'],
+  .why__scroll-hint svg,
+  .hero__scroll svg {
+    animation: none;
+  }
+
+  .different__slot span {
+    transition: opacity var(--dur-fast) linear;
+    filter: none;
+    transform: none;
+  }
+
+  .has-motion [data-reveal-item],
+  .has-motion [data-reveal-item='media'] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}

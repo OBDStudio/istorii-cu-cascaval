@@ -1,0 +1,373 @@
+/* Reusable pieces: buttons, notched cards, dividers, form controls, modal */
+
+/* ------------------------------------------------------------- Buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  border-radius: var(--radius-btn);
+  background: var(--c-gold);
+  color: var(--c-ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.btn:hover {
+  background: #ffc21f;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(249, 178, 0, 0.28);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: background-color 0.18s ease;
+  }
+
+  .btn:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ------------------------------------------------- Language switcher */
+
+.lang {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 40px;
+  padding: 0 8px 0 16px;
+  border-radius: var(--radius-pill);
+  background: var(--c-peach-32);
+  color: var(--c-white);
+  font-size: 14px;
+  line-height: 16px;
+  backdrop-filter: blur(2px);
+}
+
+.lang__caret {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: url('../svg/arrow-drop-down.svg') no-repeat center / contain;
+  mask: url('../svg/arrow-drop-down.svg') no-repeat center / contain;
+  transition: transform 0.2s ease;
+}
+
+.lang[aria-expanded='true'] .lang__caret {
+  transform: rotate(180deg);
+}
+
+.lang__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 100%;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: rgba(35, 35, 35, 0.92);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  display: none;
+  z-index: 5;
+}
+
+.lang__menu[data-open='true'] {
+  display: block;
+}
+
+.lang__option {
+  display: block;
+  width: 100%;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: left;
+  white-space: nowrap;
+  color: var(--c-white);
+}
+
+.lang__option:hover,
+.lang__option[aria-current='true'] {
+  background: var(--c-peach-10);
+  color: var(--c-peach);
+}
+
+/* -------------------------------------------------------- Ornaments */
+
+/* 128 x 15 flourish under the pillar titles */
+.flourish {
+  width: 128px;
+  height: 15px;
+  background: currentColor;
+  -webkit-mask: url('../svg/divider.svg') no-repeat center / contain;
+  mask: url('../svg/divider.svg') no-repeat center / contain;
+}
+
+/* ---------------------------------------------------- Notched cards */
+/*
+ * The brand's signature "puzzle piece" silhouette. Each notch is a radial
+ * gradient punched out of the element's mask; layers are intersected so every
+ * circle removes material. Positions are percentages (so they track the card
+ * as it resizes) while radii stay in px (so the bites keep their scale).
+ */
+.notched {
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+/* Pillar photo card — 270 x 331 in the design */
+.notched--pillar {
+  -webkit-mask-image:
+    radial-gradient(circle 31.5px at 107.22% 27.95%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at -7.22% 29.15%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 74.26% 101.96%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 102.41% 88.07%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -2.04% 88.97%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -3.52% 56.95%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 20.19% 100.15%, #0000 98%, #000 100%);
+  mask-image:
+    radial-gradient(circle 31.5px at 107.22% 27.95%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at -7.22% 29.15%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 74.26% 101.96%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 102.41% 88.07%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -2.04% 88.97%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -3.52% 56.95%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 20.19% 100.15%, #0000 98%, #000 100%);
+}
+
+/* Stat card A — "Investiții inițiale", 362 x 307 */
+.notched--stat-a {
+  -webkit-mask-image:
+    radial-gradient(circle 31.5px at 23.9% -3.1%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 102.9% 39.7%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 62.6% 100.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 84.8% 100.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 77.2% -0.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -1.8% 47.4%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 15.1% 100.2%, #0000 98%, #000 100%);
+  mask-image:
+    radial-gradient(circle 31.5px at 23.9% -3.1%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 102.9% 39.7%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 62.6% 100.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 84.8% 100.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 77.2% -0.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -1.8% 47.4%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 15.1% 100.2%, #0000 98%, #000 100%);
+}
+
+/* Stat card B — "Recuperarea investiției", 356 x 307 */
+.notched--stat-b {
+  -webkit-mask-image:
+    radial-gradient(circle 31.5px at 24.3% -3.1%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 102.9% 29.9%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 62.2% 101.5%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 84.6% 101.5%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 78.5% -0.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -1.8% 37.7%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 15.3% 101.5%, #0000 98%, #000 100%);
+  mask-image:
+    radial-gradient(circle 31.5px at 24.3% -3.1%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 102.9% 29.9%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 62.2% 101.5%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 84.6% 101.5%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 78.5% -0.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -1.8% 37.7%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 15.3% 101.5%, #0000 98%, #000 100%);
+}
+
+/* Stat card C — dark "Profit lunar estimativ", 450 x 307 */
+.notched--stat-c {
+  -webkit-mask-image:
+    radial-gradient(circle 31.5px at 19.2% -3.1%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 102.3% 29.9%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 80.1% 101.0%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 99.2% 100.4%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 62.1% -0.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -1.4% 37.7%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 12.1% 100.7%, #0000 98%, #000 100%);
+  mask-image:
+    radial-gradient(circle 31.5px at 19.2% -3.1%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 102.3% 29.9%, #0000 98%, #000 100%),
+    radial-gradient(circle 31.5px at 80.1% 101.0%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 99.2% 100.4%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at 62.1% -0.2%, #0000 98%, #000 100%),
+    radial-gradient(circle 17.5px at -1.4% 37.7%, #0000 98%, #000 100%),
+    radial-gradient(circle 11.5px at 12.1% 100.7%, #0000 98%, #000 100%);
+}
+
+/* --------------------------------------------------- Form controls */
+
+.field {
+  width: 100%;
+  padding: 18px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-btn);
+  background: #ececec;
+  color: var(--c-ink);
+  font-size: 16px;
+  line-height: 20px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.field::placeholder {
+  color: #8b8b8b;
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--c-gold);
+  background: #f4f4f4;
+}
+
+.field[aria-invalid='true'] {
+  border-color: var(--c-error);
+}
+
+.field-error {
+  display: none;
+  margin-top: 6px;
+  color: var(--c-error);
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.field-error[data-visible='true'] {
+  display: block;
+}
+
+/* --------------------------------------------------------- Modal */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(20, 20, 20, 0.72);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.modal[data-open='true'] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal__dialog {
+  position: relative;
+  width: 100%;
+  max-width: 534px;
+  padding: 40px;
+  border-radius: 20px;
+  background: var(--c-white);
+  color: var(--c-ink);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+
+.modal[data-open='true'] .modal__dialog {
+  transform: translateY(0) scale(1);
+}
+
+.modal__title {
+  margin-bottom: 28px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--c-ink);
+}
+
+.modal__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #ececec;
+  color: var(--c-ink);
+  transition: background-color 0.15s ease;
+}
+
+.modal__close:hover {
+  background: #dedede;
+}
+
+.modal__close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.modal__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.modal__note {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  color: var(--c-ink);
+}
+
+.modal__note a {
+  color: var(--c-gold);
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .modal__dialog {
+    padding: 24px 20px;
+  }
+
+  .modal__title {
+    font-size: 26px;
+    text-align: left;
+    padding-right: 48px;
+  }
+
+  .modal__close {
+    top: 18px;
+    right: 18px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .modal__dialog {
+    transition: none;
+  }
+}

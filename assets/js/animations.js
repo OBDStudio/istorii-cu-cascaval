@@ -1,0 +1,666 @@
+/*
+ * Istorii cu Cașcaval — motion layer.
+ *
+ * Implements the behaviours annotated in the Figma comments. Deliberately
+ * dependency-free: sticky positioning, IntersectionObserver and rAF cover
+ * everything here, so the WordPress theme needs no third-party animation CDN.
+ *
+ * Every timing worth arguing about lives in ICC_MOTION below, so values can be
+ * tuned without touching the logic.
+ */
+var ICC_MOTION_DEFAULTS = {
+  // 1 — franchise modal, triggered on leaving the hero
+  modal: {
+    enabled: true,
+    // Fraction of the hero that must have scrolled past before it triggers.
+    // 0.35 ≈ "the visitor has committed to leaving the hero".
+    afterHero: 0.35,
+    // 'session' shows it once per browser session, 'always' every page load.
+    frequency: 'session',
+    // Rather than cutting in mid-scroll, the page glides to a resting point
+    // first and the form opens once it settles. Where it rests: the top of the
+    // section after the hero.
+    settleTo: '.pillars',
+    // Safety net for browsers without `scrollend`.
+    settleTimeoutMs: 1100,
+  },
+
+  // 2 — pinned "why" section with three stages
+  why: {
+    enabled: true,
+    // Scroll distance per stage, in viewport heights. Above 1 so each stage
+    // has time to be read before the next one takes over.
+    stepScroll: 1.4,
+    // Desktop always pins.
+    minWidth: 1024,
+    // Narrower than that, it only pins when the phone is tall enough for a
+    // stage to fit; shorter screens get the stacked layout instead.
+    minHeight: 760,
+  },
+
+  // 4 — the gold word cycles on its own
+  words: {
+    enabled: true,
+    // 'timer' cycles on an interval, 'scroll' advances with scroll position.
+    mode: 'timer',
+    intervalMs: 2600,
+  },
+
+  // 5, 6, 7 — reveal on enter
+  reveal: {
+    enabled: true,
+    // Delay between siblings that come into view together.
+    stagger: 110,
+    // Fires once this much of the item is showing.
+    threshold: 0.18,
+    // Starts slightly before the item's edge clears, so the move is finished
+    // by the time it's properly in frame rather than trailing the scroll.
+    rootMargin: '0px 0px -8% 0px',
+  },
+
+  // 9 — locations ticker (mobile) and the benefits conveyor (all sizes)
+  ticker: {
+    enabled: true,
+    speed: 26,        // locations, px per second
+    maxWidth: 1023,   // locations ticker only runs below this
+  },
+  conveyor: {
+    enabled: true,
+    speed: 14,        // benefits belt, px per second — deliberately slow
+  },
+};
+
+/*
+ * Anything already on window.ICC_MOTION wins, group by group, so a page (or
+ * the WordPress theme) can override just one value without having to restate
+ * the whole config.
+ */
+window.ICC_MOTION = (function (defaults, overrides) {
+  var merged = {};
+  Object.keys(defaults).forEach(function (group) {
+    merged[group] = {};
+    Object.keys(defaults[group]).forEach(function (key) {
+      merged[group][key] = defaults[group][key];
+    });
+    var over = overrides && overrides[group];
+    if (over) {
+      Object.keys(over).forEach(function (key) {
+        merged[group][key] = over[key];
+      });
+    }
+  });
+  return merged;
+})(ICC_MOTION_DEFAULTS, window.ICC_MOTION);
+
+(function () {
+  'use strict';
+
+  var CFG = window.ICC_MOTION;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function onReady(fn) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else {
+      fn();
+    }
+  }
+
+  function clamp(v, min, max) {
+    return v < min ? min : v > max ? max : v;
+  }
+
+  function all(sel, root) {
+    return Array.prototype.slice.call((root || document).querySelectorAll(sel));
+  }
+
+  /* ============================================================ 1. MODAL */
+
+  function initScrollModal() {
+    var cfg = CFG.modal;
+    var api = window.ICC && window.ICC.modal;
+    var hero = document.querySelector('.hero');
+    if (!cfg.enabled || !api) return;
+
+    var KEY = 'icc-franchise-modal-seen';
+    try {
+      if (cfg.frequency === 'session' && sessionStorage.getItem(KEY) === '1') return;
+    } catch (e) {
+      /* private mode — just show it */
+    }
+
+    var fired = false;
+
+    /*
+     * Opening the overlay the instant the trigger passes means clamping
+     * `overflow: hidden` onto the page while the browser's own scroll momentum
+     * is still running — the scroll stops dead under the visitor's finger and
+     * reads as a glitch. So: take over, glide to a resting point, and only
+     * open once the page has actually stopped.
+     */
+    function fire() {
+      if (fired) return;
+      fired = true;
+      window.removeEventListener('scroll', check);
+      try {
+        sessionStorage.setItem(KEY, '1');
+      } catch (e) {
+        /* ignore */
+      }
+
+      var target = document.querySelector(cfg.settleTo);
+      if (reduced || !target || typeof window.scrollTo !== 'function') {
+        api.open();
+        return;
+      }
+
+      var destination = Math.round(target.getBoundingClientRect().top + window.scrollY);
+      // Already there (or past it) — nothing to glide through.
+      if (Math.abs(destination - window.scrollY) < 4) {
+        api.open();
+        return;
+      }
+
+      var settled = false;
+      function settle() {
+        if (settled) return;
+        settled = true;
+        window.removeEventListener('scrollend', settle);
+        window.clearTimeout(fallback);
+        api.open();
+      }
+
+      // `scrollend` is the precise signal; the timeout covers browsers that
+      // don't fire it yet, and the case where the scroll is interrupted.
+      var fallback = window.setTimeout(settle, cfg.settleTimeoutMs);
+      window.addEventListener('scrollend', settle);
+
+      try {
+        window.scrollTo({ top: destination, behavior: 'smooth' });
+      } catch (e) {
+        // Older signature — jump, then open.
+        window.scrollTo(0, destination);
+        settle();
+      }
+    }
+
+    // Tied to the hero rather than a share of total page height, so it lands
+    // as the visitor reaches the next section no matter how long the page is.
+    function check() {
+      if (fired) return;
+      if (!hero) return;
+      var rect = hero.getBoundingClientRect();
+      if (rect.bottom <= rect.height * (1 - cfg.afterHero)) fire();
+    }
+
+    window.addEventListener('scroll', check, { passive: true });
+    check();
+  }
+
+  /* ======================================================== 2. WHY PIN */
+
+  function initWhyPin() {
+    var cfg = CFG.why;
+    var pin = document.querySelector('[data-why-pin]');
+    if (!pin) return;
+
+    var steps = all('[data-why-step]', pin);
+    var images = all('[data-why-image]', pin);
+    var nums = all('[data-why-nums] span', pin);
+    var thumb = pin.querySelector('[data-why-thumb]');
+    var section = pin.querySelector('.why');
+    if (!steps.length || !section) return;
+
+    var active = -1;
+    var pinned = false;
+
+    function show(i) {
+      if (i === active) return;
+      active = i;
+
+      // Toggled with an attribute rather than `hidden` so every step keeps
+      // contributing height — the pinned box is then as tall as the tallest
+      // stage and nothing below it gets overlapped.
+      steps.forEach(function (s, n) {
+        var on = n === i;
+        s.setAttribute('data-active', String(on));
+        s.setAttribute('aria-hidden', String(!on));
+      });
+      nums.forEach(function (s, n) {
+        s.setAttribute('data-active', String(n === i));
+      });
+      // Stage 1 has its own photo; stages 2 and 3 share the second one.
+      images.forEach(function (img) {
+        var wants = i === 0 ? '1' : '2';
+        img.setAttribute('data-active', String(img.getAttribute('data-why-image') === wants));
+      });
+      if (thumb) {
+        thumb.style.transform = 'translateY(' + i * 48 + 'px)';
+      }
+    }
+
+    function stack() {
+      // Fallback layout: every stage visible in sequence, no pinning.
+      pinned = false;
+      pin.classList.remove('is-pinned');
+      pin.style.height = '';
+      steps.forEach(function (s) {
+        s.setAttribute('data-active', 'true');
+        s.removeAttribute('aria-hidden');
+      });
+      nums.forEach(function (s, n) {
+        s.setAttribute('data-active', String(n === 0));
+      });
+      images.forEach(function (img) {
+        img.setAttribute('data-active', String(img.getAttribute('data-why-image') === '1'));
+      });
+      active = -1;
+    }
+
+    function enablePin() {
+      pinned = true;
+      pin.classList.add('is-pinned');
+      // Measure the pinned section rather than trusting innerHeight: on phones
+      // the address bar changes innerHeight mid-scroll, but the section is
+      // sized in svh and stays put.
+      var unit = section.offsetHeight || window.innerHeight;
+      pin.style.height = (unit * (1 + cfg.stepScroll * (steps.length - 1))) + 'px';
+      show(0);
+    }
+
+    function canPin() {
+      if (!cfg.enabled || reduced) return false;
+      if (window.innerWidth >= cfg.minWidth) return true;
+      // Narrow screens need the height to carry a full stage.
+      return window.innerHeight >= cfg.minHeight;
+    }
+
+    function layout() {
+      if (!canPin()) {
+        if (pinned || active === -1) stack();
+        return;
+      }
+      enablePin();
+      update();
+    }
+
+    function update() {
+      if (!pinned) return;
+      var rect = pin.getBoundingClientRect();
+      var travel = pin.offsetHeight - window.innerHeight;
+      if (travel <= 0) return;
+      var progress = clamp(-rect.top / travel, 0, 1);
+      // Split the travel evenly across the stages.
+      var index = clamp(Math.floor(progress * steps.length), 0, steps.length - 1);
+      show(index);
+    }
+
+    layout();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', layout);
+  }
+
+  /* ====================================================== 4. WORD REEL */
+
+  function initWordReel() {
+    var cfg = CFG.words;
+    var slot = document.querySelector('[data-word-slot]');
+    if (!cfg.enabled || !slot) return;
+
+    var words = all('span', slot);
+    if (words.length < 2) return;
+
+    var current = 0;
+
+    /*
+     * No width bookkeeping here: the words share one grid cell, so the slot
+     * already sizes itself to the longest of them and stays that width as they
+     * swap — including after a font swap or a resize, with no JS involved.
+     */
+    function show(i) {
+      if (i === current) return;
+      words[current].removeAttribute('data-active');
+      words[i].setAttribute('data-active', 'true');
+      current = i;
+    }
+
+    if (reduced) return;
+
+    if (cfg.mode === 'timer') {
+      // Cycles on its own, but only while on screen — an off-screen loop is
+      // wasted work and keeps the tab busy for no one.
+      var timer = null;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !timer) {
+            timer = window.setInterval(function () {
+              show((current + 1) % words.length);
+            }, cfg.intervalMs);
+          } else if (!e.isIntersecting && timer) {
+            window.clearInterval(timer);
+            timer = null;
+          }
+        });
+      }, { threshold: 0.4 });
+      io.observe(slot);
+      return;
+    }
+
+    // Scroll-driven alternative: holds on the first word until the line is on
+    // screen, then steps through the rest as it travels up the viewport.
+    function onScroll() {
+      var rect = slot.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var progress = clamp((vh * 0.72 - rect.top) / (vh * 0.85), 0, 0.999);
+      show(Math.floor(progress * words.length));
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ================================================ 5/6/7. REVEALS */
+
+  function initReveals() {
+    var cfg = CFG.reveal;
+    var items = all('[data-reveal-item]');
+    if (!items.length) return;
+
+    function revealAll() {
+      items.forEach(function (i) {
+        i.setAttribute('data-revealed', 'true');
+      });
+    }
+
+    if (!cfg.enabled || reduced || !('IntersectionObserver' in window)) {
+      revealAll();
+      return;
+    }
+
+    /*
+     * Each item is observed on its own. Observing the container instead — as
+     * this used to — means a tall grid needs a large share of its own height
+     * on screen before anything moves, so the first cards sit invisible and
+     * the rest pop in together. Per item, each one animates as it arrives.
+     *
+     * Items that arrive in the same frame (a grid row, a pair of cards) are
+     * staggered against each other by document order.
+     */
+    var io = new IntersectionObserver(function (entries) {
+      var arriving = entries
+        .filter(function (e) {
+          return e.isIntersecting;
+        })
+        .sort(function (a, b) {
+          return a.boundingClientRect.top - b.boundingClientRect.top;
+        });
+
+      arriving.forEach(function (entry, i) {
+        var el = entry.target;
+        // The comparison cards were annotated "simultan ... din stânga și
+        // dreapta", so that group arrives together rather than staggered.
+        var group = el.closest ? el.closest('[data-reveal]') : null;
+        var together = group && group.getAttribute('data-reveal') === 'sides';
+        el.style.transitionDelay = together ? '0ms' : (i * cfg.stagger) + 'ms';
+        el.setAttribute('data-revealed', 'true');
+        io.unobserve(el);
+      });
+    }, { threshold: cfg.threshold, rootMargin: cfg.rootMargin });
+
+    items.forEach(function (item) {
+      io.observe(item);
+    });
+  }
+
+  /* ============================================ 9. TICKER / CONVEYOR */
+
+  /*
+   * One continuous-scroll implementation, used by the locations strip and the
+   * benefits belt. The track is duplicated so the loop has no visible seam,
+   * and the offset wraps at half the track width.
+   */
+  function createTicker(opts) {
+    var wrap = opts.wrap;
+    var track = opts.track;
+    if (!wrap || !track) return null;
+
+    var originals = all(opts.itemSelector, track);
+    if (!originals.length && opts.source) {
+      // Locations: the belt is built from the desktop columns' markup.
+      originals = opts.source();
+      if (!originals.length) return null;
+      while (track.firstChild) track.removeChild(track.firstChild);
+      originals.forEach(function (node) {
+        track.appendChild(node.cloneNode(true));
+      });
+      originals = all(opts.itemSelector, track);
+    }
+    if (!originals.length) return null;
+
+    // Clone the run once so scrolling past the end lands back at the start.
+    originals.forEach(function (node) {
+      var clone = node.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.setAttribute('data-clone', 'true');
+      // Clones must never be reachable by keyboard — they are the same links.
+      all('a, button', clone).forEach(function (f) {
+        f.setAttribute('tabindex', '-1');
+      });
+      // Reveal observers were bound before this ran, so a clone carrying the
+      // attribute would sit at opacity 0 forever with nothing to un-hide it.
+      if (clone.hasAttribute('data-reveal-item')) clone.removeAttribute('data-reveal-item');
+      all('[data-reveal-item]', clone).forEach(function (n) {
+        n.removeAttribute('data-reveal-item');
+      });
+      track.appendChild(clone);
+    });
+
+    var offset = 0;
+    var half = 0;
+    var running = false;
+    var last = 0;
+    var raf = null;
+    var paused = 0;         // pause requests outstanding (hover, focus, drag)
+    var dragging = false;
+    var dragStartX = 0;
+    var dragStartOffset = 0;
+    var moved = 0;
+
+    function measure() {
+      half = track.scrollWidth / 2;
+    }
+
+    function apply() {
+      if (half > 0) offset = ((offset % half) + half) % half;
+      track.style.transform = 'translateX(' + -offset + 'px)';
+    }
+
+    function tick(now) {
+      if (!running) return;
+      var dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
+      last = now;
+      if (!paused && !dragging) {
+        offset += opts.speed * dt;
+        apply();
+      }
+      raf = window.requestAnimationFrame(tick);
+    }
+
+    function start() {
+      if (running || reduced) return;
+      running = true;
+      last = 0;
+      measure();
+      raf = window.requestAnimationFrame(tick);
+    }
+
+    function stop() {
+      running = false;
+      if (raf) window.cancelAnimationFrame(raf);
+      raf = null;
+    }
+
+    function pause() {
+      paused++;
+    }
+
+    function resume() {
+      paused = Math.max(0, paused - 1);
+    }
+
+    // Drag to scrub. A drag that barely moves is treated as a click, so the
+    // card still opens its link.
+    wrap.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      moved = 0;
+      dragStartX = e.clientX;
+      dragStartOffset = offset;
+      wrap.classList.add('is-dragging');
+      try {
+        wrap.setPointerCapture(e.pointerId);
+      } catch (err) {
+        /* capture unavailable — dragging still works */
+      }
+    });
+
+    wrap.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - dragStartX;
+      moved = Math.max(moved, Math.abs(dx));
+      offset = dragStartOffset - dx;
+      apply();
+    });
+
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      wrap.classList.remove('is-dragging');
+      try {
+        wrap.releasePointerCapture(e.pointerId);
+      } catch (err) {
+        /* already released */
+      }
+    }
+
+    wrap.addEventListener('pointerup', endDrag);
+    wrap.addEventListener('pointercancel', endDrag);
+
+    // Swallow the click that follows a real drag.
+    track.addEventListener('click', function (e) {
+      if (moved > 8) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    // Hold still while someone is reading or tabbing through it.
+    wrap.addEventListener('pointerenter', pause);
+    wrap.addEventListener('pointerleave', resume);
+    wrap.addEventListener('focusin', pause);
+    wrap.addEventListener('focusout', resume);
+
+    // And while the section is off screen, so it isn't burning frames.
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            start();
+          } else {
+            stop();
+          }
+        });
+      }, { threshold: 0 }).observe(wrap);
+    } else {
+      start();
+    }
+
+    window.addEventListener('resize', measure);
+
+    return {
+      start: start,
+      stop: stop,
+      measure: measure,
+      /* Nudge by one item; used by the arrow buttons. */
+      nudge: function (dir) {
+        var first = track.querySelector(opts.itemSelector);
+        if (!first) return;
+        var step = first.getBoundingClientRect().width + (opts.gap || 0);
+        offset += dir * step;
+        apply();
+      },
+    };
+  }
+
+  /* Locations: a ticker only below the layout's column breakpoint. */
+  function initLocationsTicker() {
+    var cfg = CFG.ticker;
+    var wrap = document.querySelector('[data-ticker]');
+    var track = document.querySelector('[data-ticker-track]');
+    if (!cfg.enabled || !wrap || !track) return;
+
+    var api = createTicker({
+      wrap: wrap,
+      track: track,
+      itemSelector: '.location',
+      gap: 12,
+      speed: cfg.speed,
+      source: function () {
+        return all('.locations__col .location');
+      },
+    });
+    if (!api) return;
+
+    function sync() {
+      if (window.innerWidth <= cfg.maxWidth) {
+        api.measure();
+      } else {
+        api.stop();
+      }
+    }
+    window.addEventListener('resize', sync);
+    sync();
+  }
+
+  /*
+   * Benefits: a slow conveyor belt. Before this the arrows were never wired to
+   * anything, so cards past the fourth could not be reached at all.
+   */
+  function initBenefitsConveyor() {
+    var cfg = CFG.conveyor;
+    var wrap = document.querySelector('[data-carousel]');
+    var track = document.querySelector('[data-carousel-track]');
+    if (!cfg.enabled || !wrap || !track) return;
+
+    var api = createTicker({
+      wrap: wrap,
+      track: track,
+      itemSelector: '.benefit',
+      gap: 24,
+      speed: cfg.speed,
+    });
+    if (!api) return;
+
+    var prev = document.querySelector('[data-carousel-prev]');
+    var next = document.querySelector('[data-carousel-next]');
+    if (prev) {
+      prev.addEventListener('click', function () {
+        api.nudge(-1);
+      });
+    }
+    if (next) {
+      next.addEventListener('click', function () {
+        api.nudge(1);
+      });
+    }
+  }
+
+  /* ==================================================== Bootstrap */
+
+  onReady(function () {
+    initScrollModal();
+    initWhyPin();
+    initWordReel();
+    initReveals();
+    initLocationsTicker();
+    initBenefitsConveyor();
+  });
+})();

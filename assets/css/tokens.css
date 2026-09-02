@@ -1,0 +1,65 @@
+/* Design tokens — extracted from Figma "Istorii cu Cașcaval" */
+
+:root {
+  /* Brand palette */
+  --c-dark: #232323;          /* primary dark canvas */
+  --c-ink: #323232;           /* dark text / dark cards / button label */
+  --c-gold: #f9b200;          /* primary CTA + accent */
+  --c-cream: #ddd7cc;         /* light card surface */
+  --c-peach: #f5b49b;         /* secondary accent (nav pills, lang switch) */
+  --c-white: #ffffff;
+
+  --c-ink-60: rgba(50, 50, 50, 0.6);
+  --c-dark-60: rgba(35, 35, 35, 0.6);
+  --c-white-60: rgba(255, 255, 255, 0.6);
+  --c-white-70: rgba(255, 255, 255, 0.7);
+  --c-peach-32: rgba(245, 180, 155, 0.32);
+  --c-peach-10: rgba(245, 180, 155, 0.1);
+
+  --c-gold-text: #ffb000;     /* gold used as type colour, not fill */
+  --c-success: #02b6c9;       /* "Da, dacă" check icons */
+  --c-error: #df1566;         /* "Nu, dacă" cross icons */
+
+  /* Typography */
+  --font-display: 'Kurale', 'Times New Roman', Georgia, serif;
+  --font-body: 'Onest', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-deco: 'Berkshire Swash', Georgia, 'Times New Roman', serif;
+
+  /*
+   * Layout.
+   * The Figma canvas is a fixed 1440 (1200 content + 120 gutters). Held
+   * literally, a 1920 screen ends up with ~360px of dead margin either side,
+   * so both the page cap and the gutter scale with the viewport instead: the
+   * content keeps the designed proportions but stops stranding the edges.
+   */
+  --page-max: 1680px;
+  --gutter: clamp(20px, 4vw, 80px);
+
+  --radius-section: 32px;
+  --radius-card: 24px;
+  --radius-btn: 12px;
+  --radius-pill: 6px;
+
+  /*
+   * Vertical rhythm. Two steps, not one: sections that continue a thought sit
+   * closer than sections that start one, so the page has a cadence instead of
+   * one repeated interval.
+   */
+  --section-pt: clamp(56px, 6vw, 88px);
+  --section-pb: clamp(48px, 5vw, 72px);
+  --section-pt-lead: clamp(72px, 7.5vw, 112px);  /* opening a new movement */
+  --section-gap-tight: clamp(32px, 3.5vw, 52px); /* mid-thought continuation */
+
+  /* Motion — one language, so nothing feels borrowed from elsewhere */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur-base: 320ms;
+  --dur-slow: 520ms;
+  --dur-reveal: 720ms;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --radius-section: 24px;
+  }
+}

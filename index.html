@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Istorii cu Cașcaval — Devină francizor</title>
+<meta name="description" content="Istorii cu Cașcaval este una dintre puținele francize din regiune care combină un segment premium, concurență redusă și o experiență de cumpărare greu de replicat.">
+
+<script>document.documentElement.classList.add('has-motion');</script>
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
+<link rel="preload" href="assets/fonts/kurale-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/onest-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/motion.css">
+</head>
+<body>
+
+<!-- ============================================================== HERO -->
+<header class="hero">
+  <img class="hero__bg" src="assets/img/hero-bg.png" alt="" width="1234" height="720" fetchpriority="high">
+
+  <div class="hero__bar">
+    <a href="/" aria-label="Istorii cu Cașcaval — pagina principală">
+      <img class="hero__logo" src="assets/svg/logo.svg" alt="Istorii cu Cașcaval" width="132" height="167">
+    </a>
+
+    <!-- Language switcher: currently Romanian only. Extra locales get added
+         here once the translations exist. -->
+    <div class="hero__lang">
+      <button type="button" class="lang" data-lang-toggle aria-expanded="false" aria-haspopup="listbox">
+        <span>Ro</span>
+        <span class="lang__caret" aria-hidden="true"></span>
+      </button>
+      <div class="lang__menu" data-lang-menu role="listbox" aria-label="Alege limba">
+        <button type="button" class="lang__option" role="option" aria-current="true">Română</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__content">
+    <h1 class="hero__title">Investește într-un concept premium care deja funcționează</h1>
+    <p class="hero__lead">Istorii cu Cașcaval este una dintre puținele francize din regiune care combină un segment premium, concurență redusă și o experiență de cumpărare greu de replicat.</p>
+    <button type="button" class="btn" data-open-modal>Devină francizor</button>
+  </div>
+
+  <!--
+    The hero now fills the viewport, so nothing peeks from below to signal
+    there is more page. This restores that cue, reusing the arrow motif the
+    "why" section already uses.
+  -->
+  <a class="hero__scroll" href="#why" aria-label="Derulează mai jos">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M18.07 14.43L12 20.5L5.93 14.43" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3.5V20.33" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</header>
+
+<main>
+
+<!-- ========================================================== PILLARS -->
+<section class="section pillars" aria-label="De ce Istorii cu Cașcaval">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="container">
+    <ul class="pillars__grid">
+      <li class="pillar" data-reveal-item="media">
+        <div class="pillar__media notched notched--pillar">
+          <img src="assets/img/pillar-business.jpg" alt="Angajată tăind cașcaval în magazin" width="700" height="1050" loading="lazy">
+        </div>
+          <h2 class="pillar__title">Business</h2>
+        <span class="pillar__flourish flourish" aria-hidden="true"></span>
+        <p class="pillar__text">Model operațional validat</p>
+      </li>
+      <li class="pillar" data-reveal-item="media">
+        <div class="pillar__media notched notched--pillar">
+          <img src="assets/img/pillar-oportunitate.jpg" alt="Clienți ciocnind pahare la o degustare" width="700" height="467" loading="lazy">
+        </div>
+          <h2 class="pillar__title">Oportunitate</h2>
+        <span class="pillar__flourish flourish" aria-hidden="true"></span>
+        <p class="pillar__text">Piață în creștere</p>
+      </li>
+      <li class="pillar" data-reveal-item="media">
+        <div class="pillar__media notched notched--pillar">
+          <img src="assets/img/pillar-roi.jpg" alt="Vânzătoare servind un client în magazin" width="700" height="467" loading="lazy">
+        </div>
+          <h2 class="pillar__title">ROI</h2>
+        <span class="pillar__flourish flourish" aria-hidden="true"></span>
+        <p class="pillar__text">Recuperare estimată în aproximativ 14 luni</p>
+      </li>
+      <li class="pillar" data-reveal-item="media">
+        <div class="pillar__media notched notched--pillar">
+          <img src="assets/img/pillar-suport.jpg" alt="Angajată aranjând produse pe raft" width="700" height="467" loading="lazy">
+        </div>
+          <h2 class="pillar__title">Suport</h2>
+        <span class="pillar__flourish flourish" aria-hidden="true"></span>
+        <p class="pillar__text">Suport complet de la deschidere până la scalare</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================== WHY -->
+<!--
+  The wrapper provides the scroll distance; the section inside sticks to the
+  viewport while the three steps advance. Without JS (or on mobile) the wrapper
+  collapses and the steps simply stack.
+-->
+<div class="why-pin" data-why-pin>
+<section class="why" id="why" aria-label="De ce investitorii aleg Istorii cu Cașcaval">
+  <div class="pattern" aria-hidden="true"></div>
+
+  <div class="why__inner">
+    <div class="why__col">
+      <div class="why__head">
+        <p class="eyebrow eyebrow--start">Business</p>
+        <h2 class="section-title why__title">De ce investitorii aleg Istorii cu Cașcaval</h2>
+      </div>
+
+      <div class="why__steps" data-why-steps>
+        <!-- Step 1 -->
+        <div class="why__step" data-why-step="1">
+          <h3 class="why__step-title">Vinzi un produs pe care oamenii îl caută deja</h3>
+          <ul class="why__list">
+            <li class="why__item"><span class="why__num">01</span><p>Brânzeturile premium nu sunt o modă.</p></li>
+            <li class="why__item"><span class="why__num">02</span><p>Sunt parte dintr-un trend de consum orientat spre calitate, experiență și produse autentice.</p></li>
+            <li class="why__item"><span class="why__num">03</span><p>Clienții cumpără pentru consum zilnic, cadouri, evenimente și experiențe gastronomice.</p></li>
+            <li class="why__item"><span class="why__num">04</span><p>Asta înseamnă trafic constant și oportunități multiple de vânzare.</p></li>
+          </ul>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="why__step" data-why-step="2">
+          <h3 class="why__step-title">Intri într-o categorie cu concurență limitată</h3>
+          <ul class="why__list">
+            <li class="why__item"><span class="why__num">01</span><p>Toată lumea deschide cafenelele</p></li>
+            <li class="why__item"><span class="why__num">02</span><p>Toată lumea deschide restaurante</p></li>
+            <li class="why__item"><span class="why__num">03</span><p><strong>Aici apare avantajul.</strong> Nu lupți pentru atenție într-o piață aglomerată.</p></li>
+            <li class="why__item"><span class="why__num">04</span><p>Construiești o destinație.</p></li>
+          </ul>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="why__step" data-why-step="3">
+          <h3 class="why__step-title">Primești un model deja optimizat</h3>
+          <p class="why__step-intro">Am trecut deja prin etapele costisitoare…</p>
+          <ul class="why__list">
+            <li class="why__item"><span class="why__num">01</span><p>Alegerea sortimentului</p></li>
+            <li class="why__item"><span class="why__num">02</span><p>Testarea locațiilor</p></li>
+            <li class="why__item"><span class="why__num">03</span><p>Optimizarea marjelor</p></li>
+            <li class="why__item"><span class="why__num">04</span><p>Negocierea furnizorilor</p></li>
+            <li class="why__item"><span class="why__num">05</span><p>Construcția proceselor operaționale</p></li>
+          </ul>
+          <p class="why__outro">Tu pornești cu experiența acumulată, nu cu încercări și greșeli</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="why__media notched notched--why" data-reveal-item="media">
+      <img src="assets/img/why-1.jpg" alt="Angajată pregătind cașcaval în magazin" data-why-image="1" data-active="true" width="1100" height="1650" loading="lazy">
+      <img src="assets/img/why-2.jpg" alt="Clienți la o degustare în aer liber" data-why-image="2" width="1100" height="734" loading="lazy">
+    </div>
+  </div>
+
+  <div class="why__rail" aria-hidden="true">
+    <div class="why__rail-nums" data-why-nums>
+      <span data-active="true">1</span>
+      <span>2</span>
+      <span>3</span>
+    </div>
+    <div class="why__rail-track">
+      <span class="why__rail-thumb" data-why-thumb></span>
+    </div>
+  </div>
+
+  <div class="why__scroll-hint" data-scroll-hint>
+    <p>Continuă scrolarea</p>
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M18.07 14.43L12 20.5L5.93 14.43" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 3.5V20.33" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+</div>
+
+<!-- ========================================================== NUMBERS -->
+<section class="section section--light numbers" id="oportunitate" aria-label="Cifrele care contează">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="container numbers__inner">
+    <div class="section-head">
+      <p class="eyebrow">Oportunitate</p>
+      <h2 class="section-title">Cifrele care contează</h2>
+    </div>
+
+    <div class="numbers__grid" data-reveal="stagger">
+      <article class="stat notched notched--stat-a" data-reveal-item>
+        <h3 class="stat__title">Investiții inițiale</h3>
+        <div class="stat__list">
+          <div>
+            <p class="stat__value">43.400€</p>
+            <p class="stat__label">Investiție totală estimativă</p>
+          </div>
+          <div>
+            <p class="stat__value">1-2 luni</p>
+            <p class="stat__label">Prag de rentabilitate</p>
+            <p class="stat__hint">break-even</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="stat notched notched--stat-b" data-reveal-item>
+        <h3 class="stat__title">Recuperarea investiției</h3>
+        <div class="stat__list">
+          <div>
+            <p class="stat__value">~14 luni</p>
+            <p class="stat__label">Recuperarea investiției</p>
+            <p class="stat__hint">ROI</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="stat stat--dark notched notched--stat-c" data-reveal-item>
+        <h3 class="stat__title">Profit lunar estimativ</h3>
+        <div class="stat__list">
+          <div>
+            <p class="stat__value">2.600€</p>
+            <p class="stat__label">Lunar în primul an</p>
+          </div>
+          <div>
+            <p class="stat__value">3.700€</p>
+            <p class="stat__label">Lunar din al doilea an</p>
+          </div>
+          <div>
+            <p class="stat__value">4.300€</p>
+            <p class="stat__label">Lunar din al treilea an</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <button type="button" class="btn" data-open-modal>Devină francizor</button>
+  </div>
+</section>
+
+<!-- ======================================================== DIFFERENT -->
+<section class="different" aria-label="Ce face acest concept diferit">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="container different__inner">
+    <h2 class="section-title different__title">Ce face acest concept diferit?</h2>
+
+    <div class="different__claim">
+      <p class="different__kicker">Nu vindem doar brânzeturi</p>
+      <p class="different__line">
+        <span>Vindem</span>
+        <!-- The gold word cycles as the section scrolls past -->
+        <span class="different__slot" data-word-slot>
+          <span data-active="true">descoperire</span>
+          <span>recomandări</span>
+          <span>experiențe</span>
+          <span>cadouri</span>
+          <span>povești</span>
+        </span>
+      </p>
+    </div>
+
+    <p class="different__note">
+      Asta <strong>creează loialitate</strong> și <strong>valoare</strong> mai mare per client.<br>
+      De aceea modelul poate genera marje mai bune decât un magazin alimentar obișnuit.
+    </p>
+  </div>
+</section>
+
+<!-- ========================================================= BENEFITS -->
+<section class="benefits" id="ce-primesti" aria-label="Ce primești ca partener">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="benefits__inner">
+    <div class="container section-head benefits__head">
+      <p class="eyebrow">Beneficiile brandului</p>
+      <h2 class="section-title">Ce primești ca partener</h2>
+    </div>
+
+    <div class="benefits__viewport" data-carousel>
+      <ul class="benefits__track" data-carousel-track>
+        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Brand construit</p></li>
+        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Furnizori validați</p></li>
+        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Produse exclusive</p></li>
+        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Design complet al locației</p></li>
+        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Training pentru echipă</p></li>
+        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Strategie de marketing</p></li>
+        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Consultanță operațională permanentă</p></li>
+        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Suport pentru dezvoltare și extindere</p></li>
+      </ul>
+    </div>
+
+    <div class="benefits__nav">
+      <button type="button" class="benefits__btn benefits__btn--prev" data-carousel-prev aria-label="Beneficiul anterior">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M11.25 14.167 7.083 10l4.167-4.167" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button type="button" class="benefits__btn benefits__btn--next" data-carousel-next aria-label="Beneficiul următor">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M11.25 14.167 7.083 10l4.167-4.167" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================== FIT -->
+<section class="section section--light fit" aria-label="Este această franciză potrivită pentru tine">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="container fit__inner">
+    <div class="section-head">
+      <p class="eyebrow">Oportunitate</p>
+      <h2 class="section-title">Este această franciză potrivită pentru tine?</h2>
+    </div>
+
+    <div class="fit__grid" data-reveal="sides">
+      <article class="fit__card fit__card--no notched notched--fit" data-reveal-item>
+        <h3 class="fit__card-title">Nu, dacă</h3>
+        <ul class="fit__list">
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m7.64 12.36 4.72-4.72M12.36 12.36 7.64 7.64" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Cauți profit pasiv fără implicare</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m7.64 12.36 4.72-4.72M12.36 12.36 7.64 7.64" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Vrei recuperarea investiției în câteva luni</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m7.64 12.36 4.72-4.72M12.36 12.36 7.64 7.64" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Nu poți respecta standardele brandului</span>
+          </li>
+        </ul>
+      </article>
+
+      <article class="fit__card fit__card--yes notched notched--fit" data-reveal-item>
+        <h3 class="fit__card-title">Da, dacă</h3>
+        <ul class="fit__list">
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m6.46 10 2.36 2.36 4.72-4.72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Vrei un business fizic cu produs premium</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m6.46 10 2.36 2.36 4.72-4.72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Ai capital de investiție de la 45.000 EUR</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m6.46 10 2.36 2.36 4.72-4.72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Vrei să operezi activ sau să coordonezi un manager</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.33" stroke="currentColor" stroke-width="1.5"/><path d="m6.46 10 2.36 2.36 4.72-4.72" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Cauți o afacere pe termen lung</span>
+          </li>
+        </ul>
+        <button type="button" class="btn fit__cta" data-open-modal>Devină francizor</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= TEAM -->
+<section class="team" id="echipa" aria-label="Echipa noastră">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="container team__inner">
+    <div class="team__head">
+      <div class="team__headings">
+        <p class="eyebrow eyebrow--start">Echipa noastră</p>
+        <h2 class="section-title">Echipa care dezvoltă fiecare nouă istorie</h2>
+      </div>
+      <p class="team__intro">În spatele fiecărui magazin de succes se află o echipă dedicată, care crede în puterea unui parteneriat construit pe încredere, profesionalism și obiective comune. La Istorii cu Cașcaval, nu oferim doar un model de afacere, ci și experiența, cunoștințele și sprijinul unei echipe care îți este alături la fiecare etapă. De la primele planuri și până la dezvoltarea continuă a afacerii, lucrăm împreună pentru ca fiecare francizat să scrie propria poveste de succes.</p>
+    </div>
+
+    <ul class="team__grid" data-team-grid data-reveal="stagger">
+      <li class="member" data-reveal-item="media">
+        <img src="assets/img/team-cristina-rusu.jpg" alt="Cristina Rusu" width="800" height="1200" loading="lazy">
+        <div class="member__meta"><p class="member__name">Cristina Rusu</p><p class="member__role">Manager Dezvoltare Francize</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="assets/img/team-andrei-munteanu.jpg" alt="Andrei Munteanu" width="800" height="534" loading="lazy">
+        <div class="member__meta"><p class="member__name">Andrei Munteanu</p><p class="member__role">Director Operațional</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="assets/img/team-sergiu-cebotari.jpg" alt="Sergiu Cebotari" width="800" height="1062" loading="lazy">
+        <div class="member__meta"><p class="member__name">Sergiu Cebotari</p><p class="member__role">Fondator &amp; CEO</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="assets/img/team-mihai-vieru.jpg" alt="Mihai Vieru" width="800" height="800" loading="lazy">
+        <div class="member__meta"><p class="member__name">Mihai Vieru</p><p class="member__role">Director Comercial</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="assets/img/team-ana-bejan.jpg" alt="Ana Bejan" width="800" height="800" loading="lazy">
+        <div class="member__meta"><p class="member__name">Ana Bejan</p><p class="member__role">Manager Marketing</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="assets/img/team-victoria-cojocaru.jpg" alt="Victoria Cojocaru" width="800" height="1200" loading="lazy">
+        <div class="member__meta"><p class="member__name">Victoria Cojocaru</p><p class="member__role">Manager Relații cu Partenerii</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="assets/img/team-elena-ceban.jpg" alt="Elena Ceban" width="800" height="1200" loading="lazy">
+        <div class="member__meta"><p class="member__name">Elena Ceban</p><p class="member__role">Specialist Suport Francizați</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="assets/img/team-ion-turcanu.jpg" alt="Ion Țurcanu" width="800" height="533" loading="lazy">
+        <div class="member__meta"><p class="member__name">Ion Țurcanu</p><p class="member__role">Director Financiar</p></div>
+      </li>
+      <li class="member" data-reveal-item="media">
+        <img src="assets/img/team-alexandru-lungu.jpg" alt="Alexandru Lungu" width="800" height="534" loading="lazy">
+        <div class="member__meta"><p class="member__name">Alexandru Lungu</p><p class="member__role">Manager Expansiune</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================================================== LOCATIONS -->
+<section class="locations" id="locatii" aria-label="Locațiile noastre">
+  <div class="pattern" aria-hidden="true"></div>
+  <div class="container locations__inner">
+    <div class="locations__head">
+      <p class="eyebrow">Locațiile noastre</p>
+      <h2 class="section-title">Următoarea locație poate fi în orașul tău</h2>
+      <p class="locations__lead">Astăzi suntem prezenți în Chișinău, Ungheni și Iași.<br>Mâine putem deschide împreună în București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.</p>
+    </div>
+
+    <div class="locations__layout">
+      <ul class="locations__col locations__col--left">
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Alexandru+cel+Bun+83,+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+          <p class="location__city">Chișinău, sect. Centru</p><p class="location__street">str. Alexandru cel Bun 83</p><p class="location__hours">Luni - Duminică 09:00 - 21:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Port+Mall,+str.+Mihail+Sadoveanu+42/6,+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+          <p class="location__city">Chișinău, Port Mall</p><p class="location__street">str. Mihail Sadoveanu 42/6</p><p class="location__hours">Luni - Duminică 10:00 - 22:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Mateevici+2/1,+St%C4%83uceni" target="_blank" rel="noopener">
+          <p class="location__city">Stăuceni</p><p class="location__street">str. Mateevici 2/1</p><p class="location__hours">Luni - Duminică 10:00 - 22:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Palas+Mall,+str.+Palas+7A,+Ia%C8%99i" target="_blank" rel="noopener">
+          <p class="location__city">România, Iași, Palas Mall</p><p class="location__street">str. Palas 7A</p><p class="location__hours">Luni - Duminică 10:00 - 22:00</p></a></li>
+      </ul>
+
+      <div class="locations__map">
+        <img src="assets/svg/map.svg" alt="Harta locațiilor Istorii cu Cașcaval în Moldova și România" width="648" height="466" loading="lazy">
+        <!--
+          Each pin is a real link out to Google Maps for that city's stores.
+          The plain dots stay decorative.
+        -->
+        <div class="map__pins">
+          <span class="map__dot" aria-hidden="true" style="left:44.9%;top:43.6%"></span>
+          <span class="map__dot" aria-hidden="true" style="left:50.0%;top:34.3%"></span>
+          <span class="map__dot" aria-hidden="true" style="left:73.1%;top:49.6%"></span>
+
+          <a class="map__pin" style="left:45.4%;top:27.0%"
+             href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Ungheni"
+             target="_blank" rel="noopener"
+             aria-label="Ungheni — 1 magazin. Vezi pe Google Maps">
+            <span class="map__badge">1</span>
+            <span class="map__label">Ungheni</span>
+          </a>
+
+          <a class="map__pin map__pin--below" style="left:42.4%;top:46.4%"
+             href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Ia%C8%99i"
+             target="_blank" rel="noopener"
+             aria-label="Iași — 1 magazin. Vezi pe Google Maps">
+            <span class="map__badge">1</span>
+            <span class="map__label">Iași</span>
+          </a>
+
+          <a class="map__pin" style="left:67.0%;top:41.0%"
+             href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Chi%C8%99in%C4%83u"
+             target="_blank" rel="noopener"
+             aria-label="Chișinău — 6 magazine. Vezi pe Google Maps">
+            <span class="map__badge">6</span>
+            <span class="map__label">Chișinău</span>
+          </a>
+        </div>
+      </div>
+
+      <ul class="locations__col locations__col--right">
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Oasis+Mall,+str.+Bogdan+Voievod+1,+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+          <p class="location__city">Chișinău, Oasis Mall</p><p class="location__street">str. Bogdan Voievod 1</p><p class="location__hours">Luni - Duminică 10:00 - 21:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Shopping+MallDova,+str.+Arborilor+21,+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+          <p class="location__city">Chișinău, Shopping MallDova</p><p class="location__street">str. Arborilor 21</p><p class="location__hours">Luni - Duminică 10:00 - 22:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Vasile+Lupu+3,+Ungheni" target="_blank" rel="noopener">
+          <p class="location__city">Ungheni</p><p class="location__street">str. Vasile Lupu 3</p><p class="location__hours">Luni - Duminică 09:00 - 20:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Grenoble+120/10,+St%C4%83uceni" target="_blank" rel="noopener">
+          <p class="location__city">Stăuceni</p><p class="location__street">str. Grenoble 120/10</p><p class="location__hours">Luni - Duminică 10:00 - 22:00</p></a></li>
+      </ul>
+    </div>
+
+    <!-- Mobile: same locations as an auto-scrolling, draggable ticker -->
+    <div class="locations__ticker" data-ticker>
+      <div class="locations__ticker-track" data-ticker-track></div>
+    </div>
+
+    <div class="locations__outro">
+      <p class="locations__outro-title">Nu cumperi doar o franciză.</p>
+      <p class="locations__outro-text">Primești un model de business construit, testat și optimizat, astfel încât să poți începe cu mai multă claritate, mai puține riscuri și șanse reale de creștere.</p>
+      <button type="button" class="btn" data-open-modal>Devină francizor</button>
+      <p class="locations__outro-note">Completează formularul și discutăm despre oportunitățile disponibile.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- =========================================================== FOOTER -->
+<footer class="site-footer notched notched--footer">
+  <div class="container">
+    <div class="site-footer__card">
+      <div class="site-footer__top">
+        <img class="site-footer__logo" src="assets/svg/logo-dark.svg" alt="Istorii cu Cașcaval" width="105" height="146">
+
+        <div class="site-footer__contact">
+          <div class="site-footer__col">
+            <p class="site-footer__label">Adresa juridică</p>
+            <p class="site-footer__text">mun. Chișinău<br>strada Melestiu, 26/9</p>
+          </div>
+          <div>
+            <p class="site-footer__text"><a href="tel:+37378013333">+373 7801 3333</a></p>
+            <p class="site-footer__text"><a href="mailto:business@cheesefranchise.com">business@cheesefranchise.com</a></p>
+          </div>
+        </div>
+
+        <div class="site-footer__cols">
+          <div class="site-footer__col">
+            <p class="site-footer__label">Rețele de socializare</p>
+            <div class="site-footer__group">
+              <a class="site-footer__ext" href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="site-footer__ext" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="site-footer__ext" href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+              <a class="site-footer__ext" href="https://wa.me/37378013333" target="_blank" rel="noopener">WhatsApp<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3 9 9 3M4.2 3H9v4.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+          </div>
+
+          <div class="site-footer__col">
+            <p class="site-footer__label">Programe și Cursuri</p>
+            <div class="site-footer__group">
+              <a href="termeni-si-conditii.html">Termeni și condiții</a>
+              <a href="politica-de-confidentialitate.html">Politica de confidențialitate</a>
+              <a href="politica-de-cookie.html">Politica de cookie</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <p class="site-footer__legal">2026 © Drepturile rezervate de către compania ISTORII CU CASCAVAL SRL</p>
+        <a class="site-footer__credit" href="https://nightstar.ro" target="_blank" rel="noopener">
+          <span>Design elaborat de</span>
+          <img src="assets/svg/nightstar.svg" alt="Nightstar" width="63" height="25">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================= MODAL -->
+<div class="modal" id="franchise-modal" data-modal role="dialog" aria-modal="true" aria-labelledby="franchise-modal-title" aria-hidden="true">
+  <div class="modal__dialog" data-modal-dialog>
+    <button type="button" class="modal__close" data-close-modal aria-label="Închide formularul">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <h2 class="modal__title" id="franchise-modal-title">Devină francizor</h2>
+
+    <form data-franchise-form novalidate>
+      <div class="modal__fields">
+        <div>
+          <label class="sr-only" for="ff-name">Numele și prenumele</label>
+          <input class="field" id="ff-name" name="name" type="text" placeholder="Numele și prenumele" autocomplete="name" required>
+          <p class="field-error" data-error-for="name">Te rugăm să îți scrii numele.</p>
+        </div>
+        <div>
+          <label class="sr-only" for="ff-email">Adresa electronică</label>
+          <input class="field" id="ff-email" name="email" type="email" placeholder="Adresa electronică" autocomplete="email" required>
+          <p class="field-error" data-error-for="email">Te rugăm să introduci o adresă de email validă.</p>
+        </div>
+        <div>
+          <label class="sr-only" for="ff-phone">Numărul de telefon</label>
+          <input class="field" id="ff-phone" name="phone" type="tel" placeholder="Numărul de telefon" autocomplete="tel" required>
+          <p class="field-error" data-error-for="phone">Te rugăm să introduci un număr de telefon.</p>
+        </div>
+        <div>
+          <label class="sr-only" for="ff-city">Orașul</label>
+          <input class="field" id="ff-city" name="city" type="text" placeholder="Orașul" autocomplete="address-level2" required>
+          <p class="field-error" data-error-for="city">Te rugăm să introduci orașul.</p>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn--block">Transmite solicitarea</button>
+
+      <p class="modal__note">Considerăm că ești de-acord cu <a href="termeni-si-conditii.html">Termenii și condițiile</a> accesând butonul “Devină francizor”</p>
+    </form>
+  </div>
+</div>
+
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/animations.js" defer></script>
+</body>
+</html>

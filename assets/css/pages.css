@@ -1,0 +1,190 @@
+/* Layouts for the secondary pages: 404, success, and the legal documents */
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.page__bar {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: 14px var(--gutter) 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.page__logo {
+  width: 132px;
+  height: auto;
+}
+
+.page__lang {
+  position: absolute;
+  top: 30px;
+  right: var(--gutter);
+}
+
+.page__body {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+}
+
+/* ---------------------------------------------- Centred message pages */
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding-block: 100px 140px;
+  text-align: center;
+}
+
+.notice__art {
+  width: 203px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.notice__code {
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--c-white);
+}
+
+.notice__title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--c-white);
+}
+
+.notice__text {
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--c-white-70);
+}
+
+.notice .btn {
+  margin-top: 16px;
+}
+
+@media (max-width: 767px) {
+  .notice {
+    padding-block: 64px 96px;
+  }
+
+  .notice__code {
+    font-size: 48px;
+  }
+
+  .notice__title {
+    font-size: 20px;
+  }
+}
+
+/* ------------------------------------------------------ Legal documents */
+
+.doc {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding: 60px var(--gutter) 120px;
+}
+
+.doc__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 1.2;
+  color: var(--c-white);
+}
+
+.doc__updated {
+  margin-top: 48px;
+  font-size: 15px;
+  line-height: 20px;
+  color: var(--c-white-70);
+}
+
+.doc__lede {
+  margin-top: 24px;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--c-white-70);
+}
+
+.doc section {
+  margin-top: 64px;
+}
+
+.doc h2 {
+  margin-bottom: 24px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.25;
+  color: var(--c-white);
+}
+
+.doc p {
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--c-white-70);
+}
+
+.doc p + p {
+  margin-top: 12px;
+}
+
+.doc ul {
+  margin: 12px 0;
+  padding-left: 4px;
+}
+
+.doc li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--c-white-70);
+}
+
+.doc li::before {
+  content: '•';
+  position: absolute;
+  left: 2px;
+  color: var(--c-white-60);
+}
+
+.doc a {
+  color: var(--c-gold);
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .doc {
+    padding: 40px var(--gutter) 64px;
+  }
+
+  .doc__title {
+    font-size: 32px;
+  }
+
+  .doc section {
+    margin-top: 44px;
+  }
+
+  .doc h2 {
+    font-size: 20px;
+  }
+}
