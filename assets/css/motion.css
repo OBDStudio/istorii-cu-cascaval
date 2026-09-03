@@ -34,30 +34,51 @@
   gap: 0;
 }
 
+/*
+ * Stages cross-fade on a transition, not a keyframe.
+ *
+ * A keyframe restarts from its own first frame every time it is applied, so
+ * reversing direction part-way through — which is exactly what scrolling back
+ * up does — snapped the incoming stage to invisible and replayed it. A
+ * transition interpolates from wherever the element currently is, so a
+ * reversal blends instead of jumping.
+ *
+ * Direction comes from `data-state` rather than from tracking which way the
+ * page is moving: a stage the visitor has already passed sits *above* (prev),
+ * one not yet reached sits *below* (next). Scrolling down, the next stage
+ * rises into place and the current one drifts up; scrolling back up, the same
+ * rule runs in reverse with no extra code. Both directions read as one
+ * continuous movement rather than everything always entering from below.
+ */
 .why-pin.is-pinned .why__step {
   grid-area: 1 / 1;
-}
-
-.why-pin.is-pinned .why__step[data-active='false'] {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  transform: translateY(28px);
+  transition:
+    opacity var(--dur-slow) var(--ease-entrance),
+    transform var(--dur-slow) var(--ease-entrance),
+    /* held until the fade is done, so a leaving stage is not cut mid-fade */
+    visibility 0s linear var(--dur-slow);
 }
 
-/* The incoming stage settles in rather than cutting */
-.why-pin.is-pinned .why__step[data-active='true'] {
-  animation: icc-step-in var(--dur-slow) var(--ease-entrance) both;
+/* Already passed — sits above the frame */
+.why-pin.is-pinned .why__step[data-state='prev'] {
+  transform: translateY(-28px);
 }
 
-@keyframes icc-step-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+/* Not yet reached — waits below the frame */
+.why-pin.is-pinned .why__step[data-state='next'] {
+  transform: translateY(28px);
+}
+
+.why-pin.is-pinned .why__step[data-state='active'] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition-delay: 0s, 0s, 0s;
 }
 
 /* Short desktop viewports: shrink the media so a pinned stage still fits */
@@ -270,7 +291,7 @@
 /* ------------------------------------------------ Reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
-  .why-pin.is-pinned .why__step[data-active='true'],
+  .why-pin.is-pinned .why__step,
   .why__scroll-hint svg,
   .hero__scroll svg {
     animation: none;

@@ -26,7 +26,10 @@ var ICC_MOTION_DEFAULTS = {
     // How long that glide takes, whatever the distance. Driven here rather
     // than by `behavior: 'smooth'` so the pacing is ours and identical in
     // every browser — see initScrollModal for why the native one was dropped.
-    glideMs: 820,
+    glideMs: 760,
+    // Quiet time after the visitor stops scrolling before the glide may start.
+    // Nothing moves while a gesture is live, so the page never fights the hand.
+    settleMs: 180,
   },
 
   // 2 — pinned "why" section with three stages
@@ -160,53 +163,93 @@ window.ICC_MOTION = (function (defaults, overrides) {
         return;
       }
 
-      var startY = window.scrollY;
-      var destination = Math.round(target.getBoundingClientRect().top + startY);
-      // Already there (or past it) — nothing to glide through.
-      if (Math.abs(destination - startY) < 4) {
-        api.open();
-        return;
+      /*
+       * Wait for the visitor to stop scrolling before touching the page.
+       *
+       * The glide used to start the instant the trigger passed, easing from the
+       * scroll position captured at that moment. The visitor's wheel kept
+       * adding to the scroll underneath it, and every frame the glide wrote its
+       * own curve back over the top — so the page lurched forward with the
+       * gesture and was then hauled back against it, measured at six separate
+       * jumps of about 110px. That is the "magnet" feeling: the page arguing
+       * with the hand moving it.
+       *
+       * Now nothing moves while a gesture is live. The glide only begins once
+       * the scrolling has gone quiet, starts from wherever the visitor actually
+       * ended up, and gets out of the way the moment they touch the page again.
+       */
+      var idle = null;
+
+      function onScroll() {
+        window.clearTimeout(idle);
+        idle = window.setTimeout(begin, cfg.settleMs);
       }
 
-      /*
-       * This used to hand the glide to `behavior: 'smooth'` and wait for
-       * `scrollend`. It never once worked: `fire()` runs *from inside* a
-       * scroll event, so the visitor's own wheel gesture ends a frame later
-       * and fires the very first `scrollend` — which settled the glide before
-       * it had moved a pixel. The form opened halfway up the hero instead of
-       * at the section below it, and the smooth scroll was then killed
-       * outright by the scroll lock. Traced, not guessed: scrollTo at 297ms,
-       * scrollend at 297ms, modal open at 298ms, still at the trigger point.
-       *
-       * So the glide is driven here instead. No dependency on `scrollend`,
-       * the same duration on every browser, and the form opens when the page
-       * has genuinely arrived, because we are the ones moving it.
-       */
-      var root = document.documentElement;
-      // CSS sets `scroll-behavior: smooth` globally, which would make every
-      // frame of this loop its own animation. Suspend it for the duration.
-      var prevBehavior = root.style.scrollBehavior;
-      root.style.scrollBehavior = 'auto';
+      window.addEventListener('scroll', onScroll, { passive: true });
+      idle = window.setTimeout(begin, cfg.settleMs);
 
-      var delta = destination - startY;
-      var t0 = null;
+      function begin() {
+        window.clearTimeout(idle);
+        window.removeEventListener('scroll', onScroll);
 
-      function frame(now) {
-        if (t0 === null) t0 = now;
-        var p = clamp((now - t0) / cfg.glideMs, 0, 1);
-        // easeInOutCubic: picks up from the visitor's own momentum rather
-        // than snatching the page, and eases to a genuine stop.
-        var e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-        window.scrollTo(0, startY + delta * e);
-        if (p < 1) {
-          window.requestAnimationFrame(frame);
-        } else {
+        var startY = window.scrollY;
+        var destination = Math.round(target.getBoundingClientRect().top + startY);
+
+        // Already there, or scrolled past it while we waited. Never haul the
+        // page backwards to make a point — just open where they are.
+        if (destination - startY < 4) {
+          api.open();
+          return;
+        }
+
+        var root = document.documentElement;
+        // CSS sets `scroll-behavior: smooth` globally, which would make every
+        // frame of this loop its own animation. Suspend it for the duration.
+        var prevBehavior = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+
+        var handedBack = false;
+
+        function handBack() {
+          handedBack = true;
+        }
+
+        // Any fresh input and the glide stops dead: the visitor is steering.
+        window.addEventListener('wheel', handBack, { passive: true });
+        window.addEventListener('touchstart', handBack, { passive: true });
+        window.addEventListener('keydown', handBack);
+
+        function done() {
+          window.removeEventListener('wheel', handBack);
+          window.removeEventListener('touchstart', handBack);
+          window.removeEventListener('keydown', handBack);
           root.style.scrollBehavior = prevBehavior;
           api.open();
         }
-      }
 
-      window.requestAnimationFrame(frame);
+        var delta = destination - startY;
+        var t0 = null;
+
+        function frame(now) {
+          if (handedBack) {
+            done();
+            return;
+          }
+          if (t0 === null) t0 = now;
+          var p = clamp((now - t0) / cfg.glideMs, 0, 1);
+          // easeInOutCubic: leaves and arrives at rest, so the page never
+          // appears to be tugged.
+          var e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+          window.scrollTo(0, startY + delta * e);
+          if (p < 1) {
+            window.requestAnimationFrame(frame);
+          } else {
+            done();
+          }
+        }
+
+        window.requestAnimationFrame(frame);
+      }
     }
 
     // Tied to the hero rather than a share of total page height, so it lands
@@ -238,6 +281,7 @@ window.ICC_MOTION = (function (defaults, overrides) {
 
     var active = -1;
     var pinned = false;
+    var unitPx = 0;
 
     function show(i) {
       if (i === active) return;
@@ -250,6 +294,10 @@ window.ICC_MOTION = (function (defaults, overrides) {
         var on = n === i;
         s.setAttribute('data-active', String(on));
         s.setAttribute('aria-hidden', String(!on));
+        // Where this stage sits relative to the one on screen. The CSS parks
+        // passed stages above and unreached ones below, so the movement reads
+        // the same way round whichever way the visitor is scrolling.
+        s.setAttribute('data-state', on ? 'active' : (n < i ? 'prev' : 'next'));
       });
       nums.forEach(function (s, n) {
         s.setAttribute('data-active', String(n === i));
@@ -272,6 +320,7 @@ window.ICC_MOTION = (function (defaults, overrides) {
       steps.forEach(function (s) {
         s.setAttribute('data-active', 'true');
         s.removeAttribute('aria-hidden');
+        s.removeAttribute('data-state');
       });
       nums.forEach(function (s, n) {
         s.setAttribute('data-active', String(n === 0));
@@ -288,9 +337,12 @@ window.ICC_MOTION = (function (defaults, overrides) {
       // Measure the pinned section rather than trusting innerHeight: on phones
       // the address bar changes innerHeight mid-scroll, but the section is
       // sized in svh and stays put.
-      var unit = section.offsetHeight || window.innerHeight;
-      pin.style.height = (unit * (1 + cfg.stepScroll * (steps.length - 1))) + 'px';
-      show(0);
+      unitPx = section.offsetHeight || window.innerHeight;
+      pin.style.height = (unitPx * (1 + cfg.stepScroll * (steps.length - 1))) + 'px';
+      // Only claim the first stage on a cold start. Re-running this mid-scroll
+      // used to snap the visitor back to stage one for a frame before `update`
+      // put it right again.
+      if (active < 0) show(0);
     }
 
     function canPin() {
@@ -312,7 +364,11 @@ window.ICC_MOTION = (function (defaults, overrides) {
     function update() {
       if (!pinned) return;
       var rect = pin.getBoundingClientRect();
-      var travel = pin.offsetHeight - window.innerHeight;
+      // Against the pinned box's own height, which is sized in svh. Using
+      // window.innerHeight here meant a phone's toolbar sliding in or out
+      // changed the denominator mid-scroll, so the stage boundaries moved
+      // under the visitor and stages could flip back and forth on their own.
+      var travel = pin.offsetHeight - unitPx;
       if (travel <= 0) return;
       var progress = clamp(-rect.top / travel, 0, 1);
       // Split the travel evenly across the stages.
@@ -320,9 +376,31 @@ window.ICC_MOTION = (function (defaults, overrides) {
       show(index);
     }
 
+    /*
+     * A phone's address bar sliding away fires `resize` with a height change of
+     * roughly 10-15% and no width change. Re-laying out on that recomputed the
+     * pin's height mid-scroll — measured at a 414px jump on a 393x852 viewport —
+     * which yanked everything below it and made the section stutter, most
+     * visibly on the way back up, because scrolling up is what brings the bar
+     * back. Only a width change, or a height change too large to be chrome, is
+     * a real layout change worth re-measuring for.
+     */
+    var lastW = window.innerWidth;
+    var lastH = window.innerHeight;
+
+    function onResize() {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      var chromeOnly = w === lastW && Math.abs(h - lastH) / Math.max(lastH, 1) < 0.25;
+      lastW = w;
+      lastH = h;
+      if (chromeOnly) return;
+      layout();
+    }
+
     layout();
     window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', layout);
+    window.addEventListener('resize', onResize);
   }
 
   /* ====================================================== 4. WORD REEL */

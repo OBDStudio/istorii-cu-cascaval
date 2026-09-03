@@ -267,7 +267,9 @@
   backdrop-filter: blur(2px);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.28s ease, visibility 0.28s ease;
+  transition:
+    opacity var(--dur-slow) var(--ease-entrance),
+    visibility var(--dur-slow) var(--ease-entrance);
 }
 
 .modal[data-open='true'] {
@@ -283,13 +285,22 @@
   border-radius: 20px;
   background: var(--c-white);
   color: var(--c-ink);
-  transform: translateY(16px) scale(0.98);
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  /*
+   * Rises a little further and over a longer beat than the backdrop, so the
+   * dialog reads as arriving rather than appearing. Same entrance easing as
+   * the rest of the page, so it belongs to the same motion language.
+   */
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  transition:
+    opacity var(--dur-slow) var(--ease-entrance),
+    transform var(--dur-slow) var(--ease-entrance);
   max-height: calc(100vh - 48px);
   overflow-y: auto;
 }
 
 .modal[data-open='true'] .modal__dialog {
+  opacity: 1;
   transform: translateY(0) scale(1);
 }
 

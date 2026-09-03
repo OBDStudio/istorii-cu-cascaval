@@ -136,6 +136,27 @@
   color: var(--c-white);
 }
 
+/*
+ * Subsections, used by the cookie policy to name each category of cookie.
+ * Sized between the section heading and the body so the hierarchy is readable
+ * at a glance, and set in the body face rather than the display serif — at
+ * this size the serif reads as a third section level rather than a sub-one.
+ */
+.doc h3 {
+  margin-top: 28px;
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--c-white);
+}
+
+.doc h3 + p,
+.doc h3 + ul {
+  margin-top: 0;
+}
+
 .doc p {
   font-size: 15px;
   line-height: 24px;
