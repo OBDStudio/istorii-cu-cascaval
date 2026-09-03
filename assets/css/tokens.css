@@ -51,13 +51,13 @@
   --section-gap-tight: clamp(32px, 3.5vw, 52px); /* mid-thought continuation */
 
   /*
-   * The cheese pattern's tile, at the size Figma draws it. The artwork is one
-   * seamless 718x1164 unit; pattern.svg holds two of them side by side, so the
-   * repeat cell is 1436 wide. Measured against the Figma frames rather than
-   * chosen: the design repeats every 718px at a 1440px viewport, which is two
-   * wedge columns across the screen. Rescale this and the pattern reads wrong.
+   * The cheese pattern's tile, at the size Figma draws it. pattern.svg is one
+   * 718x1164 unit, exported from the corrected pattern in the Figma file, so
+   * the repeat cell is the tile itself. Measured against the Figma frames
+   * rather than chosen: the design repeats every 718px at a 1440px viewport,
+   * two wedge columns across the screen. Rescale this and the pattern is wrong.
    */
-  --pattern-tile: 1436px 1164px;
+  --pattern-tile: 718px 1164px;
 
   /*
    * Motion — one language, so nothing feels borrowed from elsewhere.

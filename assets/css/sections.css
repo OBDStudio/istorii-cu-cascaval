@@ -291,28 +291,15 @@
  * The pin wrapper is sized by JS to 3 viewport-heights of scroll distance.
  */
 
+/*
+ * Transparent on purpose: the run-wide sticky pattern behind it must show
+ * through. It used to carry an opaque backer and its own pattern layer, which
+ * is exactly what put a visible seam at the pillars boundary.
+ */
 .why {
   position: relative;
   padding-block: var(--section-pt-lead);
   overflow: hidden;
-  /*
-   * Opaque, so the shared .pattern-run__bg cannot show through from behind.
-   * Same colour as the canvas, so it changes nothing visually on its own —
-   * it exists purely to stop two pattern layers double-exposing, since this
-   * section now owns the one above it (see .why__pattern).
-   */
-  background: var(--c-dark);
-}
-
-/*
- * Sits still with the pinned section instead of scrolling past behind it.
- * No position:sticky needed here — once .why pins it stops moving at all, so
- * a plain absolute layer inside it is already stationary for the whole pin.
- * On the mobile fallback, where the section never pins, this simply scrolls
- * with it like any other section background.
- */
-.why__pattern {
-  z-index: 0;
 }
 
 .why__inner {
@@ -731,42 +718,6 @@
 }
 
 /* ============================ STICKY PATTERN (different + benefits) */
-
-/*
- * Holds the wedge pattern still while both sections scroll over it.
- *
- * The layer is a viewport-tall sticky box pulled back out of flow by an equal
- * negative margin, so it contributes no height of its own — it pins at the
- * top of the viewport for as long as the wrapper has room below, then travels
- * off with the wrapper's bottom edge. One layer across both sections rather
- * than one each, so there is no join between them to give it away.
- *
- * Opaque backer for the same reason .why has one: this pair no longer takes
- * its pattern from the shared run, and two layers at once would double up.
- */
-.pattern-sticky {
-  position: relative;
-  background: var(--c-dark);
-}
-
-.pattern-sticky__bg {
-  position: sticky;
-  /*
-   * `top` must be a real length, not auto. Sticky only constrains the axes it
-   * is given an offset for, so inheriting .pattern's `inset: 0` shorthand — or
-   * resetting it to auto — leaves the layer scrolling 1:1 with the page and
-   * the whole effect silently does nothing.
-   */
-  top: 0;
-  right: auto;
-  bottom: auto;
-  left: auto;
-  height: 100vh;
-  height: 100svh;
-  margin-bottom: -100vh;
-  margin-bottom: -100svh;
-  z-index: 0;
-}
 
 /* ======================================================== DIFFERENT */
 

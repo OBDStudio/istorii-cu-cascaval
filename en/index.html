@@ -88,7 +88,14 @@
   wedge scale visibly resets at every boundary.
 -->
 <div class="pattern-run">
+  <!--
+    One pattern layer for the whole run, held still in the viewport. Three
+    separate layers used to split this (pillars, "why", different+benefits)
+    and each restarted the tile from its own top, so every boundary between
+    them showed as a hard horizontal line across the page.
+  -->
   <div class="pattern pattern-run__bg" aria-hidden="true"></div>
+  <div class="pattern-run__fade" aria-hidden="true"></div>
 
 <!-- ========================================================== PILLARS -->
 <section class="section pillars" aria-label="Why Istorii cu Cașcaval">
@@ -138,16 +145,6 @@
 -->
 <div class="why-pin" data-why-pin>
 <section class="why" id="why" aria-label="Why investors choose Istorii cu Cașcaval">
-  <!--
-    This section carries its own pattern rather than letting the shared
-    pattern-run layer show through. Once the section pins, it stops moving
-    while the page keeps scrolling underneath — a background belonging to the
-    shared layer would visibly slide behind the stationary content. Owned
-    here, it holds still with the section, which is the point: only the text
-    and the photo change as the visitor scrolls.
-  -->
-  <div class="pattern pattern--tile why__pattern" aria-hidden="true"></div>
-
   <div class="why__inner">
     <div class="why__col">
       <div class="why__head">
@@ -289,8 +286,6 @@
   would each anchor their tile to their own top and show the change at the
   join between them.
 -->
-<div class="pattern-sticky">
-  <div class="pattern pattern--tile pattern-sticky__bg" aria-hidden="true"></div>
 
 <!-- ======================================================== DIFFERENT -->
 <section class="different" aria-label="What makes this concept different">
@@ -353,7 +348,6 @@
     </div>
   </div>
 </section>
-</div> <!-- /.pattern-sticky -->
 
 <!-- ============================================================== FIT -->
 <section class="section section--light fit" aria-label="Is this franchise right for you">
