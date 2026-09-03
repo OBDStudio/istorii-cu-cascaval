@@ -220,6 +220,15 @@ html {
  * to repeat); `pattern-seamless.svg` is a 2×2 mirrored supertile built from
  * it, so every edge meets its own reflection and the repeat is invisible.
  *
+ * That fixed size must be the supertile's own 2874x2328, and nothing else.
+ * It was 1200x971 for a while — a number left over from an earlier asset and
+ * never re-derived when the supertile replaced it — which squeezed the
+ * artwork to 42% and made every wedge render well under half the size Figma
+ * draws it at. Measured against the Figma frames: a wedge is ~200px wide in
+ * a 1440px frame, and pattern.svg (1437x1164, the direct export) carries
+ * those same coordinates 1:1, so the supertile is already in real pixels.
+ * Render it at anything but its native size and the whole pattern is wrong.
+ *
  * A second mask layer — a gradient fixed to the last ~900px — fades it to
  * nothing before "Locațiile noastre", which has no pattern in the design.
  * Composited with the wedge shape via `intersect`, the same technique the
@@ -233,14 +242,14 @@ html {
   -webkit-mask-image:
     url('../svg/pattern-seamless.svg'),
     linear-gradient(to top, transparent 0, #000 900px, #000 100%);
-  -webkit-mask-size: 1200px 971px, 100% 100%;
+  -webkit-mask-size: 2874px 2328px, 100% 100%;
   -webkit-mask-repeat: repeat, no-repeat;
   -webkit-mask-position: top center, center;
   -webkit-mask-composite: source-in;
   mask-image:
     url('../svg/pattern-seamless.svg'),
     linear-gradient(to top, transparent 0, #000 900px, #000 100%);
-  mask-size: 1200px 971px, 100% 100%;
+  mask-size: 2874px 2328px, 100% 100%;
   mask-repeat: repeat, no-repeat;
   mask-position: top center, center;
   mask-composite: intersect;
@@ -257,14 +266,16 @@ html {
  * across every boundary, which is the thing that reads as broken when it
  * changes. Only the tile's phase can differ, which at 10% opacity on an
  * abstract shape is not something the eye picks up.
+ *
+ * Same rule as above: 2874x2328 is the supertile's native size, not a knob.
  */
 .pattern--tile {
   -webkit-mask-image: url('../svg/pattern-seamless.svg');
-  -webkit-mask-size: 1200px 971px;
+  -webkit-mask-size: 2874px 2328px;
   -webkit-mask-repeat: repeat;
   -webkit-mask-position: top center;
   mask-image: url('../svg/pattern-seamless.svg');
-  mask-size: 1200px 971px;
+  mask-size: 2874px 2328px;
   mask-repeat: repeat;
   mask-position: top center;
 }
