@@ -23,6 +23,7 @@ from i18n_lib import (  # noqa: E402
     replace_text_nodes, replace_attrs, translate_stagger,
 )
 from i18n_strings import LOCALES, BASE, PAGES, PASSTHROUGH  # noqa: E402
+from build_terms import doc_body  # noqa: E402
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCES = ['index.html', 'termeni-si-conditii.html', '404.html', 'success.html']
@@ -78,6 +79,34 @@ def replace_switcher(html, page, locale):
         raise SystemExit('  ! switcher block not found exactly once in %s (%d)'
                          % (page, n))
     return new
+
+
+
+# ------------------------------------------------------------------- terms
+
+# The Terms page is the one page whose body is not dictionary-translated. Each
+# language was written separately by the client rather than translated from the
+# Romanian, and the versions do not even share a structure, so the body is
+# swapped wholesale per locale. Everything around it — head, header, footer,
+# modal — still goes through the normal pass, which is why the body is lifted
+# out first and put back afterwards rather than translated and overwritten.
+TERMS_PAGE = 'termeni-si-conditii.html'
+DOC_START = '<main class="page__body">'
+DOC_END = '</main>'
+
+
+def lift_doc(html):
+    """Swap the doc body for a placeholder so translate() leaves it alone."""
+    i = html.find(DOC_START)
+    j = html.find(DOC_END, i)
+    if i < 0 or j < 0:
+        raise SystemExit('  ! could not find the doc body in the terms page')
+    return html[:i + len(DOC_START)] + '@@DOC@@' + html[j:]
+
+
+def drop_doc(html, locale):
+    body = chr(10) + doc_body(locale) + chr(10) + '  '
+    return html.replace('@@DOC@@', body, 1)
 
 
 # ------------------------------------------------------------------ hreflang
@@ -180,6 +209,9 @@ def expected_output(cfg):
         ok.add(dst.strip())
     ok.update(m['name'] for m in list(LOCALES.values()) + [BASE])
     ok.update(m['menu_label'] for m in list(LOCALES.values()) + [BASE])
+    # The Terms body is lifted out before this pass and put back after, so its
+    # placeholder is the one "untranslated" string that is meant to be there.
+    ok.add('@@DOC@@')
     return ok
 
 
@@ -231,7 +263,12 @@ def build():
             # the translation pass rewrites the menu's own language names —
             # "Română" became "Русский" on the Russian page, so every option
             # read the same. Each language is always named in its own tongue.
+            is_terms = page == TERMS_PAGE
+            if is_terms:
+                html = lift_doc(html)
             html = translate(html, page, locale, cfg, unmatched)
+            if is_terms:
+                html = drop_doc(html, locale)
             html = replace_switcher(html, page, locale)
             html = re.sub(r'<html lang="ro">', '<html lang="%s">' % cfg['lang'],
                           html, count=1)
