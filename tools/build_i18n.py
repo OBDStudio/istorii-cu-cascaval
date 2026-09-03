@@ -105,6 +105,15 @@ def hreflang(page, current):
 
 
 def inject_hreflang(html, page, locale):
+    """Replace the page's alternate links with the set for this locale.
+
+    Strips before it writes, so the build is safe to re-run. The Romanian
+    sources are edited in place and end up carrying their own alternates; the
+    translated pages are then generated *from* those sources, so without this
+    a second run left them with the Romanian set plus their own — eight links
+    where there should be four, each run doubling again.
+    """
+    html = re.sub(r'[ \t]*<link rel="alternate" hreflang="[^"]*"[^>]*>\n?', '', html)
     block = hreflang(page, locale)
     # Sits with the other <head> metadata, right before the icon links.
     marker = '<link rel="icon"'
@@ -131,8 +140,13 @@ def preload_subset(html, lang):
 
 
 def rewrite_paths(html):
-    """Fix references that break one directory down."""
-    html = re.sub(r'(href|src)="(assets/)', r'\1="../\2', html)
+    """Fix references that break one directory down.
+
+    `poster` belongs in this list alongside href/src — the hero video's poster
+    frame is an asset reference like any other, and leaving it out pointed the
+    translated pages at /ru/assets/... which does not exist.
+    """
+    html = re.sub(r'(href|src|poster)="(assets/)', r'\1="../\2', html)
     html = html.replace('href="favicon.ico"', href_up('favicon.ico'))
     return html
 
@@ -238,11 +252,7 @@ def build():
         path = os.path.join(SITE, page)
         html = io.open(path, encoding='utf-8').read()
         html = replace_switcher(html, page, 'ro')
-        # Must test for the <link> specifically: the switcher's own <a> tags
-        # carry hreflang attributes too, so a bare 'hreflang="ru"' check is
-        # always true once the menu exists and the alternates never land.
-        if 'rel="alternate" hreflang="ru"' not in html:
-            html = inject_hreflang(html, page, 'ro')
+        html = inject_hreflang(html, page, 'ro')
         html = html.replace('<a href="/" aria-label', '<a href="index.html" aria-label')
         io.open(path, 'w', encoding='utf-8').write(html)
         print('  updated %s (switcher + hreflang)' % page)

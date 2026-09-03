@@ -34,13 +34,19 @@
 }
 
 /*
- * Darkens the photo across its full height, not just a fade at the bottom.
- * The raw export came straight off Figma's source image, without whatever
- * treatment Figma applies when compositing it — measured directly against a
- * rendered Figma screenshot, its version runs at roughly 55% dark even near
- * the logo, climbing to fully opaque by the bottom edge. Without this the
- * hero reads as the bright, unedited photo and the body copy loses contrast
- * against the golden highlight in the middle of the frame.
+ * Darkens the backdrop across its full height, not just a fade at the bottom.
+ * Originally measured against a rendered Figma screenshot, whose composite
+ * runs roughly 55% dark even near the logo and climbs to opaque at the base.
+ *
+ * The band behind the title and the lead was then deepened when the still
+ * became a video. A photograph has one fixed brightness to calibrate against;
+ * this montage swings from a dark misty field to a near-white shot of curd —
+ * measured across the clip, the strip where the text sits ranges from 24 to
+ * 178 in luminance. The old values held up on the dark scenes and went thin
+ * on the bright ones. Raising the middle costs nothing on the dark frames,
+ * where the backdrop is already close to the overlay's own colour and the
+ * extra alpha changes almost nothing, and it is what keeps the white type
+ * readable when the bright shots come around.
  */
 .hero::after {
   content: '';
@@ -50,9 +56,9 @@
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(35, 35, 35, 0.55) 0%,
-    rgba(35, 35, 35, 0.58) 35%,
-    rgba(35, 35, 35, 0.7) 65%,
+    rgba(35, 35, 35, 0.58) 0%,
+    rgba(35, 35, 35, 0.66) 35%,
+    rgba(35, 35, 35, 0.76) 65%,
     rgba(35, 35, 35, 0.94) 100%
   );
 }
@@ -289,6 +295,24 @@
   position: relative;
   padding-block: var(--section-pt-lead);
   overflow: hidden;
+  /*
+   * Opaque, so the shared .pattern-run__bg cannot show through from behind.
+   * Same colour as the canvas, so it changes nothing visually on its own —
+   * it exists purely to stop two pattern layers double-exposing, since this
+   * section now owns the one above it (see .why__pattern).
+   */
+  background: var(--c-dark);
+}
+
+/*
+ * Sits still with the pinned section instead of scrolling past behind it.
+ * No position:sticky needed here — once .why pins it stops moving at all, so
+ * a plain absolute layer inside it is already stationary for the whole pin.
+ * On the mobile fallback, where the section never pins, this simply scrolls
+ * with it like any other section background.
+ */
+.why__pattern {
+  z-index: 0;
 }
 
 .why__inner {
@@ -706,6 +730,44 @@
   }
 }
 
+/* ============================ STICKY PATTERN (different + benefits) */
+
+/*
+ * Holds the wedge pattern still while both sections scroll over it.
+ *
+ * The layer is a viewport-tall sticky box pulled back out of flow by an equal
+ * negative margin, so it contributes no height of its own — it pins at the
+ * top of the viewport for as long as the wrapper has room below, then travels
+ * off with the wrapper's bottom edge. One layer across both sections rather
+ * than one each, so there is no join between them to give it away.
+ *
+ * Opaque backer for the same reason .why has one: this pair no longer takes
+ * its pattern from the shared run, and two layers at once would double up.
+ */
+.pattern-sticky {
+  position: relative;
+  background: var(--c-dark);
+}
+
+.pattern-sticky__bg {
+  position: sticky;
+  /*
+   * `top` must be a real length, not auto. Sticky only constrains the axes it
+   * is given an offset for, so inheriting .pattern's `inset: 0` shorthand — or
+   * resetting it to auto — leaves the layer scrolling 1:1 with the page and
+   * the whole effect silently does nothing.
+   */
+  top: 0;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  height: 100vh;
+  height: 100svh;
+  margin-bottom: -100vh;
+  margin-bottom: -100svh;
+  z-index: 0;
+}
+
 /* ======================================================== DIFFERENT */
 
 .different {
@@ -742,23 +804,20 @@
 }
 
 /*
- * `items-start` matches the Figma frame, where this is simply two in-flow text
- * nodes at the same size. Baseline alignment cannot be used here: the slot
- * beside "Vindem" stacks its words in a grid, and a box whose only content is
- * stacked has no text baseline of its own to align against.
+ * Holds the cycling gold word on its own line, centred under the kicker.
+ * "Vindem" used to sit here as a sibling text node and now reads at the end
+ * of the kicker above, so this row carries a single child; it stays its own
+ * element for the 60px size, which the 24px kicker does not share.
+ *
+ * The rule that used to style that sibling (`> span:first-child`, white and
+ * weight 500) is deliberately gone: with the sibling removed it would have
+ * matched the slot itself and stripped the gold off the word.
  */
 .different__line {
   display: flex;
-  align-items: flex-start;
   justify-content: center;
-  gap: 12px;
   font-size: 60px;
   line-height: 1.15;
-}
-
-.different__line > span:first-child {
-  font-weight: 500;
-  color: var(--c-white);
 }
 
 /*
@@ -766,25 +825,24 @@
  * grid cell so only the active one is seen, and the slot is locked to the
  * width of the longest so the line never re-flows as they swap.
  *
- * Grid stacking (not absolute positioning) is what keeps the word sitting on
- * the same line as "Vindem": grid items stay in flow and inherit the line box,
- * whereas absolutely-positioned words are taken out of it and end up riding
- * high above the text they are supposed to sit beside.
+ * Grid stacking rather than absolute positioning: grid items stay in flow and
+ * keep the line box, so the row is as tall as the words. Positioned words are
+ * taken out of flow and collapse the row to nothing.
+ *
+ * Centred, not left-aligned as it was when it followed "Vindem" on the same
+ * line — the slot is now on its own beneath the kicker, and its width is
+ * fixed to the longest word, so anything shorter would sit visibly off to
+ * the left of the sentence it belongs under.
  */
 .different__slot {
   display: grid;
   align-items: start;
-  justify-items: start;
+  justify-items: center;
   font-weight: 700;
   color: var(--c-gold);
-  text-align: left;
+  text-align: center;
 }
 
-/*
- * Every word starts on the same left edge, so each begins exactly where the
- * last one ended and the gap after "Vindem" never changes. The slack from
- * shorter words is absorbed invisibly on the right.
- */
 .different__slot span {
   grid-area: 1 / 1;
   white-space: nowrap;
@@ -1246,8 +1304,15 @@
   align-self: center;
   margin-left: -18px;
   margin-right: -24px;
-  -webkit-mask: radial-gradient(ellipse 58% 56% at 48% 46%, #000 42%, transparent 100%);
-  mask: radial-gradient(ellipse 58% 56% at 48% 46%, #000 42%, transparent 100%);
+  /*
+   * The ellipse is kept near half the box so the fade actually finishes
+   * inside it. Sized much larger, the falloff completes past the element's
+   * own edge and the map ends on a visible rectangle again — which is the
+   * thing this mask exists to avoid. The middle stop stretches the falloff
+   * so it reads as a dissolve rather than a ring.
+   */
+  -webkit-mask: radial-gradient(ellipse 54% 52% at 50% 46%, #000 30%, rgba(0, 0, 0, 0.45) 70%, transparent 100%);
+  mask: radial-gradient(ellipse 54% 52% at 50% 46%, #000 30%, rgba(0, 0, 0, 0.45) 70%, transparent 100%);
 }
 
 .locations__map img {

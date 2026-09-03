@@ -215,8 +215,17 @@
  */
 @media (min-width: 1024px) {
   .has-motion .member[data-reveal-item] {
-    transition-duration: 1600ms;
+    transition-duration: 1800ms;
   }
+}
+
+/*
+ * The two comparison cards arrive on the same longer clock as the portraits.
+ * Scoped to the cards rather than raised on --dur-reveal, which the pillar
+ * media and the stat cards also read from and which should stay as it is.
+ */
+.has-motion .fit__card[data-reveal-item] {
+  transition-duration: 1800ms;
 }
 
 /* The comparison cards enter from opposite sides, together */

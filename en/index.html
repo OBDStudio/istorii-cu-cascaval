@@ -27,7 +27,17 @@
 
 <!-- ============================================================== HERO -->
 <header class="hero">
-  <img class="hero__bg" src="../assets/img/hero-bg.png" alt="" width="1234" height="720" fetchpriority="high">
+  <!--
+    Decorative, so aria-hidden rather than the alt="" the still image carried.
+    autoplay needs `muted` even though this file has no audio track at all —
+    browsers gate autoplay on the attribute, not on whether sound exists — and
+    `playsinline` stops iOS Safari from taking it fullscreen. The poster is the
+    video's own first frame, so there is no colour pop when it starts.
+  -->
+  <video class="hero__bg" data-hero-video autoplay muted loop playsinline
+         aria-hidden="true" poster="../assets/img/hero-bg-poster.jpg">
+    <source src="../assets/video/hero-bg.mp4" type="video/mp4">
+  </video>
 
   <div class="hero__bar">
     <a href="index.html" aria-label="Istorii cu Cașcaval — home page">
@@ -128,6 +138,15 @@
 -->
 <div class="why-pin" data-why-pin>
 <section class="why" id="why" aria-label="Why investors choose Istorii cu Cașcaval">
+  <!--
+    This section carries its own pattern rather than letting the shared
+    pattern-run layer show through. Once the section pins, it stops moving
+    while the page keeps scrolling underneath — a background belonging to the
+    shared layer would visibly slide behind the stationary content. Owned
+    here, it holds still with the section, which is the point: only the text
+    and the photo change as the visitor scrolls.
+  -->
+  <div class="pattern pattern--tile why__pattern" aria-hidden="true"></div>
 
   <div class="why__inner">
     <div class="why__col">
@@ -261,16 +280,27 @@
   </div>
 </section>
 
+<!-- ==================================== DIFFERENT + BENEFITS (sticky bg) -->
+<!--
+  One wrapper around both sections so a single sticky pattern layer spans
+  them: the backdrop locks to the viewport and the two sections' content
+  scrolls over it, then it releases as the pair ends. Wrapping both rather
+  than giving each its own layer keeps it one continuous field — two layers
+  would each anchor their tile to their own top and show the change at the
+  join between them.
+-->
+<div class="pattern-sticky">
+  <div class="pattern pattern--tile pattern-sticky__bg" aria-hidden="true"></div>
+
 <!-- ======================================================== DIFFERENT -->
 <section class="different" aria-label="What makes this concept different">
   <div class="container different__inner">
     <h2 class="section-title different__title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">What</span> <span class="stagger__word" style="--i:1">makes</span> <span class="stagger__word" style="--i:2">this</span> <span class="stagger__word" style="--i:3">concept</span> <span class="stagger__word" style="--i:4">different?</span></h2>
 
     <div class="different__claim">
-      <p class="different__kicker">We do not just sell cheese</p>
+      <p class="different__kicker">We do not just sell cheese, we sell</p>
       <p class="different__line">
-        <span>We sell</span>
-        <!-- The gold word cycles as the section scrolls past -->
+        <!-- The gold word cycles on its own timer, centred under the line above -->
         <span class="different__slot" data-word-slot>
           <span data-active="true">discovery</span>
           <span>recommendations</span>
@@ -323,6 +353,7 @@
     </div>
   </div>
 </section>
+</div> <!-- /.pattern-sticky -->
 
 <!-- ============================================================== FIT -->
 <section class="section section--light fit" aria-label="Is this franchise right for you">
@@ -438,7 +469,7 @@
     <div class="locations__head">
       <p class="eyebrow">Our locations</p>
       <h2 class="section-title stagger" data-stagger="scroll"><span class="stagger__word" style="--i:0">The</span> <span class="stagger__word" style="--i:1">next</span> <span class="stagger__word" style="--i:2">location</span> <span class="stagger__word" style="--i:3">could</span> <span class="stagger__word" style="--i:4">be</span> <span class="stagger__word" style="--i:5">in</span> <span class="stagger__word" style="--i:6">your</span> <span class="stagger__word" style="--i:7">city</span></h2>
-      <p class="locations__lead">Today we are present in Chișinău, Ungheni and Iași.<br>Tomorrow we could open together in Bucharest, Cluj-Napoca, Timișoara, Brașov, Constanța or other cities with strong potential.</p>
+      <p class="locations__lead">Today we are present in Chișinău, Ungheni, Iași and Suceava.<br>Tomorrow we could open together in Bălți, Bucharest, Cluj-Napoca, Timișoara, Brașov, Constanța or other cities with strong potential.</p>
     </div>
 
     <div class="locations__layout">
@@ -451,6 +482,8 @@
           <p class="location__city">Stăuceni</p><p class="location__street">2/1 Mateevici St.</p><p class="location__hours">Monday – Sunday 10:00 – 22:00</p></a></li>
         <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Palas+Mall,+str.+Palas+7A,+Ia%C8%99i" target="_blank" rel="noopener">
           <p class="location__city">Romania, Iași, Palas Mall</p><p class="location__street">7A Palas St.</p><p class="location__hours">Monday – Sunday 10:00 – 22:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Kog%C4%83lniceanu+62,+Chi%C8%99in%C4%83u" target="_blank" rel="noopener">
+          <p class="location__city">Chișinău, Centru</p><p class="location__street">62 Kogălniceanu St.</p><p class="location__hours">Monday – Sunday 08:00 – 21:00</p></a></li>
       </ul>
 
       <div class="locations__map">
@@ -483,9 +516,17 @@
           <a class="map__pin" style="left:67.0%;top:41.0%"
              href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Chi%C8%99in%C4%83u"
              target="_blank" rel="noopener"
-             aria-label="Chișinău — 6 stores. View on Google Maps">
-            <span class="map__badge">6</span>
+             aria-label="Chișinău — 7 stores. View on Google Maps">
+            <span class="map__badge">7</span>
             <span class="map__label">Chișinău</span>
+          </a>
+
+          <a class="map__pin" style="left:26.5%;top:22.0%"
+             href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Suceava"
+             target="_blank" rel="noopener"
+             aria-label="Suceava — 1 store. View on Google Maps">
+            <span class="map__badge">1</span>
+            <span class="map__label">Suceava</span>
           </a>
         </div>
       </div>
@@ -497,6 +538,8 @@
           <p class="location__city">Chișinău, Shopping MallDova</p><p class="location__street">21 Arborilor St.</p><p class="location__hours">Monday – Sunday 10:00 – 22:00</p></a></li>
         <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Vasile+Lupu+3,+Ungheni" target="_blank" rel="noopener">
           <p class="location__city">Ungheni</p><p class="location__street">3 Vasile Lupu St.</p><p class="location__hours">Monday – Sunday 09:00 – 20:00</p></a></li>
+        <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=Iulius+Mall,+str.+Calea+Unirii+22,+Suceava" target="_blank" rel="noopener">
+          <p class="location__city">Suceava, Iulius Mall</p><p class="location__street">22 Calea Unirii St.</p><p class="location__hours">Monday – Sunday 10:00 – 22:00</p></a></li>
         <li><a class="location" href="https://www.google.com/maps/search/?api=1&amp;query=str.+Grenoble+120/10,+St%C4%83uceni" target="_blank" rel="noopener">
           <p class="location__city">Stăuceni</p><p class="location__street">120/10 Grenoble St.</p><p class="location__hours">Monday – Sunday 10:00 – 22:00</p></a></li>
       </ul>

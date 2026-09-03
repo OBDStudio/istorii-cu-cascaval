@@ -105,8 +105,10 @@ RU = {
     # -- different
     'Ce face acest concept diferit?': 'Что делает этот концепт особенным?',
     'Ce face acest concept diferit': 'Что делает этот концепт особенным',
-    'Nu vindem doar brânzeturi': 'Мы продаём не только сыры',
-    'Vindem': 'Мы продаём',
+    # "Vindem" was folded into the kicker, so the sentence now runs on into
+    # the cycling gold word beneath it and repeats the verb, as the Romanian
+    # does: "…мы продаём" → "открытия".
+    'Nu vindem doar brânzeturi, vindem': 'Мы продаём не только сыры, мы продаём',
     'descoperire': 'открытия',
     'recomandări': 'рекомендации',
     'experiențe': 'впечатления',
@@ -168,13 +170,18 @@ RU = {
     'Locațiile noastre': 'Наши локации',
     'Următoarea locație poate fi în orașul tău':
         'Следующая локация может открыться в вашем городе',
-    'Astăzi suntem prezenți în Chișinău, Ungheni și Iași.':
-        'Сегодня мы представлены в Кишинёве, Унгенах и Яссах.',
-    'Mâine putem deschide împreună în București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.':
-        'Завтра мы можем вместе открыться в Бухаресте, Клуж-Напоке, Тимишоаре, Брашове, Констанце или в других городах с высоким потенциалом.',
+    'Astăzi suntem prezenți în Chișinău, Ungheni, Iași și Suceava.':
+        'Сегодня мы представлены в Кишинёве, Унгенах, Яссах и Сучаве.',
+    'Mâine putem deschide împreună în Bălți, București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.':
+        'Завтра мы можем вместе открыться в Бельцах, Бухаресте, Клуж-Напоке, Тимишоаре, Брашове, Констанце или в других городах с высоким потенциалом.',
     'Chișinău, sect. Centru': 'Кишинёв, сект. Центру',
     'str. Alexandru cel Bun 83': 'ул. Александру чел Бун 83',
     'Luni - Duminică 09:00 - 21:00': 'Пн – Вс 09:00 – 21:00',
+    'Chișinău, Centru': 'Кишинёв, Центру',
+    'str. Kogălniceanu 62': 'ул. Когэлничану 62',
+    'Luni - Duminică 08:00 - 21:00': 'Пн – Вс 08:00 – 21:00',
+    'Suceava, Iulius Mall': 'Сучава, Iulius Mall',
+    'str. Calea Unirii 22': 'ул. Каля Унирий 22',
     'Chișinău, Port Mall': 'Кишинёв, Port Mall',
     'str. Mihail Sadoveanu 42/6': 'ул. Михаил Садовяну 42/6',
     'Luni - Duminică 10:00 - 22:00': 'Пн – Вс 10:00 – 22:00',
@@ -184,6 +191,7 @@ RU = {
     'str. Palas 7A': 'ул. Палас 7A',
     'Ungheni': 'Унгень',
     'Iași': 'Яссы',
+    'Suceava': 'Сучава',
     'Chișinău': 'Кишинёв',
     'Chișinău, Oasis Mall': 'Кишинёв, Oasis Mall',
     'str. Bogdan Voievod 1': 'ул. Богдан Воевод 1',
@@ -204,8 +212,10 @@ RU = {
         'Унгень — 1 магазин. Посмотреть на Google Maps',
     'Iași — 1 magazin. Vezi pe Google Maps':
         'Яссы — 1 магазин. Посмотреть на Google Maps',
-    'Chișinău — 6 magazine. Vezi pe Google Maps':
-        'Кишинёв — 6 магазинов. Посмотреть на Google Maps',
+    'Suceava — 1 magazin. Vezi pe Google Maps':
+        'Сучава — 1 магазин. Посмотреть на Google Maps',
+    'Chișinău — 7 magazine. Vezi pe Google Maps':
+        'Кишинёв — 7 магазинов. Посмотреть на Google Maps',
 
     # -- footer
     'Adresa juridică': 'Юридический адрес',
@@ -458,8 +468,7 @@ EN = {
 
     'Ce face acest concept diferit?': 'What makes this concept different?',
     'Ce face acest concept diferit': 'What makes this concept different',
-    'Nu vindem doar brânzeturi': 'We do not just sell cheese',
-    'Vindem': 'We sell',
+    'Nu vindem doar brânzeturi, vindem': 'We do not just sell cheese, we sell',
     'descoperire': 'discovery',
     'recomandări': 'recommendations',
     'experiențe': 'experiences',
@@ -517,13 +526,18 @@ EN = {
     'Locațiile noastre': 'Our locations',
     'Următoarea locație poate fi în orașul tău':
         'The next location could be in your city',
-    'Astăzi suntem prezenți în Chișinău, Ungheni și Iași.':
-        'Today we are present in Chișinău, Ungheni and Iași.',
-    'Mâine putem deschide împreună în București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.':
-        'Tomorrow we could open together in Bucharest, Cluj-Napoca, Timișoara, Brașov, Constanța or other cities with strong potential.',
+    'Astăzi suntem prezenți în Chișinău, Ungheni, Iași și Suceava.':
+        'Today we are present in Chișinău, Ungheni, Iași and Suceava.',
+    'Mâine putem deschide împreună în Bălți, București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.':
+        'Tomorrow we could open together in Bălți, Bucharest, Cluj-Napoca, Timișoara, Brașov, Constanța or other cities with strong potential.',
     'Chișinău, sect. Centru': 'Chișinău, Centru district',
     'str. Alexandru cel Bun 83': '83 Alexandru cel Bun St.',
     'Luni - Duminică 09:00 - 21:00': 'Monday – Sunday 09:00 – 21:00',
+    'Chișinău, Centru': 'Chișinău, Centru',
+    'str. Kogălniceanu 62': '62 Kogălniceanu St.',
+    'Luni - Duminică 08:00 - 21:00': 'Monday – Sunday 08:00 – 21:00',
+    'Suceava, Iulius Mall': 'Suceava, Iulius Mall',
+    'str. Calea Unirii 22': '22 Calea Unirii St.',
     'Chișinău, Port Mall': 'Chișinău, Port Mall',
     'str. Mihail Sadoveanu 42/6': '42/6 Mihail Sadoveanu St.',
     'Luni - Duminică 10:00 - 22:00': 'Monday – Sunday 10:00 – 22:00',
@@ -533,6 +547,7 @@ EN = {
     'str. Palas 7A': '7A Palas St.',
     'Ungheni': 'Ungheni',
     'Iași': 'Iași',
+    'Suceava': 'Suceava',
     'Chișinău': 'Chișinău',
     'Chișinău, Oasis Mall': 'Chișinău, Oasis Mall',
     'str. Bogdan Voievod 1': '1 Bogdan Voievod St.',
@@ -552,8 +567,10 @@ EN = {
     'Ungheni — 1 magazin. Vezi pe Google Maps':
         'Ungheni — 1 store. View on Google Maps',
     'Iași — 1 magazin. Vezi pe Google Maps': 'Iași — 1 store. View on Google Maps',
-    'Chișinău — 6 magazine. Vezi pe Google Maps':
-        'Chișinău — 6 stores. View on Google Maps',
+    'Suceava — 1 magazin. Vezi pe Google Maps':
+        'Suceava — 1 store. View on Google Maps',
+    'Chișinău — 7 magazine. Vezi pe Google Maps':
+        'Chișinău — 7 stores. View on Google Maps',
 
     'Adresa juridică': 'Registered address',
     'mun. Chișinău': 'Chișinău',

@@ -246,6 +246,29 @@ html {
   mask-composite: intersect;
 }
 
+/*
+ * The same tiling, for pattern layers that stand on their own rather than
+ * being part of the continuous run above — the "why" section and the sticky
+ * backdrop behind "different"+"benefits", both of which need to sit still
+ * while their section scrolls and so cannot share one absolutely-positioned
+ * element with the sections around them.
+ *
+ * Reusing the identical tile size is the point: the wedges stay the same size
+ * across every boundary, which is the thing that reads as broken when it
+ * changes. Only the tile's phase can differ, which at 10% opacity on an
+ * abstract shape is not something the eye picks up.
+ */
+.pattern--tile {
+  -webkit-mask-image: url('../svg/pattern-seamless.svg');
+  -webkit-mask-size: 1200px 971px;
+  -webkit-mask-repeat: repeat;
+  -webkit-mask-position: top center;
+  mask-image: url('../svg/pattern-seamless.svg');
+  mask-size: 1200px 971px;
+  mask-repeat: repeat;
+  mask-position: top center;
+}
+
 /* --------------------------------------------------------- Typography */
 
 .eyebrow {

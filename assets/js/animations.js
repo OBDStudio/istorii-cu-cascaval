@@ -754,6 +754,46 @@ window.ICC_MOTION = (function (defaults, overrides) {
     }
   }
 
+  /* ================================================== HERO VIDEO */
+
+  /*
+   * The hero background is a looping video. Two things the `autoplay`
+   * attribute cannot express on its own:
+   *
+   * `autoplay` is declarative and fires regardless of the visitor's motion
+   * preference, so reduced-motion has to be honoured here — the poster frame
+   * stays up instead, which is a still of the video's own first frame.
+   *
+   * And once the visitor has scrolled past the hero there is nothing to see,
+   * so it pauses off screen rather than decoding frames for no one. Same
+   * IntersectionObserver treatment the tickers already get.
+   */
+  function initHeroVideo() {
+    var video = document.querySelector('[data-hero-video]');
+    if (!video) return;
+
+    if (reduced) {
+      video.removeAttribute('autoplay');
+      video.pause();
+      return;
+    }
+
+    if (!('IntersectionObserver' in window)) return;
+
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          // play() rejects if the browser blocked autoplay; the poster is
+          // already showing, so there is nothing to recover from.
+          var p = video.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0 }).observe(video);
+  }
+
   /* ==================================================== Bootstrap */
 
   onReady(function () {
@@ -765,5 +805,6 @@ window.ICC_MOTION = (function (defaults, overrides) {
     initReveals();
     initLocationsTicker();
     initBenefitsConveyor();
+    initHeroVideo();
   });
 })();
