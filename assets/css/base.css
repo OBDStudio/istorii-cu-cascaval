@@ -244,6 +244,23 @@ html {
  */
 .pattern-run {
   position: relative;
+  /*
+   * Clips the sticky layer above to this box.
+   *
+   * The layer is fixed to the viewport but a viewport tall, so near the end of
+   * the run it still painted a full screen of pattern downwards — straight over
+   * "Locațiile noastre", which has none in the design. A gradient used to try
+   * to hide that, but it sat in the document while the pattern sat in the
+   * viewport, so the two drifted apart as you scrolled: the gradient washed out
+   * the bottom 63% of the team section on desktop and had already scrolled away
+   * by the time locations arrived, which is the worst of both.
+   *
+   * Clipping ends the pattern exactly where the run ends. `clip` rather than
+   * `hidden` on purpose — `hidden` would make this a scroll container and break
+   * the sticky positioning it exists to support, both here and in the pinned
+   * "why" section inside it.
+   */
+  overflow: clip;
 }
 
 .pattern-run__bg {
@@ -265,23 +282,6 @@ html {
   z-index: 0;
 }
 
-/*
- * Fades the pattern out before "Locațiile noastre", which has no pattern in
- * the design. It cannot ride on the layer above any more — that one is only
- * a viewport tall and travels, so a gradient mask on it would fade at the
- * wrong place. So it is its own element, pinned to the bottom of the run and
- * washing the canvas colour back over the pattern.
- */
-.pattern-run__fade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 900px;
-  z-index: 0;
-  pointer-events: none;
-  background: linear-gradient(to bottom, rgba(35, 35, 35, 0), var(--c-dark));
-}
 
 /* --------------------------------------------------------- Typography */
 
