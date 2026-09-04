@@ -40,9 +40,11 @@ var ICC_MOTION_DEFAULTS = {
     stepScroll: 1.75,
     // Desktop always pins.
     minWidth: 1024,
-    // Narrower than that, it only pins when the phone is tall enough for a
-    // stage to fit; shorter screens get the stacked layout instead.
-    minHeight: 760,
+    // Narrower than that it pins only when a stage genuinely fits, measured
+    // rather than assumed — see fitsPinned(). Anything that does not fit gets
+    // the stacked layout instead, which is the graceful outcome, not a bug.
+    // Headroom left below the stage for the counter that runs along the bottom.
+    fitMargin: 44,
   },
 
   // 4 — the gold word cycles on its own
@@ -345,11 +347,42 @@ window.ICC_MOTION = (function (defaults, overrides) {
       if (active < 0) show(0);
     }
 
+    /*
+     * Does a pinned stage actually fit this screen?
+     *
+     * This used to be a guess: pin below 1024px wide only if innerHeight was at
+     * least 760. Nearly every phone showing its browser chrome falls under that
+     * — an iPhone 14 gives the page 664px — so the section silently stopped
+     * animating on real devices while still pinning in a chrome-less emulator.
+     * The constant was also wrong in the other direction, refusing phones like
+     * the Pixel 7 whose content fits fine at 727px.
+     *
+     * So measure instead of guessing. The pinned layout is what has to fit, so
+     * the class goes on for the measurement and comes straight back off if it
+     * is not wanted — same frame, nothing paints in between.
+     *
+     * Both numbers come from the pinned box: `.why` is sized in svh, the
+     * viewport height *with* the toolbar showing, so this is the worst case and
+     * the answer cannot change when the bar slides away mid-scroll.
+     */
+    function fitsPinned() {
+      var inner = pin.querySelector('.why__inner');
+      if (!inner) return false;
+
+      var had = pin.classList.contains('is-pinned');
+      if (!had) pin.classList.add('is-pinned');
+      var box = section.offsetHeight;
+      var need = inner.scrollHeight;
+      if (!had) pin.classList.remove('is-pinned');
+
+      // Room left for the stage counter sitting along the bottom edge.
+      return box > 0 && need > 0 && need + cfg.fitMargin <= box;
+    }
+
     function canPin() {
       if (!cfg.enabled || reduced) return false;
       if (window.innerWidth >= cfg.minWidth) return true;
-      // Narrow screens need the height to carry a full stage.
-      return window.innerHeight >= cfg.minHeight;
+      return fitsPinned();
     }
 
     function layout() {

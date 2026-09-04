@@ -33,7 +33,7 @@ DOCS = {
             ],
             'intro': [
                 ('p', 'Site-ul este administrat de:'),
-                ('p', '<strong>Istorii cu Cașcaval SRL</strong><br><strong>Telefon:</strong> +373 78013333<br><strong>Telefon Ro:</strong> 40 724395919<br><strong>Email:</strong> adrian@icascaval.md<br><strong>Website principal:</strong> icascaval.md'),
+                ('p', '<strong>Istorii cu Cașcaval SRL</strong><br><strong>Telefon:</strong> +373 78013333<br><strong>Telefon Ro:</strong> 40 724395919<br><strong>Email:</strong> business@cheesefranchise.com<br><strong>Website principal:</strong> icascaval.md'),
                 ('p', 'În cazul în care nu sunteți de acord cu prevederile de mai jos, vă rugăm să nu utilizați acest site și să nu transmiteți o aplicație pentru franciză.'),
             ],
             'body': [
@@ -185,7 +185,7 @@ DOCS = {
                 ('p', 'În cazul în care o soluționare amiabilă nu este posibilă, litigiul va fi deferit instanțelor competente conform legislației aplicabile.'),
                 ('h2', '20. Date de contact'),
                 ('p', 'Pentru întrebări privind site-ul, procesul de aplicare pentru franciză sau prezentele Termeni și Condiții, ne puteți contacta la:'),
-                ('p', '<strong>Istorii cu Cașcaval SRL</strong><br><strong>Telefon:</strong> +373 78013333<br><strong>Telefon Ro:</strong> 40 724395919<br><strong>Email:</strong> adrian@icascaval.md'),
+                ('p', '<strong>Istorii cu Cașcaval SRL</strong><br><strong>Telefon:</strong> +373 78013333<br><strong>Telefon Ro:</strong> 40 724395919<br><strong>Email:</strong> business@cheesefranchise.com'),
             ],
         },
         'en': {
@@ -197,7 +197,7 @@ DOCS = {
             ],
             'intro': [
                 ('p', 'The website is operated by:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Ro Phone: 40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Ro Phone: 40 724395919<br>Email: business@cheesefranchise.com'),
                 ('p', 'If you do not agree with these Terms and Conditions, please do not use this website or submit a franchise application.'),
             ],
             'body': [
@@ -350,7 +350,7 @@ DOCS = {
                 ('p', 'If an amicable solution cannot be reached, the dispute shall be submitted to the competent courts in accordance with applicable law.'),
                 ('h2', '20. Contact Information'),
                 ('p', 'For questions regarding the website, franchise application process or these Terms and Conditions, you may contact us at:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Ro Phone: 40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Ro Phone: 40 724395919<br>Email: business@cheesefranchise.com'),
             ],
         },
         'ru': {
@@ -362,7 +362,7 @@ DOCS = {
             ],
             'intro': [
                 ('p', 'Сайт управляется:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон Ру: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон Ру: +40 724395919<br>Email: business@cheesefranchise.com'),
                 ('p', 'Если вы не согласны с положениями настоящих Условий, пожалуйста, не используйте данный сайт и не отправляйте заявку на франшизу.'),
             ],
             'body': [
@@ -515,7 +515,7 @@ DOCS = {
                 ('p', 'Если урегулировать спор мирным путем невозможно, он передается на рассмотрение компетентных судебных органов в соответствии с применимым законодательством.'),
                 ('h2', '20. Контактные данные'),
                 ('p', 'По вопросам, связанным с использованием сайта, процессом подачи заявки на франшизу или настоящими Условиями, вы можете связаться с нами:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон Ру: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон Ру: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
         },
     },
@@ -528,7 +528,7 @@ DOCS = {
             ],
             'intro': [
                 ('p', 'Operatorul datelor:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Telefon: +373 78013333<br>Telefon România: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Telefon: +373 78013333<br>Telefon România: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
             'body': [
                 ('h2', '1. Ce date colectăm'),
@@ -595,7 +595,7 @@ DOCS = {
                     'să vă retrageți consimțământul, atunci când prelucrarea se bazează pe acesta;',
                     'să depuneți o plângere la autoritatea competentă pentru protecția datelor.',
                 ]),
-                ('p', 'Pentru exercitarea acestor drepturi ne puteți contacta la <strong>adrian@icascaval.md</strong>.'),
+                ('p', 'Pentru exercitarea acestor drepturi ne puteți contacta la <strong>business@cheesefranchise.com</strong>.'),
                 ('h2', '9. Servicii externe'),
                 ('p', 'Site-ul este construit pe WordPress și poate utiliza servicii externe pentru hosting, formulare, securitate, analiză sau alte funcționalități.'),
                 ('p', 'Unele dintre aceste servicii pot procesa anumite date conform propriilor politici și condițiilor aplicabile.'),
@@ -604,7 +604,7 @@ DOCS = {
                 ('p', 'Versiunea actualizată va fi publicată pe această pagină.'),
                 ('h2', '11. Contact'),
                 ('p', 'Pentru întrebări privind prelucrarea datelor personale:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Telefon: +373 78013333<br>Telefon România: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Telefon: +373 78013333<br>Telefon România: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
         },
         'en': {
@@ -615,7 +615,7 @@ DOCS = {
             ],
             'intro': [
                 ('p', 'Data Controller:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Romania Phone: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Romania Phone: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
             'body': [
                 ('h2', '1. Data We Collect'),
@@ -682,7 +682,7 @@ DOCS = {
                     'withdraw consent where processing is based on consent;',
                     'lodge a complaint with the competent data protection authority.',
                 ]),
-                ('p', 'To exercise your rights, contact us at <strong>adrian@icascaval.md</strong>.'),
+                ('p', 'To exercise your rights, contact us at <strong>business@cheesefranchise.com</strong>.'),
                 ('h2', '9. External Services'),
                 ('p', 'The website is built using WordPress and may use external services for hosting, forms, security, analytics or other functionality.'),
                 ('p', 'Some of these providers may process certain data in accordance with their own policies and applicable requirements.'),
@@ -691,7 +691,7 @@ DOCS = {
                 ('p', 'The updated version will be published on this page.'),
                 ('h2', '11. Contact'),
                 ('p', 'For questions regarding personal data:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Romania Phone: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Romania Phone: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
         },
         'ru': {
@@ -702,7 +702,7 @@ DOCS = {
             ],
             'intro': [
                 ('p', 'Оператор персональных данных:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон в Румынии: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон в Румынии: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
             'body': [
                 ('h2', '1. Какие данные мы собираем'),
@@ -769,7 +769,7 @@ DOCS = {
                     'отозвать согласие, если обработка основана на согласии;',
                     'подать жалобу в компетентный орган по защите персональных данных.',
                 ]),
-                ('p', 'Для реализации своих прав свяжитесь с нами: <strong>adrian@icascaval.md</strong>.'),
+                ('p', 'Для реализации своих прав свяжитесь с нами: <strong>business@cheesefranchise.com</strong>.'),
                 ('h2', '9. Внешние сервисы'),
                 ('p', 'Сайт создан на платформе WordPress и может использовать сторонние сервисы для хостинга, форм, безопасности, аналитики и других функций.'),
                 ('p', 'Некоторые поставщики таких услуг могут обрабатывать определенные данные в соответствии со своими политиками и применимыми требованиями.'),
@@ -778,7 +778,7 @@ DOCS = {
                 ('p', 'Актуальная версия публикуется на этой странице.'),
                 ('h2', '11. Контакты'),
                 ('p', 'По вопросам, связанным с обработкой персональных данных:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон в Румынии: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон в Румынии: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
         },
     },
@@ -791,7 +791,7 @@ DOCS = {
             ],
             'intro': [
                 ('p', 'Site-ul este administrat de:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Telefon: +373 78013333<br>Telefon România: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Telefon: +373 78013333<br>Telefon România: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
             'body': [
                 ('h2', '1. Ce sunt cookies'),
@@ -869,7 +869,7 @@ DOCS = {
                 ('p', 'Versiunea actualizată va fi publicată pe această pagină.'),
                 ('h2', '9. Contact'),
                 ('p', 'Pentru întrebări privind utilizarea cookies:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Telefon: +373 78013333<br>Telefon România: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Telefon: +373 78013333<br>Telefon România: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
         },
         'en': {
@@ -880,7 +880,7 @@ DOCS = {
             ],
             'intro': [
                 ('p', 'The website is operated by:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Romania Phone: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Romania Phone: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
             'body': [
                 ('h2', '1. What are cookies'),
@@ -958,7 +958,7 @@ DOCS = {
                 ('p', 'The updated version will be published on this page.'),
                 ('h2', '9. Contact'),
                 ('p', 'For questions regarding cookies:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Romania Phone: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Phone: +373 78013333<br>Romania Phone: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
         },
         'ru': {
@@ -969,7 +969,7 @@ DOCS = {
             ],
             'intro': [
                 ('p', 'Сайт управляется:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон в Румынии: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон в Румынии: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
             'body': [
                 ('h2', '1. Что такое cookies'),
@@ -1047,7 +1047,7 @@ DOCS = {
                 ('p', 'Актуальная версия публикуется на этой странице.'),
                 ('h2', '9. Контакты'),
                 ('p', 'По вопросам использования cookies:'),
-                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон в Румынии: +40 724395919<br>Email: adrian@icascaval.md'),
+                ('p', 'Istorii cu Cașcaval SRL<br>Телефон: +373 78013333<br>Телефон в Румынии: +40 724395919<br>Email: business@cheesefranchise.com'),
             ],
         },
     },

@@ -157,6 +157,74 @@
   }
 }
 
+/*
+ * Compact tiers for shorter phones.
+ *
+ * A pinned stage has to fit the viewport outright — there is nowhere for it to
+ * overflow to. Most phones showing their browser chrome sit well under the
+ * height the full mobile layout needs (measured: 717px of content against a
+ * 664px viewport on an iPhone 14), which is why the section quietly stopped
+ * animating on real devices and only ever pinned in a chrome-less emulator.
+ *
+ * These tiers trim the parts that cost the most height and carry the least —
+ * the photo, the gaps, the scroll hint whose job the stage counter already
+ * does — so the same animation runs on the phones people actually hold. The
+ * script measures the result and only pins if it genuinely fits, so anything
+ * still too short falls back to the stacked layout rather than clipping.
+ */
+@media (max-width: 1023px) and (max-height: 820px) {
+  .why-pin.is-pinned .why__media {
+    height: 150px;
+  }
+
+  .why-pin.is-pinned .why__col {
+    gap: 18px;
+  }
+
+  .why-pin.is-pinned .why__head {
+    gap: 8px;
+  }
+
+  .why-pin.is-pinned .why__list,
+  .why-pin.is-pinned .why__step {
+    gap: 12px;
+  }
+
+  /* The counter already shows progress; the arrow is the redundant one. */
+  .why-pin.is-pinned .why__scroll-hint {
+    display: none;
+  }
+
+  .why-pin.is-pinned .why__rail {
+    bottom: 16px;
+  }
+}
+
+@media (max-width: 1023px) and (max-height: 700px) {
+  .why-pin.is-pinned .why__media {
+    height: 118px;
+  }
+
+  .why-pin.is-pinned .why__col {
+    gap: 14px;
+  }
+
+  .why-pin.is-pinned .why__step-title {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .why-pin.is-pinned .why__list,
+  .why-pin.is-pinned .why__step {
+    gap: 10px;
+  }
+
+  .why-pin.is-pinned .why__item p {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
 /* ------------------------------------------------- Bouncing arrow (3) */
 
 .why__scroll-hint svg,
