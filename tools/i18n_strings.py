@@ -254,8 +254,9 @@ RU = {
     'Clienți ciocnind pahare la o degustare': 'Гости чокаются бокалами на дегустации',
     'Vânzătoare servind un client în magazin': 'Продавец обслуживает клиента в магазине',
     'Angajată aranjând produse pe raft': 'Сотрудница раскладывает продукты на полке',
-    'Angajată pregătind cașcaval în magazin': 'Сотрудница готовит кашкавал в магазине',
-    'Clienți la o degustare în aer liber': 'Гости на дегустации под открытым небом',
+    'Interiorul magazinului, cu rafturi de vin și un butoi pentru degustare': 'Интерьер магазина: винные стеллажи и бочка для дегустации',
+    'Rafturi din lemn cu roți de cașcaval și accesorii pentru brânzeturi': 'Деревянные стеллажи с головками кашкавала и аксессуарами для сыра',
+    'Intrarea unui magazin Istorii cu Cașcaval într-un centru comercial': 'Вход в магазин Istorii cu Cașcaval в торговом центре',
 
     # -- 404 / success
     'Pagina nu a fost găsită': 'Страница не найдена',
@@ -605,8 +606,9 @@ EN = {
     'Clienți ciocnind pahare la o degustare': 'Guests raising glasses at a tasting',
     'Vânzătoare servind un client în magazin': 'A shop assistant serving a customer',
     'Angajată aranjând produse pe raft': 'A shop assistant arranging products on a shelf',
-    'Angajată pregătind cașcaval în magazin': 'A shop assistant preparing cheese in store',
-    'Clienți la o degustare în aer liber': 'Guests at an open-air tasting',
+    'Interiorul magazinului, cu rafturi de vin și un butoi pentru degustare': 'Inside the shop, with wine shelving and a barrel for tastings',
+    'Rafturi din lemn cu roți de cașcaval și accesorii pentru brânzeturi': 'Wooden shelving stocked with cheese wheels and cheese accessories',
+    'Intrarea unui magazin Istorii cu Cașcaval într-un centru comercial': 'The entrance to an Istorii cu Cașcaval shop in a shopping centre',
 
     'Pagina nu a fost găsită': 'Page not found',
     'Pagina nu a fost găsită — Istorii cu Cașcaval':

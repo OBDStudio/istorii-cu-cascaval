@@ -1281,60 +1281,135 @@
   position: absolute;
 }
 
-/* Decorative markers only — the labelled pins carry the links */
-.map__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--c-white);
-  pointer-events: none;
+/*
+ * A pin is one link anchored on the city itself: a ringed dot at the exact
+ * point, and above it a gold callout whose tail points down at the dot, with
+ * the store count tucked onto its corner. Everything is sized in em off
+ * .map__pins so the whole set scales down together on small screens.
+ */
+.map__pins {
+  font-size: 14px;
 }
 
-/*
- * A pin is one target: the count badge tucked onto the corner of the city
- * label, so the whole thing is a single comfortable click/tap.
- */
 .map__pin {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 6px 4px 4px;
-  border-radius: 8px;
-  background: var(--c-gold);
+  width: 0;
+  height: 0;
   color: var(--c-ink);
-  transform-origin: left center;
-  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
 }
 
 .map__pin:hover,
 .map__pin:focus-visible {
-  transform: scale(1.08);
+  z-index: 1;
+  outline: none;
+}
+
+.map__dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.45em;
+  height: 1.45em;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.map__dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--c-white);
+}
+
+.map__tag {
+  position: absolute;
+  left: 0;
+  bottom: 1.3em;
+  display: block;
+  padding: 0.45em 0.85em;
+  border-radius: 0.6em;
+  background: var(--c-gold);
+  translate: -50% 0;
+  transform-origin: 50% 100%;
+  transition: scale var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+}
+
+/* The tail */
+.map__tag::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  translate: -50% -1px;
+  border: 0.45em solid transparent;
+  border-bottom: 0;
+  border-top-color: var(--c-gold);
+}
+
+.map__pin:hover .map__tag,
+.map__pin:focus-visible .map__tag {
+  scale: 1.08;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
 }
 
+.map__pin:focus-visible .map__tag {
+  outline: 2px solid var(--c-white);
+  outline-offset: 2px;
+}
+
 .map__label {
-  font-size: 12px;
-  line-height: 1;
+  display: block;
+  font-size: 1em;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
 .map__badge {
+  position: absolute;
+  left: -0.85em;
+  top: -0.85em;
   display: grid;
   place-items: center;
-  width: 16px;
-  height: 16px;
-  flex: none;
+  width: 1.9em;
+  height: 1.9em;
+  border: 0.15em solid var(--c-dark);
   border-radius: 50%;
   background: var(--c-error);
   color: var(--c-white);
-  font-size: 10px;
+  font-size: 0.8em;
   font-weight: 600;
   line-height: 1;
 }
 
-/* Iași sits below its dot in the design, so its label hangs downward */
-.map__pin--below {
-  transform-origin: left top;
+/* Iași sits below its dot in the design, so its callout hangs downward */
+.map__pin--below .map__tag {
+  top: 1.3em;
+  bottom: auto;
+  transform-origin: 50% 0;
+}
+
+.map__pin--below .map__tag::after {
+  top: auto;
+  bottom: 100%;
+  translate: -50% 1px;
+  border: 0.45em solid transparent;
+  border-top: 0;
+  border-bottom-color: var(--c-gold);
+}
+
+.map__pin--below .map__badge {
+  top: auto;
+  bottom: -0.85em;
+}
+
+@media (max-width: 767px) {
+  .map__pins {
+    font-size: 10px;
+  }
 }
 
 .locations__col {
@@ -1471,13 +1546,14 @@
 /* =========================================================== FOOTER */
 
 /*
- * The footer runs edge to edge and closes the page, rather than floating as an
- * inset card. The sheet is painted on the <footer> itself — no 100vw trick, so
- * a desktop scrollbar can't push the page sideways — while the container
- * inside keeps the text on the same grid line as every other section.
+ * The sheet is painted on the <footer> itself — no 100vw trick, so a desktop
+ * scrollbar can't push the page sideways. It is capped at the Figma's 1200px
+ * content width and centred; below that it runs edge to edge.
  */
 .site-footer {
   position: relative;
+  max-width: 1200px;
+  margin-inline: auto;
   margin-top: var(--section-pt);
   background: var(--c-white);
   color: var(--c-ink);

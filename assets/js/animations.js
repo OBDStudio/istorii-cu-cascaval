@@ -35,9 +35,9 @@ var ICC_MOTION_DEFAULTS = {
   // 2 — pinned "why" section with three stages
   why: {
     enabled: true,
-    // Scroll distance per stage, in viewport heights. Above 1 so each stage
-    // has time to be read before the next one takes over.
-    stepScroll: 1.75,
+    // Scroll distance per stage, in viewport heights. Was 1.75; the client
+    // found the wait between stages too long, so stages now turn over sooner.
+    stepScroll: 1,
     // Desktop always pins.
     minWidth: 1024,
     // Narrower than that it pins only when a stage genuinely fits, measured
@@ -304,9 +304,10 @@ window.ICC_MOTION = (function (defaults, overrides) {
       nums.forEach(function (s, n) {
         s.setAttribute('data-active', String(n === i));
       });
-      // Stage 1 has its own photo; stages 2 and 3 share the second one.
+      // One photo per stage. If there are fewer photos than stages, the last
+      // photo carries on for the remaining stages.
       images.forEach(function (img) {
-        var wants = i === 0 ? '1' : '2';
+        var wants = String(Math.min(i + 1, images.length));
         img.setAttribute('data-active', String(img.getAttribute('data-why-image') === wants));
       });
       if (thumb) {

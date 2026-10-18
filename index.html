@@ -191,8 +191,9 @@
     </div>
 
     <div class="why__media notched notched--why" data-reveal-item="media">
-      <img src="assets/img/why-1.jpg" alt="Angajată pregătind cașcaval în magazin" data-why-image="1" data-active="true" width="1100" height="1650" loading="lazy">
-      <img src="assets/img/why-2.jpg" alt="Clienți la o degustare în aer liber" data-why-image="2" width="1100" height="734" loading="lazy">
+      <img src="assets/img/why-1.jpg" alt="Interiorul magazinului, cu rafturi de vin și un butoi pentru degustare" data-why-image="1" data-active="true" width="1400" height="933" loading="lazy">
+      <img src="assets/img/why-2.jpg" alt="Rafturi din lemn cu roți de cașcaval și accesorii pentru brânzeturi" data-why-image="2" width="1400" height="933" loading="lazy">
+      <img src="assets/img/why-3.jpg" alt="Intrarea unui magazin Istorii cu Cașcaval într-un centru comercial" data-why-image="3" width="933" height="1400" loading="lazy">
     </div>
   </div>
 
@@ -322,14 +323,14 @@
 
     <div class="benefits__viewport" data-carousel>
       <ul class="benefits__track" data-carousel-track>
-        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Brand construit</p></li>
-        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Furnizori validați</p></li>
-        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Produse exclusive</p></li>
-        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Design complet al locației</p></li>
-        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Training pentru echipă</p></li>
-        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Strategie de marketing</p></li>
-        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Consultanță operațională permanentă</p></li>
-        <li class="benefit"><img src="assets/img/benefit.jpg" alt="" width="700" height="1050" loading="lazy"><p>Suport pentru dezvoltare și extindere</p></li>
+        <li class="benefit"><img src="assets/img/benefit-brand.jpg" alt="" width="700" height="814" loading="lazy"><p>Brand construit</p></li>
+        <li class="benefit"><img src="assets/img/benefit-furnizori.jpg" alt="" width="700" height="925" loading="lazy"><p>Furnizori validați</p></li>
+        <li class="benefit"><img src="assets/img/benefit-produse.jpg" alt="" width="700" height="814" loading="lazy"><p>Produse exclusive</p></li>
+        <li class="benefit"><img src="assets/img/benefit-design.jpg" alt="" width="700" height="814" loading="lazy"><p>Design complet al locației</p></li>
+        <li class="benefit"><img src="assets/img/benefit-training.jpg" alt="" width="700" height="814" loading="lazy"><p>Training pentru echipă</p></li>
+        <li class="benefit"><img src="assets/img/benefit-marketing.jpg" alt="" width="700" height="814" loading="lazy"><p>Strategie de marketing</p></li>
+        <li class="benefit"><img src="assets/img/benefit-consultanta.jpg" alt="" width="700" height="875" loading="lazy"><p>Consultanță operațională permanentă</p></li>
+        <li class="benefit"><img src="assets/img/benefit-suport.jpg" alt="" width="700" height="875" loading="lazy"><p>Suport pentru dezvoltare și extindere</p></li>
       </ul>
     </div>
 
@@ -403,7 +404,8 @@
 </section>
 
 <!-- ============================================================= TEAM -->
-<section class="team" id="echipa" aria-label="Echipa noastră">
+<!-- Hidden for now at the client's request; remove `hidden` to bring it back. -->
+<section class="team" id="echipa" aria-label="Echipa noastră" hidden>
   <div class="container team__inner">
     <div class="team__head">
       <div class="team__headings">
@@ -482,44 +484,41 @@
       <div class="locations__map">
         <img src="assets/svg/map.svg" alt="Harta locațiilor Istorii cu Cașcaval în Moldova și România" width="648" height="466" loading="lazy">
         <!--
-          Each pin is a real link out to Google Maps for that city's stores.
-          The plain dots stay decorative.
+          Each pin is one link out to Google Maps for that city's stores. The
+          link is anchored on the city's dot; the label floats above it (or
+          below, with --below) and points down at it, like the Figma callout.
         -->
         <div class="map__pins">
-          <span class="map__dot" aria-hidden="true" style="left:44.9%;top:43.6%"></span>
-          <span class="map__dot" aria-hidden="true" style="left:50.0%;top:34.3%"></span>
-          <span class="map__dot" aria-hidden="true" style="left:73.1%;top:49.6%"></span>
-
-          <a class="map__pin" style="left:45.4%;top:27.0%"
+          <a class="map__pin" style="left:50.0%;top:34.3%"
              href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Ungheni"
              target="_blank" rel="noopener"
              aria-label="Ungheni — 1 magazin. Vezi pe Google Maps">
-            <span class="map__badge">1</span>
-            <span class="map__label">Ungheni</span>
+            <span class="map__dot"></span>
+            <span class="map__tag"><span class="map__badge">1</span><span class="map__label">Ungheni</span></span>
           </a>
 
-          <a class="map__pin map__pin--below" style="left:42.4%;top:46.4%"
+          <a class="map__pin map__pin--below" style="left:44.9%;top:43.6%"
              href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Ia%C8%99i"
              target="_blank" rel="noopener"
              aria-label="Iași — 1 magazin. Vezi pe Google Maps">
-            <span class="map__badge">1</span>
-            <span class="map__label">Iași</span>
+            <span class="map__dot"></span>
+            <span class="map__tag"><span class="map__badge">1</span><span class="map__label">Iași</span></span>
           </a>
 
-          <a class="map__pin" style="left:67.0%;top:41.0%"
+          <a class="map__pin" style="left:73.1%;top:49.6%"
              href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Chi%C8%99in%C4%83u"
              target="_blank" rel="noopener"
              aria-label="Chișinău — 7 magazine. Vezi pe Google Maps">
-            <span class="map__badge">7</span>
-            <span class="map__label">Chișinău</span>
+            <span class="map__dot"></span>
+            <span class="map__tag"><span class="map__badge">7</span><span class="map__label">Chișinău</span></span>
           </a>
 
-          <a class="map__pin" style="left:26.5%;top:22.0%"
+          <a class="map__pin" style="left:30.5%;top:29.5%"
              href="https://www.google.com/maps/search/?api=1&amp;query=Istorii+cu+Ca%C8%99caval,+Suceava"
              target="_blank" rel="noopener"
              aria-label="Suceava — 1 magazin. Vezi pe Google Maps">
-            <span class="map__badge">1</span>
-            <span class="map__label">Suceava</span>
+            <span class="map__dot"></span>
+            <span class="map__tag"><span class="map__badge">1</span><span class="map__label">Suceava</span></span>
           </a>
         </div>
       </div>
