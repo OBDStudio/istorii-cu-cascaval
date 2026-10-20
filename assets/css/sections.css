@@ -1255,6 +1255,13 @@
   align-self: center;
   margin-left: -18px;
   margin-right: -24px;
+}
+
+/*
+ * The mask sits on the map image alone. On the container it also faded the
+ * pins, so the ones nearer the edge (Bălți, Suceava) read dimmer than the rest.
+ */
+.locations__map img {
   /*
    * The ellipse is kept near half the box so the fade actually finishes
    * inside it. Sized much larger, the falloff completes past the element's
@@ -1264,9 +1271,6 @@
    */
   -webkit-mask: radial-gradient(ellipse 54% 52% at 50% 46%, #000 30%, rgba(0, 0, 0, 0.45) 70%, transparent 100%);
   mask: radial-gradient(ellipse 54% 52% at 50% 46%, #000 30%, rgba(0, 0, 0, 0.45) 70%, transparent 100%);
-}
-
-.locations__map img {
   width: 100%;
   height: auto;
 }

@@ -170,10 +170,10 @@ RU = {
     'Locațiile noastre': 'Наши локации',
     'Următoarea locație poate fi în orașul tău':
         'Следующая локация может открыться в вашем городе',
-    'Astăzi suntem prezenți în Chișinău, Ungheni, Iași și Suceava.':
-        'Сегодня мы представлены в Кишинёве, Унгенах, Яссах и Сучаве.',
-    'Mâine putem deschide împreună în Bălți, București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.':
-        'Завтра мы можем вместе открыться в Бельцах, Бухаресте, Клуж-Напоке, Тимишоаре, Брашове, Констанце или в других городах с высоким потенциалом.',
+    'Astăzi suntem prezenți în Chișinău, Bălți, Ungheni, Iași și Suceava.':
+        'Сегодня мы представлены в Кишинёве, Бельцах, Унгенах, Яссах и Сучаве.',
+    'Mâine putem deschide împreună în București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.':
+        'Завтра мы можем вместе открыться в Бухаресте, Клуж-Напоке, Тимишоаре, Брашове, Констанце или в других городах с высоким потенциалом.',
     'Chișinău, sect. Centru': 'Кишинёв, сект. Центру',
     'str. Alexandru cel Bun 83': 'ул. Александру чел Бун 83',
     'Luni - Duminică 09:00 - 21:00': 'Пн – Вс 09:00 – 21:00',
@@ -186,8 +186,12 @@ RU = {
     'str. Mihail Sadoveanu 42/6': 'ул. Михаил Садовяну 42/6',
     'Luni - Duminică 10:00 - 22:00': 'Пн – Вс 10:00 – 22:00',
     'Stăuceni': 'Стэучень',
-    'str. Mateevici 2/1': 'ул. Матеевич 2/1',
+    'str. Alexei Mateevici 2/1': 'ул. Алексей Матеевич 2/1',
+    'Bălți': 'Бельцы',
+    'str. Nicolae Iorga 5': 'ул. Николае Йорга 5',
     'România, Iași, Palas Mall': 'Румыния, Яссы, Palas Mall',
+    'România, Iași, Mall Moldova': 'Румыния, Яссы, Mall Moldova',
+    'Șos. Păcurari 121': 'шос. Пэкурарь 121',
     'str. Palas 7A': 'ул. Палас 7A',
     'Ungheni': 'Унгень',
     'Iași': 'Яссы',
@@ -210,8 +214,10 @@ RU = {
         'Карта локаций Istorii cu Cașcaval в Молдове и Румынии',
     'Ungheni — 1 magazin. Vezi pe Google Maps':
         'Унгень — 1 магазин. Посмотреть на Google Maps',
-    'Iași — 1 magazin. Vezi pe Google Maps':
-        'Яссы — 1 магазин. Посмотреть на Google Maps',
+    'Iași — 2 magazine. Vezi pe Google Maps':
+        'Яссы — 2 магазина. Посмотреть на Google Maps',
+    'Bălți — 1 magazin. Vezi pe Google Maps':
+        'Бельцы — 1 магазин. Посмотреть на Google Maps',
     'Suceava — 1 magazin. Vezi pe Google Maps':
         'Сучава — 1 магазин. Посмотреть на Google Maps',
     'Chișinău — 7 magazine. Vezi pe Google Maps':
@@ -527,10 +533,10 @@ EN = {
     'Locațiile noastre': 'Our locations',
     'Următoarea locație poate fi în orașul tău':
         'The next location could be in your city',
-    'Astăzi suntem prezenți în Chișinău, Ungheni, Iași și Suceava.':
-        'Today we are present in Chișinău, Ungheni, Iași and Suceava.',
-    'Mâine putem deschide împreună în Bălți, București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.':
-        'Tomorrow we could open together in Bălți, Bucharest, Cluj-Napoca, Timișoara, Brașov, Constanța or other cities with strong potential.',
+    'Astăzi suntem prezenți în Chișinău, Bălți, Ungheni, Iași și Suceava.':
+        'Today we are present in Chișinău, Bălți, Ungheni, Iași and Suceava.',
+    'Mâine putem deschide împreună în București, Cluj-Napoca, Timișoara, Brașov, Constanța sau în alte orașe cu potențial ridicat.':
+        'Tomorrow we could open together in Bucharest, Cluj-Napoca, Timișoara, Brașov, Constanța or other cities with strong potential.',
     'Chișinău, sect. Centru': 'Chișinău, Centru district',
     'str. Alexandru cel Bun 83': '83 Alexandru cel Bun St.',
     'Luni - Duminică 09:00 - 21:00': 'Monday – Sunday 09:00 – 21:00',
@@ -543,8 +549,12 @@ EN = {
     'str. Mihail Sadoveanu 42/6': '42/6 Mihail Sadoveanu St.',
     'Luni - Duminică 10:00 - 22:00': 'Monday – Sunday 10:00 – 22:00',
     'Stăuceni': 'Stăuceni',
-    'str. Mateevici 2/1': '2/1 Mateevici St.',
+    'str. Alexei Mateevici 2/1': '2/1 Alexei Mateevici St.',
+    'Bălți': 'Bălți',
+    'str. Nicolae Iorga 5': '5 Nicolae Iorga St.',
     'România, Iași, Palas Mall': 'Romania, Iași, Palas Mall',
+    'România, Iași, Mall Moldova': 'Romania, Iași, Mall Moldova',
+    'Șos. Păcurari 121': '121 Păcurari Road',
     'str. Palas 7A': '7A Palas St.',
     'Ungheni': 'Ungheni',
     'Iași': 'Iași',
@@ -567,7 +577,8 @@ EN = {
         'Map of Istorii cu Cașcaval locations in Moldova and Romania',
     'Ungheni — 1 magazin. Vezi pe Google Maps':
         'Ungheni — 1 store. View on Google Maps',
-    'Iași — 1 magazin. Vezi pe Google Maps': 'Iași — 1 store. View on Google Maps',
+    'Iași — 2 magazine. Vezi pe Google Maps': 'Iași — 2 stores. View on Google Maps',
+    'Bălți — 1 magazin. Vezi pe Google Maps': 'Bălți — 1 store. View on Google Maps',
     'Suceava — 1 magazin. Vezi pe Google Maps':
         'Suceava — 1 store. View on Google Maps',
     'Chișinău — 7 magazine. Vezi pe Google Maps':
