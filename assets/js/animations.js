@@ -72,12 +72,21 @@ var ICC_MOTION_DEFAULTS = {
   // 9 — locations ticker (mobile) and the benefits conveyor (all sizes)
   ticker: {
     enabled: true,
-    speed: 26,        // locations, px per second
+    speed: 48,        // locations, px per second (was 26; too slow on phones)
     maxWidth: 1023,   // locations ticker only runs below this
   },
   conveyor: {
     enabled: true,
     speed: 14,        // benefits belt, px per second — deliberately slow
+  },
+
+  // Hero background video
+  heroVideo: {
+    // The client wants the loop running for everyone. It is a slow, ambient
+    // shot with no flashing, so it plays even when the visitor's OS asks for
+    // reduced motion (Android's "Remove animations" turns that on). Set to
+    // true to show the still poster to those visitors instead.
+    respectReducedMotion: false,
   },
 };
 
@@ -669,6 +678,13 @@ window.ICC_MOTION = (function (defaults, overrides) {
 
     var offset = 0;
     var half = 0;
+    // Current belt speed in px/s. It eases toward opts.speed, toward 0 while
+    // paused, and carries a swipe's momentum after release, so the belt never
+    // jumps between stopped and moving.
+    var vel = opts.speed;
+    var dragVel = 0;
+    var lastMoveX = 0;
+    var lastMoveT = 0;
     var running = false;
     var last = 0;
     var raf = null;
@@ -684,15 +700,18 @@ window.ICC_MOTION = (function (defaults, overrides) {
 
     function apply() {
       if (half > 0) offset = ((offset % half) + half) % half;
-      track.style.transform = 'translateX(' + -offset + 'px)';
+      track.style.transform = 'translate3d(' + -offset + 'px,0,0)';
     }
 
     function tick(now) {
       if (!running) return;
       var dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
       last = now;
-      if (!paused && !dragging) {
-        offset += opts.speed * dt;
+      if (!dragging) {
+        var target = paused ? 0 : opts.speed;
+        // Exponential ease: about a second to settle after a fling or pause.
+        vel += (target - vel) * (1 - Math.exp(-dt * 2.5));
+        offset += vel * dt;
         apply();
       }
       raf = window.requestAnimationFrame(tick);
@@ -727,6 +746,9 @@ window.ICC_MOTION = (function (defaults, overrides) {
       moved = 0;
       dragStartX = e.clientX;
       dragStartOffset = offset;
+      dragVel = 0;
+      lastMoveX = e.clientX;
+      lastMoveT = e.timeStamp;
       wrap.classList.add('is-dragging');
       try {
         wrap.setPointerCapture(e.pointerId);
@@ -741,12 +763,23 @@ window.ICC_MOTION = (function (defaults, overrides) {
       moved = Math.max(moved, Math.abs(dx));
       offset = dragStartOffset - dx;
       apply();
+      // Track the finger's speed so the belt can glide on after release.
+      var dt = e.timeStamp - lastMoveT;
+      if (dt > 0) {
+        var inst = -(e.clientX - lastMoveX) / dt * 1000;
+        dragVel = dragVel * 0.3 + inst * 0.7;
+        lastMoveX = e.clientX;
+        lastMoveT = e.timeStamp;
+      }
     });
 
     function endDrag(e) {
       if (!dragging) return;
       dragging = false;
       wrap.classList.remove('is-dragging');
+      // A finger that stopped before lifting should not fling.
+      var still = e.timeStamp - lastMoveT > 90;
+      vel = moved > 8 && !still ? Math.max(-3000, Math.min(3000, dragVel)) : 0;
       try {
         wrap.releasePointerCapture(e.pointerId);
       } catch (err) {
@@ -873,8 +906,11 @@ window.ICC_MOTION = (function (defaults, overrides) {
    * attribute cannot express on its own:
    *
    * `autoplay` is declarative and fires regardless of the visitor's motion
-   * preference, so reduced-motion has to be honoured here — the poster frame
-   * stays up instead, which is a still of the video's own first frame.
+   * preference, so reduced-motion is decided here — see CFG.heroVideo.
+   *
+   * Phones can also refuse autoplay outright: iOS in Low Power Mode, Android
+   * battery savers. The poster stays up, and the first tap anywhere on the
+   * page counts as the gesture those modes wait for, so playback starts then.
    *
    * And once the visitor has scrolled past the hero there is nothing to see,
    * so it pauses off screen rather than decoding frames for no one. Same
@@ -884,21 +920,43 @@ window.ICC_MOTION = (function (defaults, overrides) {
     var video = document.querySelector('[data-hero-video]');
     if (!video) return;
 
-    if (reduced) {
+    if (reduced && CFG.heroVideo.respectReducedMotion) {
       video.removeAttribute('autoplay');
       video.pause();
       return;
     }
 
+    var visible = true;
+
+    function play() {
+      // play() rejects if the browser blocked autoplay; the poster is
+      // already showing, so there is nothing to recover from here.
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+
+    var gestures = ['touchend', 'click', 'keydown'];
+    function onGesture() {
+      if (visible && video.paused) play();
+      if (!video.paused) {
+        gestures.forEach(function (g) {
+          document.removeEventListener(g, onGesture, true);
+        });
+      }
+    }
+    gestures.forEach(function (g) {
+      document.addEventListener(g, onGesture, { capture: true, passive: true });
+    });
+
+    play();
+
     if (!('IntersectionObserver' in window)) return;
 
     new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          // play() rejects if the browser blocked autoplay; the poster is
-          // already showing, so there is nothing to recover from.
-          var p = video.play();
-          if (p && p.catch) p.catch(function () {});
+        visible = e.isIntersecting;
+        if (visible) {
+          play();
         } else {
           video.pause();
         }

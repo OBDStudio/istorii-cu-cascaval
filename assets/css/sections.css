@@ -33,6 +33,13 @@
   z-index: 0;
 }
 
+/* iOS draws a play button over a video it refused to autoplay; the poster
+   is meant to read as a still, so hide it. */
+.hero__bg::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 /*
  * Darkens the backdrop across its full height, not just a fade at the bottom.
  * Originally measured against a rendered Figma screenshot, whose composite
@@ -869,6 +876,7 @@
   width: 100%;
   overflow: hidden;
   cursor: grab;
+  touch-action: pan-y;
   /* Edges dissolve instead of cutting, so the loop has no hard seam */
   -webkit-mask: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
   mask: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
@@ -1513,6 +1521,8 @@
     margin-top: 24px;
     overflow: hidden;
     cursor: grab;
+    /* Horizontal swipes belong to the belt; vertical ones still scroll the page */
+    touch-action: pan-y;
   }
 
   .locations__ticker.is-dragging {
