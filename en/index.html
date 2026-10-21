@@ -38,6 +38,14 @@
          aria-hidden="true" poster="../assets/img/hero-bg-poster.jpg">
     <source src="../assets/video/hero-bg.mp4" type="video/mp4">
   </video>
+  <!--
+    Some phones refuse to autoplay any video (iOS Low Power Mode, in-app
+    browsers), which left a still poster until a tap. Animated images are not
+    subject to that, so this portrait cut of the loop stands in. It only
+    downloads when the video is refused; see initHeroVideo.
+  -->
+  <img class="hero__bg hero__fallback" data-hero-fallback data-src="../assets/video/hero-fallback.webp"
+       alt="" aria-hidden="true" width="420" height="560" hidden>
 
   <div class="hero__bar">
     <a href="index.html" aria-label="Istorii cu Cașcaval — home page">

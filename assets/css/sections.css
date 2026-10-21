@@ -33,6 +33,15 @@
   z-index: 0;
 }
 
+/* Portrait cut of the loop, shown only when the video is refused */
+.hero__fallback {
+  object-position: center;
+}
+
+.hero__fallback[hidden] {
+  display: none;
+}
+
 /* iOS draws a play button over a video it refused to autoplay; the poster
    is meant to read as a still, so hide it. */
 .hero__bg::-webkit-media-controls-start-playback-button {
@@ -552,6 +561,17 @@
   }
 }
 
+/*
+ * The stage counter sits 24px in from the screen edge, but the gutter here is
+ * only ~4vw, so on a landscape iPad (1080px) the photo ran under the counter.
+ * Keep the photo clear of it.
+ */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .why__inner {
+    padding-right: max(var(--gutter), 72px);
+  }
+}
+
 @media (max-width: 1023px) {
   .why {
     padding-block: 80px;
@@ -689,6 +709,8 @@
 
   .numbers__grid > :last-child {
     grid-column: span 2;
+    /* Full width, it no longer needs the height that matches a three-up row */
+    min-height: 0;
   }
 
   .stat--dark .stat__list {

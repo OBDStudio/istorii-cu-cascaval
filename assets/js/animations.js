@@ -908,9 +908,12 @@ window.ICC_MOTION = (function (defaults, overrides) {
    * `autoplay` is declarative and fires regardless of the visitor's motion
    * preference, so reduced-motion is decided here — see CFG.heroVideo.
    *
-   * Phones can also refuse autoplay outright: iOS in Low Power Mode, Android
-   * battery savers. The poster stays up, and the first tap anywhere on the
-   * page counts as the gesture those modes wait for, so playback starts then.
+   * Phones can also refuse autoplay outright: iOS in Low Power Mode, in-app
+   * browsers such as Telegram's. No video markup gets past that, so when
+   * play() is refused a portrait animated WebP of the loop takes over. It is
+   * portrait only: on a landscape screen it would be cropped to nothing, and
+   * refusals there are rare. The first tap anywhere still starts the real
+   * video, which then replaces the stand-in.
    *
    * And once the visitor has scrolled past the hero there is nothing to see,
    * so it pauses off screen rather than decoding frames for no one. Same
@@ -927,12 +930,25 @@ window.ICC_MOTION = (function (defaults, overrides) {
     }
 
     var visible = true;
+    var fallback = document.querySelector('[data-hero-fallback]');
+    var fallbackOn = false;
+    var portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
+
+    function showFallback() {
+      if (!fallback || fallbackOn || !portrait.matches || !video.paused) return;
+      fallbackOn = true;
+      fallback.src = fallback.getAttribute('data-src');
+      fallback.hidden = !visible;
+    }
+
+    video.addEventListener('playing', function () {
+      if (fallback) fallback.hidden = true;
+      fallbackOn = false;
+    });
 
     function play() {
-      // play() rejects if the browser blocked autoplay; the poster is
-      // already showing, so there is nothing to recover from here.
       var p = video.play();
-      if (p && p.catch) p.catch(function () {});
+      if (p && p.catch) p.catch(showFallback);
     }
 
     var gestures = ['touchend', 'click', 'keydown'];
@@ -955,6 +971,8 @@ window.ICC_MOTION = (function (defaults, overrides) {
     new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         visible = e.isIntersecting;
+        // A hidden animated image stops decoding; one off screen would not.
+        if (fallbackOn) fallback.hidden = !visible;
         if (visible) {
           play();
         } else {
